@@ -1,0 +1,13 @@
+
+
+div.MyNav{
+    margin: 0px  !important;
+    border-radius: 0px !important;
+    position: fixed;
+    top:0px;
+    width: 100%;
+    z-index: 1;
+   
+}
+
+
