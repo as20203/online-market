@@ -15,7 +15,7 @@ const app = express();
 //Connect to database
 //Connect to a database
 var url = process.env.DATABASEURL || "mongodb://localhost/online-market";
-mongoose.connect(url);
+mongoose.connect(url,{ useNewUrlParser: true,useCreateIndex: true, });
 
 
 app.use(bodyParser.json());
@@ -23,9 +23,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 
 
-app.get('/api/hello', (req, res) => {
-  res.json({ message: 'Hello From Express.' });
-});
 
 //Use Routes
 app.use("/user",userRoutes);

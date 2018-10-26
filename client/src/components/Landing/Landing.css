@@ -1,13 +1,13 @@
 .image{
   background: url("../../assets/background/bg.jpg") ;
-  
+  position: relative;
   background-repeat: no-repeat ;
   padding-bottom: 800px;
   background-size:cover;
   background-position:center;
-  height: auto;
+  height: 100%;
   width: 100%;
-  margin-top:60px;
+ 
  
 } 
 

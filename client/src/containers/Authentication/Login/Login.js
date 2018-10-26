@@ -29,7 +29,10 @@ class Login extends Component{
             if(result.status===200){
                 //Here we would later redirect when the page is made
                 //We would also store the token in our local storage to use later.
-                console.log(result.data);
+                localStorage.setItem("Token",result.data.token);
+                localStorage.setItem("Authentication"," ");
+                this.props.history.replace("/products");
+                console.log(result);
             }
           });
       }

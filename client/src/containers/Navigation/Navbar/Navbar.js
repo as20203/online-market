@@ -1,65 +1,74 @@
 import React, { Component } from 'react'
-import { Icon, Menu } from 'semantic-ui-react'
-import {Link} from 'react-router-dom';
 import './Navbar.css'
+import AuthNavbar from './AuthNavbar/AuthNavbar';
+import SimpleNavbar from './SimpleNavbar/SimpleNavbar';
 
 class myNav extends Component {
-  state = { activeItem: 'home' }
+  
+  state = {
+    isAuthenticated : Boolean(localStorage.getItem("Authentication")),
+    shouldUpdate: true
+  }
+  
+  myFunction=() =>{
+    var x = document.getElementById("myTopnav");
+    window.scrollTo(0,0);
+    if (x.className === "topnav") {
+        x.className += " responsive";
+    } else {
+        x.className = "topnav";
+    }
 
-  handleItemClick = (e, { name }) => this.setState({ activeItem: name })
+  } 
+
+  logoutHandler = ()=>{
+    localStorage.setItem("Authentication","");
+    localStorage.setItem("Token","");
+
+    this.setState({isAuthenticated:false,shouldUpdate:true});
+   
+  }
+
+
+
+  
+
+  componentDidUpdate(){
+    
+    if(Boolean(localStorage.getItem("Authentication")) && (this.state.shouldUpdate)){
+     
+      this.setState({isAuthenticated:true,shouldUpdate:false});
+    }
+   
+
+  }
+
+  
+
+
+
 
   render() {
-    const { activeItem } = this.state
+    
+    let header = null;
+    
+    console.log("Hello");
+    if(this.state.isAuthenticated){
+      
+      
+      header = <AuthNavbar myFunction={this.myFunction} logoutFunction={this.logoutHandler} />;
+      
+    }else{
+     
+      header = <SimpleNavbar myFunction={this.myFunction} />;
+    }
 
-    return (
-      <Menu inverted icon='labeled' className="MyNav">
-        <Menu.Item 
-       
-        as={Link} to='/' 
-        name='home' 
-        active={activeItem === 'home'} 
-        onClick={this.handleItemClick}
-        >
-          <Icon name='home' />
-          Home
-        </Menu.Item>
+   return(
+    <div> {header}</div>
+     
 
-        <Menu.Item
-          as={Link} to='/'
-          name='Products'
-          active={activeItem === 'Products'}
-          onClick={this.handleItemClick}
-          
-        >
-          <Icon name='dollar sign' />
-          Products
-        </Menu.Item>
-
-         <Menu.Menu position='right'>
-        <Menu.Item
-        as={Link} to='/login'
-        
-          name='login'
-          active={activeItem === 'login'}
-          onClick={this.handleItemClick}
-        >
-          <Icon name='user' />
-            Login
-        </Menu.Item>
-
-        <Menu.Item 
-          as={Link} to='/signup'
-          name='signUp'
-          active={activeItem === 'signUp'}
-          onClick={this.handleItemClick}
-        >
-          <Icon name='user plus' />
-            SignUp
-        </Menu.Item>
-
-        </Menu.Menu>
-       
-      </Menu>
+    
+     
     )
   }
 }

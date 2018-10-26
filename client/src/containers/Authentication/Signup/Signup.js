@@ -28,7 +28,11 @@ class Signup extends Component{
         
         axios.post('/user/register', newUser)
           .then((result) => {
-            console.log(result);
+            if(result.status === 201){
+                //Successful registration
+               
+                this.props.history.push("/login");
+            }
           });
       }
 
