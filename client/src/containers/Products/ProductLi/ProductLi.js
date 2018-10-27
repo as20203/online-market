@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './ProductLi.css';
 import ButtonAnimated from './buttonAnimated';
-import Background from '../../../assets/dummy-product/one.jpg';
+import {Header} from 'semantic-ui-react'
 class ProductLi extends Component {
   render() {
     return (
@@ -10,14 +10,18 @@ class ProductLi extends Component {
           <div className="scene">
            
               <div className="product" >
-                <div className="picture" style={{backgroundImage:`url(${Background})`}}></div>
+                <div className="picture" style={{backgroundImage:`url(${this.props.imageSrc})`}}></div>
                 <div className="info">
                   <header>
-                    <h1>It's a Wonderful Life</h1>
-                    <span className="year">1946 <ButtonAnimated /></span>
+                    <Header as="h1" color={'brown'}>Our Product</Header>
+                    <span> <ButtonAnimated  /></span>
                   </header>
                   <p>
-                    In Bedford Falls, New York on Christmas Eve, George Bailey is deeply troubled. Prayers for his well-being from friends and family reach Heaven. Clarence Odbody, Angel Second className, is assigned to visit Earth to save George, thereby earning his wings. Franklin and Joseph, the head angels, review George's life with Clarence.
+                  A product description is the marketing copy that 
+                  explains what a product is and why it's worth purchasing. 
+                  The purpose of a product description is to supply customers 
+                  with details around the features and benefits of the product so they're compelled to buy.
+                  
                   </p>
                 </div>
               </div>

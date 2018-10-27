@@ -5,8 +5,10 @@ import SearchFluid from './ProductSearch/ProductSearch';
 import {Container,Grid} from 'semantic-ui-react';
 
 
-
-
+import bed from '../../assets/landing-page/furniture/bed.png'
+import chairs from '../../assets/landing-page/furniture/chairs.png'
+import laptop from '../../assets/landing-page/accessories/laptop.png'
+import mobile from '../../assets/landing-page/accessories/mobile.png'
 
 class Products extends Component {
   
@@ -27,71 +29,45 @@ class Products extends Component {
                 <Grid>
                 
                        <Grid.Column computer={5} tablet={8} mobile={16}>
-                       <ProductLi />
+                       <ProductLi imageSrc={bed} />
                       </Grid.Column>
 
                       <Grid.Column computer={5} tablet={8} mobile={16}>
-                        <ProductLi />
+                        <ProductLi imageSrc={chairs} />
                       </Grid.Column>
 
 
                       <Grid.Column computer={5} tablet={8} mobile={16}>
-                        <ProductLi />
+                        <ProductLi imageSrc={bed}/>
                       </Grid.Column>
 
                       <Grid.Column computer={5} tablet={8} mobile={16}>
-                          <ProductLi />
+                          <ProductLi imageSrc={bed}/>
                       </Grid.Column>
                       <Grid.Column computer={5} tablet={8} mobile={16}>
-                          <ProductLi />
+                          <ProductLi imageSrc={bed}/>
                       </Grid.Column>
-                      <Grid.Column computer={5} tablet={8} mobile={16}>
-                          <ProductLi />
-                      </Grid.Column>
-                      <Grid.Column computer={5} tablet={8} mobile={16}>
-                          <ProductLi />
-                      </Grid.Column>
-                      <Grid.Column computer={5} tablet={8} mobile={16}>
-                          <ProductLi />
-                      </Grid.Column>
-                      <Grid.Column computer={5} tablet={8} mobile={16}>
-                          <ProductLi />
-                      </Grid.Column>
-
 
                        <Grid.Column computer={5} tablet={8} mobile={16}>
-                        <ProductLi />
-                      </Grid.Column>
-
-                      <Grid.Column computer={5} tablet={8} mobile={16}>
-                        <ProductLi />
+                        <ProductLi imageSrc={bed}/>
                       </Grid.Column>
 
 
                       <Grid.Column computer={5} tablet={8} mobile={16}>
-                        <ProductLi />
+                        <ProductLi imageSrc={mobile} />
                       </Grid.Column>
 
                       <Grid.Column computer={5} tablet={8} mobile={16}>
-                          <ProductLi />
+                          <ProductLi imageSrc={laptop} />
                       </Grid.Column>
                       <Grid.Column computer={5} tablet={8} mobile={16}>
-                          <ProductLi />
+                          <ProductLi imageSrc={mobile} />
                       </Grid.Column>
-                      <Grid.Column computer={5} tablet={8} mobile={16}>
-                          <ProductLi />
-                      </Grid.Column>
-                      <Grid.Column computer={5} tablet={8} mobile={16}>
-                          <ProductLi />
-                      </Grid.Column> 
 
-                     
-
-                    
+                      
       
 
-              
-                
+                              
                       
                 </Grid>
 

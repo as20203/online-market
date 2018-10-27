@@ -41,7 +41,7 @@ class Signup extends Component{
     render(){
         return(
 
-
+        <div style={{height:"100%"}}>
            <Segment stacked className="Segment">
            <h1 className="header">Signup</h1>
            <Form onSubmit={this.onSubmit}>
@@ -74,6 +74,7 @@ class Signup extends Component{
                    <Button secondary className="Button" type='submit'>Signup</Button>
                </Form>
             </Segment>
+        </div>
 
             
 

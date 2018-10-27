@@ -42,24 +42,26 @@ class Login extends Component{
     
       
         return(
-       
-           <Segment stacked className="Segment">
-            
-            <h1 className="header">Login</h1>
-            <Form onSubmit={this.onSubmit}>
-                    <Form.Field inline>
-                    <label >Username: </label>
-                    <input  type="text" name="username" placeholder="Enter Username" onChange={this.onChange}></input> 
-                    </Form.Field>
-                    <Form.Field inline>
-                    <label>Password:</label>
-                    <input type="password" name="password" placeholder="Enter Password" onChange={this.onChange}></input>
-                    </Form.Field>
-        
-                    <Button  secondary className="Button" type='submit'>Login</Button>
-                </Form>
+            <div style={{height:"100%"}}>
+            <Segment stacked className="Segment">
                 
-          </Segment>
+                <h1 className="header">Login</h1>
+                <Form onSubmit={this.onSubmit}>
+                        <Form.Field inline>
+                        <label >Username: </label>
+                        <input  type="text" name="username" placeholder="Enter Username" onChange={this.onChange}></input> 
+                        </Form.Field>
+                        <Form.Field inline>
+                        <label>Password:</label>
+                        <input type="password" name="password" placeholder="Enter Password" onChange={this.onChange}></input>
+                        </Form.Field>
+            
+                        <Button  secondary className="Button" type='submit'>Login</Button>
+                    </Form>
+                    
+            </Segment>
+
+          </div>
 
            
            

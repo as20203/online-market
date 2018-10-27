@@ -31,6 +31,11 @@ Build the scene and rotate on hover
 	transition: transform 350ms;
 }
 
+.ProductButton{
+	margin: 10px auto !important;
+	display: block;
+}
+
 .product:hover {
 	-webkit-transform: rotateY(-78deg) translateZ(20px);
 	-moz-transform: rotateY(-78deg) translateZ(20px);
@@ -46,7 +51,9 @@ Transform and style the two planes
 	position: absolute;
 	width: 260px;
 	height: 300px;
-	background-color: #fff;
+	background-size:260px 300px !important;
+	background-position: center;
+	background: #FFF;
 	-webkit-backface-visibility: hidden;
 	-moz-backface-visibility: hidden;
 	backface-visibility: hidden;

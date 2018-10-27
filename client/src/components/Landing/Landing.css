@@ -1,13 +1,7 @@
-.image{
-  background: url("../../assets/background/bg.jpg") ;
-  position: relative;
-  background-repeat: no-repeat ;
-  padding-bottom: 800px;
-  background-size:cover;
-  background-position:center;
-  height: 100%;
-  width: 100%;
- 
- 
-} 
+.imageStyle{
+    height: 250px !important;
+}
 
+.gridColumn{
+    margin-bottom: 10px !important;
+}

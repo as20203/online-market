@@ -35,13 +35,16 @@ export default class SearchExampleStandard extends Component {
     }, 300)
   }
 
+
   render() {
     const { isLoading, value, results } = this.state
 
     return (
       <Grid>
-        <Grid.Column>
-          <Search style={{margin:"0px auto",width:"12.9em"}}
+        <Grid.Column >
+        
+          <Search 
+            style={{margin:"0px auto",width:"12.9em",background:"none",padding:'0'}}
             loading={isLoading}
             onResultSelect={this.handleResultSelect}
             onSearchChange={_.debounce(this.handleSearchChange, 500, { leading: true })}
@@ -50,6 +53,8 @@ export default class SearchExampleStandard extends Component {
             {...this.props}
           />
         </Grid.Column>
+       
+       
       </Grid>
     )
   }

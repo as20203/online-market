@@ -2,34 +2,39 @@ import React,{Component} from 'react';
 import {Input,Button,Card,Image,Grid,Segment,Header,Container,Divider} from 'semantic-ui-react';
 import './Profile.css'
 import userImage from '../../../assets/user-empty/empty-user.png'
-
+import {Link} from 'react-router-dom';
+import ProductLi from '../../Products/ProductLi/ProductLi';
+import bed from '../../../assets/landing-page/furniture/bed.png';
+import chairs from '../../../assets/landing-page/furniture/chairs.png';
 
 class Profile extends Component{
     render(){
         return(
+           
             <Grid className="profileGrid">
+             
                 <Grid.Row className="rowPadding">
                     <Grid.Column computer={5} tablet={7} mobile={16}>
                        
                             <Card className="profileImgCard">
                                 <Image src={userImage} style={{marginTop:"0px"}} />
                                 <Card.Content>
-                                    <Card.Header>Jawad Zaheer</Card.Header>
+                                    <Card.Header as='h4' style={{color:'teal'}}>Jawad Zaheer</Card.Header>
                                     
                                 </Card.Content>
                                 <Card.Content extra>
                                     <Input type="file" className="userImage" /> 
                                         <br/>
-                                        <Button color="blue" className="profileButton">Upload Image</Button>
+                                        <Button  color="blue" className="profileButton">Upload Image</Button>
                                 </Card.Content>
                             </Card>
                         
                     </Grid.Column>
-                    <Divider vertical> Or</Divider>
+                   
                     <Grid.Column computer={11} tablet={9} mobile={16}>
                      <Segment raised className="profileSegment">
-                        <Button  color="teal" className="profileButton" >Edit Profile</Button>
-                        <Header as="h1" textAlign={"left"}>About Me</Header>
+                     <Button className="profileButton" color="teal" ><Link to="/editProfile"style={{color:"white"}}>Edit Profile</Link></Button>
+                        <Header as="h1" color={"grey"} textAlign={"left"}>About Me</Header>
                         <Container className="profileContainer1">
                             <p className="profileContent">
                             Nunc ut turpis aliquam, condimentum justo sit amet, varius eros. 
@@ -40,7 +45,7 @@ class Profile extends Component{
                             </p>
                         </Container>
                         <Divider section />
-                        <Header as="h1" textAlign={"left"}>My Hobbies And Interests</Header>
+                        <Header as="h1" color={"grey"} textAlign={"left"}>My Hobbies And Interests</Header>
                         
                         <Container className="profileContainer1"> 
                             <p className="profileContent">
@@ -53,19 +58,34 @@ class Profile extends Component{
                         </Container>
                         <Divider section />
 
-                         <Header as="h1" textAlign={"left"}>City</Header>
+                         <Header as="h1"color={"grey"} textAlign={"left"}>City</Header>
                          <Container className="profileContainer2"> 
                             <p>Rawalpindi,Pakistan</p>
                         </Container>
                         <Divider section />
 
-                         <Header as="h1" textAlign={"left"}>Phone No:</Header>
+                         <Header as="h1" color={"grey"} textAlign={"left"}>Phone No:</Header>
                          <Container className="profileContainer2"> 
                             <p>03324453365</p>
                         </Container>
                         <Divider section />
-                        <Header as="h1" textAlign={"left"}>My Products:</Header>
+                        <Header as="h1" color={"grey"} textAlign={"left"}>My Products:</Header>
                         <Container className="profileContainer1"> 
+
+                        <Grid>
+                
+                            <Grid.Column computer={8} tablet={16} mobile={16}>
+                            <ProductLi imageSrc={bed} />
+                            </Grid.Column>
+
+                            <Grid.Column computer={8} tablet={16} mobile={16}>
+                                <ProductLi imageSrc={chairs} />
+                            </Grid.Column>
+
+
+                          
+                      </Grid>
+
                            
                         </Container>
                            
@@ -84,6 +104,7 @@ class Profile extends Component{
                 
                
             </Grid>
+          
         )
     }
 

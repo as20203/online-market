@@ -52,7 +52,6 @@ class myNav extends Component {
     
     let header = null;
     
-    console.log("Hello");
     if(this.state.isAuthenticated){
       
       
