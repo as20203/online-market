@@ -33,7 +33,7 @@ class EditProfile extends Component{
        
         return(
             <div style={{height:"100%" ,marginTop:'100px'}}>
-                <Button  className="Button" color="olive" ><Link to="/profile"style={{color:"white"}}>Back</Link></Button>
+                <Button as={Link} to='/profile' style={{width:'100px'}}  className="Button" color="olive" >Back</Button>
                 <Segment stacked className="EditProfile" >
                     
                     <Header color={"grey"} as="h1">Edit Profile</Header>

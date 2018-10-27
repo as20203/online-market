@@ -16,7 +16,8 @@ width: 100%;
 
 .profileButton{
     margin:10px auto !important;
-    display:block !important
+    display:block !important;
+    width:'20%' !important;
 }
 
 .profileSegment{

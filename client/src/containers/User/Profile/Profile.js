@@ -25,7 +25,7 @@ class Profile extends Component{
                                 <Card.Content extra>
                                     <Input type="file" className="userImage" /> 
                                         <br/>
-                                        <Button  color="blue" className="profileButton">Upload Image</Button>
+                                        <Button   color="blue" className="profileButton">Upload Image</Button>
                                 </Card.Content>
                             </Card>
                         
@@ -33,7 +33,7 @@ class Profile extends Component{
                    
                     <Grid.Column computer={11} tablet={9} mobile={16}>
                      <Segment raised className="profileSegment">
-                     <Button className="profileButton" color="teal" ><Link to="/editProfile"style={{color:"white"}}>Edit Profile</Link></Button>
+                     <Button  as={Link} to='/editProfile' className="profileButton" style={{width:'180px'}} color="teal" >Edit Profile</Button>
                         <Header as="h1" color={"grey"} textAlign={"left"}>About Me</Header>
                         <Container className="profileContainer1">
                             <p className="profileContent">

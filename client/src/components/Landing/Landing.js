@@ -39,7 +39,7 @@ const landing = ()=>{
           <Container style={{marginTop:"100px",marginBottom:"80px"}}>
             <Header color="teal" textAlign={"center"} as="h1">Welcome To JNS Online-Market</Header>
             <Divider section />
-            <Button className="Button" color="grey" ><Link to="/products"style={{color:"white"}}>Check Out Our Products</Link></Button>
+            <Button as={Link} to='/products' style={{width:'200px'}} className="Button" color="grey" >Check Out Our Products</Button>
            
             <Header color="olive" textAlign={"left"}  as="h2">We offer you:</Header>
            
