@@ -48,12 +48,12 @@ class Login extends Component{
                 <h1 className="header">Login</h1>
                 <Form onSubmit={this.onSubmit}>
                         <Form.Field inline>
-                        <label >Username: </label>
-                        <input  type="text" name="username" placeholder="Enter Username" onChange={this.onChange}></input> 
+                        <label >Username:  </label>
+                        <input required={true} type="text" name="username" placeholder="Enter Username" onChange={this.onChange}></input> 
                         </Form.Field>
                         <Form.Field inline>
                         <label>Password:</label>
-                        <input type="password" name="password" placeholder="Enter Password" onChange={this.onChange}></input>
+                        <input required type="password" name="password" placeholder="Enter Password" onChange={this.onChange}></input>
                         </Form.Field>
             
                         <Button  secondary className="Button" type='submit'>Login</Button>

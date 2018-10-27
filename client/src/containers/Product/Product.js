@@ -10,7 +10,7 @@ class Product extends Component{
         description:'',
         amount: 0,
         image:'',
-        category:''
+        category:'Other'
 
     }
 
@@ -55,27 +55,27 @@ class Product extends Component{
                     <Form onSubmit={this.onSubmit}>
                             <Form.Field inline>
                                 <label>Name: </label>
-                                <input  type="text" name="productname" placeholder="Enter Product Name" onChange={this.onChange}></input> 
+                                <input required  type="text" name="productname" placeholder="Enter Product Name" onChange={this.onChange}></input> 
                             </Form.Field>
                             <Form.Field inline>
                                 <label>Description:</label>           
-                                <textarea style={{width:"200px"}} maxLength="250"  name="description" placeholder="Enter product description upto 250 characters"  onChange={this.onChange} />
+                                <textarea required style={{width:"200px"}} maxLength="250"  name="description" placeholder="Enter product description upto 250 characters"  onChange={this.onChange} />
                             </Form.Field>
 
                             <Form.Field inline>
                                 <label> Bid Amount: </label>
-                                <input  type="number" min='0' name="amount" placeholder="Enter Bid Amount" onChange={this.onChange}></input> 
+                                <input required  type="number" min='0' name="amount" placeholder="Enter Bid Amount" onChange={this.onChange}></input> 
                             </Form.Field>
 
                             <Form.Field inline>
                                 <label> Image: </label>
-                                <input style={{width:"210px"}}  type="file" name="image"  onChange={this.onChange}></input> 
+                                <input required style={{width:"210px"}}  type="file" name="image"  onChange={this.onChange}></input> 
                             </Form.Field>
 
 
                             <Form.Field inline>
-                                <label> Category: </label>
-                                <Dropdown  placeholder='Select Your Category' onChange={this.handleChange} selection options={options} />
+                                <label>  Category: </label>
+                                <Dropdown defaultValue={'Other'} required={true} placeholder='Select Your Category' onChange={this.handleChange} selection options={options} />
                                
 
                                

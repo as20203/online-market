@@ -12,8 +12,8 @@
 }
 
 .Segment{
-    margin:200px auto ;
-    width:24em
+    margin:200px auto !important ;
+    width:26em !important
     
 }
 

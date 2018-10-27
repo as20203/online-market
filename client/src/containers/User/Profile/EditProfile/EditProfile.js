@@ -6,6 +6,8 @@ import {Link} from 'react-router-dom';
 class EditProfile extends Component{
 
     state={
+        description:'',
+        hobbies:''
         
 
     }
@@ -41,12 +43,12 @@ class EditProfile extends Component{
                            
                             <Form.Field>
                                 <label>About Me:</label>           
-                                <textarea   name="description" placeholder="Write About Your Schooling,Interests etc."  onChange={this.onChange} />
+                                <textarea  required name="description" placeholder="Write About Your Schooling,Interests etc."  onChange={this.onChange} />
                             </Form.Field>
 
                             <Form.Field >
                                 <label>Hobbies And Interest:</label>           
-                                <textarea   name="description" placeholder="Write about your hobbies and Interests"  onChange={this.onChange} />
+                                <textarea required  name="hobbies" placeholder="Write about your hobbies and Interests"  onChange={this.onChange} />
                             </Form.Field>
 
                            

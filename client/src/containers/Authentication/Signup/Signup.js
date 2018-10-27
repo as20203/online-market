@@ -47,27 +47,27 @@ class Signup extends Component{
            <Form onSubmit={this.onSubmit}>
                    <Form.Field inline>
                         <label>Username: </label>
-                        <input  type="text" name="username" placeholder="Enter Username" onChange={this.onChange}></input> 
+                        <input required type="text" name="username" placeholder="Enter Username" onChange={this.onChange}></input> 
                    </Form.Field>
 
                    <Form.Field inline>
                         <label>Password:</label>
-                        <input type="password" name="password" placeholder="Enter Password" onChange={this.onChange}></input>
+                        <input required type="password" name="password" placeholder="Enter Password" onChange={this.onChange}></input>
                    </Form.Field>
        
                    <Form.Field inline>
                         <label>Email: </label>
-                        <input type="email" name="email" placeholder="Enter you email" onChange={this.onChange}></input>
+                        <input defaultValue='none' type="email" name="email" placeholder="Enter you email" onChange={this.onChange}></input>
                    </Form.Field>
 
                    <Form.Field inline>
                             <label>City: </label>
-                            <input type="text" name="city" placeholder="Enter city" onChange={this.onChange}></input>
+                            <input required type="text" name="city" placeholder="Enter city" onChange={this.onChange}></input>
                     </Form.Field>
 
                     <Form.Field inline> 
                             <label>Phone No: </label>
-                            <input type="text" name="phone" placeholder="Enter phone no" onChange={this.onChange}></input>
+                            <input required type="text" name="phone" placeholder="Enter phone no" onChange={this.onChange}></input>
                     </Form.Field>
 
 
