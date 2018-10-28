@@ -8,7 +8,7 @@ const simpleNav = (props) =>{
         <div icon="labeled"  className="topnav" id="myTopnav">
             
   
-            <Link to="/"  >
+            <Link to={props.link}  >
             <Icon name="home" className="myicon"  />Home
             </Link>
            

@@ -42,12 +42,12 @@ class Admin extends Component{
           ]
         return(
             <div style={{height:'100%',marginTop:'150px'}}>
-            <Container>
+            <Container style={{marginBottom:'200px'}}>
                 <Segment>
                     <Header color={'teal'} as='h1'>Admin Panel</Header>
                     <Divider />
                     <Header color={'red'} textAlign='left' as='h4'>Report User</Header>
-                    <Container className="profileContainer1"> 
+                    <Container > 
                             <Form onSubmit={this.onSubmit}>
                                 <Form.Group widths='equal'>
                                     <Form.Field>
@@ -75,7 +75,7 @@ class Admin extends Component{
 
                          <Divider />
                          <Header color={'red'} textAlign='left' as='h4'>Remove Product</Header>
-                         <Container className="profileContainer1"> 
+                         <Container > 
                             <Form onSubmit={this.onSubmit}>
                                 <Form.Group widths='equal'>
                                     <Form.Field>

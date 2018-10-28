@@ -17,6 +17,8 @@ class App extends Component {
   
  
   render() {
+    
+   
     return (
       <Router>
       <div style={{height:"100%"}}>
@@ -24,7 +26,7 @@ class App extends Component {
        <Navbar />
       
       
-       <Route exact path="/"  render={()=><Landing visit={this.landingPageVisit}     />} />
+       <Route exact path="/"  component={Landing} />
        <Route path='/productInfo' component={productInfo} />
        <Route path='/adminPage' component={adminPage} />
        <Route path='/editProfile'  component={Editprofile} />
