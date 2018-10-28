@@ -15,12 +15,7 @@ class Profile extends Component{
 
       onSubmit = (e) => {
         e.preventDefault();
-       
-        
-        
-        
-        
-        
+         
        
       }
 

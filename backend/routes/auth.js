@@ -30,6 +30,7 @@ router.post('/register',(req,res,next)=>{
                         city:req.body.city,
                         phone:req.body.phone,
                         password:hash
+                       
                 
                     });
         
@@ -72,9 +73,12 @@ router.post('/login',(req,res,next)=>{
                     });
                 }
                 if(result){
+                  
                    const token =  jwt.sign({
+                      
                         username:user[0].username,
-                        id:user[0]._id
+                        id:user[0]._id,
+                        type: user[0].userType
                        
                     },
                     process.env.JWT_KEY,

@@ -1,7 +1,7 @@
 import React from 'react';
 import './Landing.css';
 import Reveal from './Reveal/Reveal'
-import {Header,Segment,Grid,Container,Divider,Button} from 'semantic-ui-react';
+import {Header,Segment,Grid,Container,Divider,Button,Message,Icon} from 'semantic-ui-react';
 import {Link} from 'react-router-dom';
 
 //All images of Landing page 
@@ -24,20 +24,42 @@ import clothes from '../../assets/landing-page/random/clothes.png'
 import oven from '../../assets/landing-page/random/oven.png'
 import shoes from '../../assets/landing-page/random/shoes.png'
 
+//transitions
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 
 
 
 
 
-const landing = ()=>{
-         
-        
+const landing = (props)=>{
+           
         return(
+         
         
            
           <Container style={{marginTop:"100px",marginBottom:"80px"}}>
-            <Header color="teal" textAlign={"center"} as="h1">Welcome To JNS Online-Market</Header>
+
+          <ReactCSSTransitionGroup  
+              transitionName="example"          
+              transitionAppear={true}
+              transitionAppearTimeout={2000}
+             transitionEnter= {false}
+              transitionLeave={false}>
+
+           <Message icon key='hello'>
+              <Icon name='hand peace'/>
+               <Message.Content>
+                <Message.Header className='landingHeader'>Welcome To IZRAK online Market</Message.Header>
+                Get the best products for the cheapest price.
+              </Message.Content>
+          
+           </Message> 
+        
+
+           </ReactCSSTransitionGroup> 
+       
+            {/* <Header color="teal" textAlign={"center"} as="h1">Welcome To JNS Online-Market</Header> */}
             <Divider section />
             <Button as={Link} to='/products' style={{width:'200px'}} className="Button" color="grey" >Check Out Our Products</Button>
            

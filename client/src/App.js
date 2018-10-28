@@ -10,8 +10,11 @@ import Footer from './components/Footer/Footer';
 import createProduct from './containers/Product/Product';
 import Editprofile from './containers/User/Profile/EditProfile/EditProfile';
 import productInfo from './containers/Products/ProductInfo/ProductInfo';
+import adminPage from './containers/Admin/Admin';
 
 class App extends Component {
+ 
+  
  
   render() {
     return (
@@ -21,8 +24,9 @@ class App extends Component {
        <Navbar />
       
       
-       <Route exact path="/"  render={()=><Landing    />} />
+       <Route exact path="/"  render={()=><Landing visit={this.landingPageVisit}     />} />
        <Route path='/productInfo' component={productInfo} />
+       <Route path='/adminPage' component={adminPage} />
        <Route path='/editProfile'  component={Editprofile} />
        <Route path="/createProduct" component={createProduct} />
        <Route path="/profile" component={Profile} />

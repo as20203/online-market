@@ -57,7 +57,7 @@ class Signup extends Component{
        
                    <Form.Field inline>
                         <label>Email: </label>
-                        <input defaultValue='none' type="email" name="email" placeholder="Enter you email" onChange={this.onChange}></input>
+                        <input required type="email" name="email" placeholder="Enter you email" onChange={this.onChange}></input>
                    </Form.Field>
 
                    <Form.Field inline>

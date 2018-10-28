@@ -2,7 +2,8 @@ import React,{Component} from 'react';
 
 import {Button,Form,Segment} from 'semantic-ui-react';
 import './Login.css'
-import axios from 'axios'
+import axios from 'axios';
+import jtwDecode from 'jwt-decode';
 
 
 class Login extends Component{
@@ -29,10 +30,21 @@ class Login extends Component{
             if(result.status===200){
                 //Here we would later redirect when the page is made
                 //We would also store the token in our local storage to use later.
+                var decoded = jtwDecode(result.data.token);
+                console.log( JSON.stringify(decoded));
+                console.log(JSON.parse(JSON.stringify(decoded)));
+                localStorage.setItem("TokenInfo",JSON.stringify(decoded));
                 localStorage.setItem("Token",result.data.token);
                 localStorage.setItem("Authentication"," ");
-                this.props.history.replace("/products");
-                console.log(result);
+                if(decoded.type==='Client'){
+                    this.props.history.replace("/products");
+                }else{
+                    this.props.history.replace("/adminPage");
+                }
+
+
+             
+                
             }
           });
       }
