@@ -1,6 +1,10 @@
 .productInfoGrid{
     
-    margin-top:100px !important;
+    margin-top:75px !important;
     margin-bottom: 10px !important;
-    background: #e4efe9
+    background: #e4efe9;
+    background-image: url('../../../assets/Background/gradient.png') !important;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
 }

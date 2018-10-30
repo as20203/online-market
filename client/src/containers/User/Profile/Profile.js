@@ -9,6 +9,7 @@ import chairs from '../../../assets/landing-page/furniture/chairs.png';
 
 class Profile extends Component{
     render(){
+        window.scrollTo(0,0);
         return(
            
             <Grid className="profileGrid">

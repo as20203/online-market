@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom';
 import '../SimpleNavbar/SimpleNavbar.css'
 
 const simpleNav = (props) =>{
+  
     return(
         <div icon="labeled"  className="topnav" id="myTopnav">
             

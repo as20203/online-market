@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import {Button,Form,Segment,Header} from 'semantic-ui-react';
+import {Button,Form,Segment,Header,Grid} from 'semantic-ui-react';
 import './EditProfile.css';
 import {Link} from 'react-router-dom';
 
@@ -34,8 +34,8 @@ class EditProfile extends Component{
     render(){
        
         return(
-            <div style={{height:"100%" ,marginTop:'100px'}}>
-                <Button as={Link} to='/profile' style={{width:'100px'}}  className="Button" color="olive" >Back</Button>
+           <Grid className="SignUpGrid">
+                
                 <Segment stacked className="EditProfile" >
                     
                     <Header color={"grey"} as="h1">Edit Profile</Header>
@@ -60,7 +60,7 @@ class EditProfile extends Component{
                         
                 </Segment>
 
-          </div>
+        </Grid>
 
            
            

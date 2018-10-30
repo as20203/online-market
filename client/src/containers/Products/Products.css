@@ -1,3 +1,10 @@
-.ProductContainerStyle{
-    margin-top:150px;
+
+.ProductStyle{
+    background-image: url('../../assets/Background/gradient.png') !important;
+    background-repeat: no-repeat !important;
+    background-size: cover;
+    background-position: center;
+    height:70% ;
+    padding-bottom:50px ;
+    margin-top:80px;
 }

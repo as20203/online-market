@@ -12,6 +12,8 @@ import Editprofile from './containers/User/Profile/EditProfile/EditProfile';
 import productInfo from './containers/Products/ProductInfo/ProductInfo';
 import adminPage from './containers/Admin/Admin';
 
+import './App.css'
+
 class App extends Component {
  
   
@@ -21,7 +23,7 @@ class App extends Component {
    
     return (
       <Router>
-      <div style={{height:"100%"}}>
+      <div  className="App">
     
        <Navbar />
       

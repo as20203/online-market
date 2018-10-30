@@ -1,6 +1,14 @@
 .App {
-  text-align: center;
+  background-image: url('./assets/Background/gradient.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  height: 100%;
 }
+
+
+
+
 
 
 

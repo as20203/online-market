@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import {Button,Form,Segment,Header,Dropdown} from 'semantic-ui-react';
+import {Button,Form,Segment,Header,Dropdown,Grid} from 'semantic-ui-react';
 
 
 
@@ -37,6 +37,7 @@ class Product extends Component{
     
 
     render(){
+        window.scrollTo(0,0);
         const options = [
             {key:'Accessories',value:'Accessories',text:'Accessories'},
             {key:'Footwear',value:'Footwear',text:'Footwear'},
@@ -48,7 +49,7 @@ class Product extends Component{
     
       
         return(
-            <div style={{height:"100%"}}>
+           <Grid className="SignUpGrid">
                 <Segment stacked className="Segment">
                     
                     <Header color={"grey"} as="h1">Product</Header>
@@ -86,7 +87,7 @@ class Product extends Component{
                         
                 </Segment>
 
-          </div>
+         </Grid>
 
            
            

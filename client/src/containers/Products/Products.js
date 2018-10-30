@@ -17,10 +17,10 @@ class Products extends Component {
 
   render() {
 
-     
+     window.scrollTo(0,0);
     return (
       <div>
-          <div style={{ background: '#e4efe9',height:'70%',paddingBottom:'50px',marginTop:"100px"}}>
+          <div className="ProductStyle" >
 
           <SearchFluid /> 
           

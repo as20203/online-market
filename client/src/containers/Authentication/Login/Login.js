@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
 
-import {Button,Form,Segment} from 'semantic-ui-react';
+import {Button,Form,Segment,Grid} from 'semantic-ui-react';
 import './Login.css'
 import axios from 'axios';
 import jtwDecode from 'jwt-decode';
@@ -52,10 +52,10 @@ class Login extends Component{
 
     render(){
     
-      
+        window.scrollTo(0,0);
         return(
-            <div style={{height:"100%"}}>
-            <Segment stacked className="Segment">
+    <Grid className="SignUpGrid">     
+        <Segment stacked className="Segment">
                 
                 <h1 className="header">Login</h1>
                 <Form onSubmit={this.onSubmit}>
@@ -73,7 +73,7 @@ class Login extends Component{
                     
             </Segment>
 
-          </div>
+       </Grid>       
 
            
            

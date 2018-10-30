@@ -46,9 +46,9 @@ class Profile extends Component{
                     </Grid.Column>
                    
                     <Grid.Column computer={11} tablet={9} mobile={16}>
-                     <Segment raised className="profileSegment">
+                     <Segment raised className="profileSegment" style={{borderRadius:'10px'}}>
                         <Header as="h1" color={"grey"} textAlign={"left"}>Description</Header>
-                        <Container className="profileContainer1">
+                        <Container >
                             <p className="profileContent">
                             Nunc ut turpis aliquam, condimentum justo sit amet, varius eros. 
                             Nunc malesuada, nunc non rutrum vulputate, nisl ante maximus magna, sit amet suscipit arcu tellus ut nunc. Pellentesque porttitor molestie nisl ut fermentum. Fusce feugiat tortor non turpis aliquet sollicitudin. Nulla finibus nunc in urna euismod, nec vulputate nisl venenatis. Ut mollis sem libero, quis tristique tortor ultricies quis. Morbi tristique purus maximus urna blandit pharetra. Pellentesque lobortis, lacus in faucibus imperdiet, mauris felis iaculis odio, 
@@ -61,18 +61,18 @@ class Profile extends Component{
                        
 
                          <Header as="h1"color={"grey"} textAlign={"left"}>Price</Header>
-                         <Container className="profileContainer2"> 
+                         <Container > 
                             <p>$20</p>
                         </Container>
                         <Divider section />
 
                          <Header as="h1" color={"grey"} textAlign={"left"}>Product Owner</Header>
-                         <Container className="profileContainer2"> 
+                         <Container > 
                             <p>Jawad Zaheer</p>
                         </Container>
                         <Divider section />
                         <Header as="h1" color={"grey"} textAlign={"left"}>Product Category</Header>
-                        <Container className="profileContainer2"> 
+                        <Container > 
                             <p className="profileContent">
                                 Accessories
                             </p>
@@ -81,7 +81,7 @@ class Profile extends Component{
 
                          <Divider section />
                         <Header as="h1" color={"grey"} textAlign={"left"}>Bid On this product</Header>
-                        <Container className="profileContainer1"> 
+                        <Container > 
                             <Form onSubmit={this.onSubmit}>
                                 <Form.Group widths='equal'>
                                     <Form.Field>

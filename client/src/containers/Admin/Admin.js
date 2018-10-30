@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import {Segment,Container,Header,Form,Dropdown,Button,Divider} from 'semantic-ui-react';
+import {Segment,Container,Header,Form,Dropdown,Button,Divider,Grid} from 'semantic-ui-react';
 
 
 class Admin extends Component{
@@ -25,6 +25,7 @@ class Admin extends Component{
 
 
     render(){
+        window.scrollTo(0,0);
         const users = [
             {key:'id1',value:'jawad',text:'jawad'},
             {key:'id2',value:'as20203',text:'as20203'},
@@ -41,9 +42,8 @@ class Admin extends Component{
             {key:'id5',value:'chair',text:'chair'}
           ]
         return(
-            <div style={{height:'100%',marginTop:'150px'}}>
-            <Container style={{marginBottom:'200px'}}>
-                <Segment>
+            <Grid className="SignUpGrid">
+                <Segment style={{margin:'200px auto',width:'80%'}}>
                     <Header color={'teal'} as='h1'>Admin Panel</Header>
                     <Divider />
                     <Header color={'red'} textAlign='left' as='h4'>Report User</Header>
@@ -96,8 +96,8 @@ class Admin extends Component{
 
                 </Segment>
                
-            </Container>
-           </div>
+           
+                </Grid>
         );
     }
 }

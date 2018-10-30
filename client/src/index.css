@@ -6,8 +6,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-   background-color:#ebedee !important;
-
+  opacity: 0.9;
 }
 
 code {
@@ -17,11 +16,6 @@ code {
 
 label{
   width: 25% !important;
-}
-
-
-body{
-  height: 100% !important;
 }
 
 
