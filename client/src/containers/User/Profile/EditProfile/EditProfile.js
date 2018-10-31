@@ -1,7 +1,6 @@
 import React,{Component} from 'react';
-import {Button,Form,Segment,Header,Grid} from 'semantic-ui-react';
+import {Button,Form,Segment,Header} from 'semantic-ui-react';
 import './EditProfile.css';
-import {Link} from 'react-router-dom';
 
 class EditProfile extends Component{
 
@@ -34,7 +33,6 @@ class EditProfile extends Component{
     render(){
        
         return(
-           <Grid className="SignUpGrid">
                 
                 <Segment stacked className="EditProfile" >
                     
@@ -60,7 +58,7 @@ class EditProfile extends Component{
                         
                 </Segment>
 
-        </Grid>
+     
 
            
            

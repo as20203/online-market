@@ -64,6 +64,13 @@ class Products extends Component {
                           <ProductLi imageSrc={mobile} />
                       </Grid.Column>
 
+                         <Grid.Column computer={5} tablet={8} mobile={16}>
+                          <ProductLi imageSrc={laptop} />
+                      </Grid.Column>
+                      <Grid.Column computer={5} tablet={8} mobile={16}>
+                          <ProductLi imageSrc={mobile} />
+                      </Grid.Column>
+                    
                       
       
 

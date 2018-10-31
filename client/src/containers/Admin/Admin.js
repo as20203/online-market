@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import {Segment,Container,Header,Form,Dropdown,Button,Divider,Grid} from 'semantic-ui-react';
+import {Segment,Container,Header,Form,Dropdown,Button,Divider} from 'semantic-ui-react';
 
 
 class Admin extends Component{
@@ -42,7 +42,7 @@ class Admin extends Component{
             {key:'id5',value:'chair',text:'chair'}
           ]
         return(
-            <Grid className="SignUpGrid">
+            
                 <Segment style={{margin:'200px auto',width:'80%'}}>
                     <Header color={'teal'} as='h1'>Admin Panel</Header>
                     <Divider />
@@ -97,7 +97,7 @@ class Admin extends Component{
                 </Segment>
                
            
-                </Grid>
+               
         );
     }
 }

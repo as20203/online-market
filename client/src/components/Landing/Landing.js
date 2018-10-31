@@ -37,8 +37,8 @@ const landing = (props)=>{
          
         
         <Grid className="LandingGrid">
-         <Container style={{marginTop:"100px",marginBottom:"80px"}}>
-        <Segment>
+         <Container style={{marginTop:"150px",marginBottom:"80px"}} >
+            <Segment >
          
 
           <ReactCSSTransitionGroup   

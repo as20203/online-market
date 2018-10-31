@@ -6,10 +6,7 @@ width: 100%;
 .profileGrid{
     margin-top:70px !important;
     margin-bottom: 10px !important;
-    background-image: url('../../../assets/Background/gradient.png') !important;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
+  
    
 }
 

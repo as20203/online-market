@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import {Button,Form,Segment,Header,Dropdown,Grid} from 'semantic-ui-react';
+import {Button,Form,Segment,Header,Dropdown} from 'semantic-ui-react';
 
 
 
@@ -49,7 +49,7 @@ class Product extends Component{
     
       
         return(
-           <Grid className="SignUpGrid">
+          
                 <Segment stacked className="Segment">
                     
                     <Header color={"grey"} as="h1">Product</Header>
@@ -87,7 +87,7 @@ class Product extends Component{
                         
                 </Segment>
 
-         </Grid>
+        
 
            
            

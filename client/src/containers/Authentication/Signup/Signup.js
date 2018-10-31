@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import {Button,Form,Segment,Grid} from 'semantic-ui-react';
+import {Button,Form,Segment} from 'semantic-ui-react';
 import axios from 'axios';
 import './Signup.css';
 
@@ -42,7 +42,7 @@ class Signup extends Component{
         window.scrollTo(0,0);
         return(
           
-      <Grid className="SignUpGrid">
+     
            <Segment stacked className="Segment">
            <h1 className="header">Signup</h1>
            <Form onSubmit={this.onSubmit}>
@@ -75,7 +75,7 @@ class Signup extends Component{
                    <Button secondary className="Button" type='submit'>Signup</Button>
                </Form>
             </Segment>
-            </Grid>
+           
 
             
 
