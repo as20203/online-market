@@ -1,6 +1,9 @@
 {
   "name": "online-market",
   "version": "1.0.0",
+   "engines": { 
+      "node": "9.6.1" 
+   },
   "scripts": {
     "client": "cd client && npm start",
     "server": "nodemon server.js",
