@@ -1,0 +1,33 @@
+
+.gridColumn{
+    margin-bottom: 10px !important;
+}
+
+.landingHeader{
+    text-align: center;
+    color:teal !important;
+}
+
+.example-appear {
+    opacity: 0.01;
+  }
+  
+  .example-appear.example-appear-active {
+    opacity: 1;
+    transition: opacity 2s ease-in;
+  }
+
+  .LandingGrid{
+    background-image: url('../../assets/Background/landing-background.png') !important;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 100%;
+   
+  }
+
+
+  
+  
+
+  

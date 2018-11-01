@@ -1,0 +1,29 @@
+/* h1{
+    text-align: center;
+    color:#DFCFBE;
+    margin-top: 100px;
+    
+} */
+
+.Segment{
+    margin:200px auto !important;
+    width:24em
+}
+
+.Button{
+    margin: auto !important;
+    display: block !important;
+}
+
+.SignUpGrid{
+    background-image: url('../../../assets/Background/gradient.png') !important;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+
+
+
+
+
