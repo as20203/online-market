@@ -7,9 +7,15 @@ import ProductLi from '../../Products/ProductLi/ProductLi';
 import bed from '../../../assets/landing-page/furniture/bed.png';
 import chairs from '../../../assets/landing-page/furniture/chairs.png';
 
+
+
+
 class Profile extends Component{
-    render(){
+    componentDidMount(){
         window.scrollTo(0,0);
+      }
+    render(){
+       
         return(
            
             <Grid className="profileGrid">

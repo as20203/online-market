@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
 import {Button,Form,Segment,Header,Dropdown} from 'semantic-ui-react';
-
+import './Product.css'
 
 
 class Product extends Component{
@@ -34,10 +34,16 @@ class Product extends Component{
         
        console.log(newProduct);
       }
+
+
+      componentDidMount(){
+        window.scrollTo(0,0);
+      }
+
     
 
     render(){
-        window.scrollTo(0,0);
+       
         const options = [
             {key:'Accessories',value:'Accessories',text:'Accessories'},
             {key:'Footwear',value:'Footwear',text:'Footwear'},
@@ -50,7 +56,7 @@ class Product extends Component{
       
         return(
           
-                <Segment stacked className="Segment">
+                <Segment stacked className="ProductSegment">
                     
                     <Header color={"grey"} as="h1">Product</Header>
                     <Form onSubmit={this.onSubmit}>

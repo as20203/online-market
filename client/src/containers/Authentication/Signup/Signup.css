@@ -5,7 +5,7 @@
     
 } */
 
-.Segment{
+.SignUpSegment{
     margin:200px auto !important;
     width:24em
 }
@@ -14,14 +14,6 @@
     margin: auto !important;
     display: block !important;
 }
-
-.SignUpGrid{
-    background-image: url('../../../assets/Background/gradient.png') !important;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-}
-
 
 
 

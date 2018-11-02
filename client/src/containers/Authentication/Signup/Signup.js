@@ -36,14 +36,18 @@ class Signup extends Component{
           });
       }
 
+      componentDidMount(){
+        window.scrollTo(0,0);
+      }
+
 
 
     render(){
-        window.scrollTo(0,0);
+      
         return(
           
      
-           <Segment stacked className="Segment">
+           <Segment stacked className="SignUpSegment">
            <h1 className="header">Signup</h1>
            <Form onSubmit={this.onSubmit}>
                    <Form.Field inline>

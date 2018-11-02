@@ -21,11 +21,16 @@ class Admin extends Component{
         this.setState({reportedUser:value});
     }
 
+    componentDidMount(){
+        window.scrollTo(0,0);
+      }
+
+
 
 
 
     render(){
-        window.scrollTo(0,0);
+       
         const users = [
             {key:'id1',value:'jawad',text:'jawad'},
             {key:'id2',value:'as20203',text:'as20203'},
