@@ -40,11 +40,7 @@ export default class SearchExampleStandard extends Component {
     const { isLoading, value, results } = this.state
 
     return (
-<<<<<<< HEAD
       <Grid style={{marginLeft:'0px',marginRight:'0px'}}>
-=======
-      <Grid>
->>>>>>> origin/master
         <Grid.Column >
         
           <Search 

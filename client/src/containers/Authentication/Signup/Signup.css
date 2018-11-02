@@ -5,11 +5,7 @@
     
 } */
 
-<<<<<<< HEAD
 .SignUpSegment{
-=======
-.Segment{
->>>>>>> origin/master
     margin:200px auto !important;
     width:24em
 }
@@ -19,17 +15,6 @@
     display: block !important;
 }
 
-<<<<<<< HEAD
-=======
-.SignUpGrid{
-    background-image: url('../../../assets/Background/gradient.png') !important;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-}
-
-
->>>>>>> origin/master
 
 
 

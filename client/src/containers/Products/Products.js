@@ -12,22 +12,14 @@ import mobile from '../../assets/landing-page/accessories/mobile.png'
 
 class Products extends Component {
   
-<<<<<<< HEAD
    componentDidMount(){
     window.scrollTo(0,0);
    }
-=======
-
->>>>>>> origin/master
   
 
   render() {
 
-<<<<<<< HEAD
     
-=======
-     window.scrollTo(0,0);
->>>>>>> origin/master
     return (
       <div>
           <div className="ProductStyle" >

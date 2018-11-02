@@ -28,12 +28,9 @@ class EditProfile extends Component{
         
        console.log(newProduct);
       }
-<<<<<<< HEAD
       componentDidMount(){
         window.scrollTo(0,0);
       }
-=======
->>>>>>> origin/master
     
 
     render(){

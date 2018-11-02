@@ -1,10 +1,7 @@
 const express = require('express');
 
 const port = process.env.PORT || 5000;
-<<<<<<< HEAD
 const path = require('path');
-=======
->>>>>>> origin/master
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var seedDB = require('./backend/SeedData/SeedData');
@@ -31,7 +28,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //Use Routes
 app.use("/user",userRoutes);
 
-<<<<<<< HEAD
 if (process.env.NODE_ENV === 'production') {
   // Serve any static files
   app.use(express.static(path.join(__dirname, 'client/build')));
@@ -41,8 +37,6 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-=======
->>>>>>> origin/master
 
 
 
