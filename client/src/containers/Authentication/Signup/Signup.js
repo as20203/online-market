@@ -36,6 +36,7 @@ class Signup extends Component{
           });
       }
 
+<<<<<<< HEAD
       componentDidMount(){
         window.scrollTo(0,0);
       }
@@ -48,6 +49,16 @@ class Signup extends Component{
           
      
            <Segment stacked className="SignUpSegment">
+=======
+
+
+    render(){
+        window.scrollTo(0,0);
+        return(
+          
+     
+           <Segment stacked className="Segment">
+>>>>>>> origin/master
            <h1 className="header">Signup</h1>
            <Form onSubmit={this.onSubmit}>
                    <Form.Field inline>

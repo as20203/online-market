@@ -12,7 +12,10 @@ body {
   background-size: cover;
   background-position: center;
   height: 100%;
+<<<<<<< HEAD
   overflow-x:hidden !important;
+=======
+>>>>>>> origin/master
 }
 
 code {
@@ -26,7 +29,10 @@ label{
 
 html,body{
   height: auto !important;
+<<<<<<< HEAD
  
+=======
+>>>>>>> origin/master
 }
 
 

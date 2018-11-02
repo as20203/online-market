@@ -48,19 +48,29 @@ class Login extends Component{
             }
           });
       }
+<<<<<<< HEAD
 
       componentDidMount(){
         window.scrollTo(0,0);
       }
 
+=======
+>>>>>>> origin/master
    
 
     render(){
     
+<<<<<<< HEAD
        
         return(
     
         <Segment stacked className="LoginSegment">
+=======
+        window.scrollTo(0,0);
+        return(
+    
+        <Segment stacked className="Segment">
+>>>>>>> origin/master
                 
                 <h1 className="header">Login</h1>
                 <Form onSubmit={this.onSubmit}>

@@ -19,12 +19,19 @@ class Profile extends Component{
        
       }
 
+<<<<<<< HEAD
     componentDidMount(){
         window.scrollTo(0,0);
     }
 
     render(){
        
+=======
+
+
+    render(){
+        window.scrollTo(0,0);
+>>>>>>> origin/master
         return(
            
             <Grid className="productInfoGrid">

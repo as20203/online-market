@@ -7,6 +7,7 @@ import ProductLi from '../../Products/ProductLi/ProductLi';
 import bed from '../../../assets/landing-page/furniture/bed.png';
 import chairs from '../../../assets/landing-page/furniture/chairs.png';
 
+<<<<<<< HEAD
 
 
 
@@ -16,6 +17,11 @@ class Profile extends Component{
       }
     render(){
        
+=======
+class Profile extends Component{
+    render(){
+        window.scrollTo(0,0);
+>>>>>>> origin/master
         return(
            
             <Grid className="profileGrid">
