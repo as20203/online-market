@@ -52,43 +52,58 @@ var data = [
 
 
 function seedDB(){
-    User.deleteMany({},err=>{
-        if(err){
-            console.log(err);
+    User.find({})
+    .exec()
+    .then(users=>{
+        if(users.length>=1){
+           
+            return;
         }else{
-            console.log('removed all users');
-            data.forEach(function(seed){
-                bcrypt.hash(seed.password,10,(err,hash)=>{
-                    if(err){
-                       console.log(err);
-                    }else{
-                    var newUser = new User({
-                        _id: new mongoose.Types.ObjectId(),
-                        email:seed.email,
-                        username:seed.username,
-                        city:seed.city,
-                        phone:seed.phone,
-                        userType:seed.userType,
-                        password:hash
-                    });
-                    newUser
-                    .save()
-                    .then(result=>{
-                        console.log(result);
-                       
-                    })
-                    .catch(err=>{
-                        console.log(err);
-                      
-                    }); 
-                }                   
-            }) 
-        
-            
-        
-        })
+            User.deleteMany({},err=>{
+                if(err){
+                    console.log(err);
+                }else{
+                    console.log('removed all users');
+                    data.forEach(function(seed){
+                        bcrypt.hash(seed.password,10,(err,hash)=>{
+                            if(err){
+                               console.log(err);
+                            }else{
+                            var newUser = new User({
+                                _id: new mongoose.Types.ObjectId(),
+                                email:seed.email,
+                                username:seed.username,
+                                city:seed.city,
+                                phone:seed.phone,
+                                userType:seed.userType,
+                                password:hash
+                            });
+                            newUser
+                            .save()
+                            .then(result=>{
+                                console.log(result);
+                               
+                            })
+                            .catch(err=>{
+                                console.log(err);
+                              
+                            }); 
+                        }                   
+                    }) 
+                
+                    
+                
+                })
+            }
+        });
+
+        }
     }
-});
+        
+    )
+        
+    
+
 }
 
 module.exports = seedDB;
