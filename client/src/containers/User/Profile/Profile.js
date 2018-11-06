@@ -1,6 +1,7 @@
 import React,{Component} from 'react';
 import {Input,Button,Card,Image,Grid,Segment,Header,Container,Divider} from 'semantic-ui-react';
 import './Profile.css'
+import axios from 'axios'
 import userImage from '../../../assets/user-empty/empty-user.png'
 import {Link} from 'react-router-dom';
 import ProductLi from '../../Products/ProductLi/ProductLi';
@@ -11,8 +12,50 @@ import chairs from '../../../assets/landing-page/furniture/chairs.png';
 
 
 class Profile extends Component{
+    state = {
+      username:'',
+      aboutMe:'',
+      hobbies:'',
+      city:'',
+      phone:''
+        
+    }
+
     componentDidMount(){
-        window.scrollTo(0,0);
+        if(localStorage.getItem("Token")){
+            
+            axios.get('/user/profile', { headers: {"Authorization" : `Bearer ${localStorage.getItem("Token")}`} })
+            .then(result=>{
+                    console.log(result);
+              
+               
+                    window.scrollTo(0,0);
+                    this.setState({
+                        username:result.data.userData.username,
+                        aboutMe:result.data.userData.aboutMe,
+                        hobbies:result.data.userData.hobbies,
+                        city:result.data.userData.city,
+                        phone:result.data.userData.phone,
+        
+                    });
+                
+            }
+    
+            )
+            .catch(error=>{
+                localStorage.removeItem("TokenInfo");
+                localStorage.removeItem("Authentication");
+              this.props.history.replace('/login');
+            })
+
+        }else{
+            this.props.history.replace('/login');
+          
+          
+        }
+      
+       
+       
       }
     render(){
        
@@ -26,7 +69,7 @@ class Profile extends Component{
                             <Card className="profileImgCard">
                                 <Image src={userImage} style={{marginTop:"0px"}} />
                                 <Card.Content>
-                                    <Card.Header as='h4' style={{color:'teal'}}>Jawad Zaheer</Card.Header>
+                                    <Card.Header as='h4' style={{color:'teal'}}>{this.state.username}</Card.Header>
                                     
                                 </Card.Content>
                                 <Card.Content extra>
@@ -44,10 +87,7 @@ class Profile extends Component{
                         <Header as="h1" color={"grey"} textAlign={"left"}>About Me</Header>
                         <Container className="profileContainer1">
                             <p className="profileContent">
-                            Nunc ut turpis aliquam, condimentum justo sit amet, varius eros. 
-                            Nunc malesuada, nunc non rutrum vulputate, nisl ante maximus magna, sit amet suscipit arcu tellus ut nunc. Pellentesque porttitor molestie nisl ut fermentum. Fusce feugiat tortor non turpis aliquet sollicitudin. Nulla finibus nunc in urna euismod, nec vulputate nisl venenatis. Ut mollis sem libero, quis tristique tortor ultricies quis. Morbi tristique purus maximus urna blandit pharetra. Pellentesque lobortis, lacus in faucibus imperdiet, mauris felis iaculis odio, 
-                            ac ultricies eros velit nec neque. Morbi a quam 
-                            consequat, gravida ante quis, tincidunt nisi.
+                           {this.state.aboutMe}
 
                             </p>
                         </Container>
@@ -56,10 +96,7 @@ class Profile extends Component{
                         
                         <Container className="profileContainer1"> 
                             <p className="profileContent">
-                                Nunc ut turpis aliquam, condimentum justo sit amet, varius eros. 
-                                Nunc malesuada, nunc non rutrum vulputate, nisl ante maximus magna, sit amet suscipit arcu tellus ut nunc. Pellentesque porttitor molestie nisl ut fermentum. Fusce feugiat tortor non turpis aliquet sollicitudin. Nulla finibus nunc in urna euismod, nec vulputate nisl venenatis. Ut mollis sem libero, quis tristique tortor ultricies quis. Morbi tristique purus maximus urna blandit pharetra. Pellentesque lobortis, lacus in faucibus imperdiet, mauris felis iaculis odio, 
-                                ac ultricies eros velit nec neque. Morbi a quam 
-                                consequat, gravida ante quis, tincidunt nisi.
+                               {this.state.hobbies}
 
                             </p>
                         </Container>
@@ -67,13 +104,13 @@ class Profile extends Component{
 
                          <Header as="h1"color={"grey"} textAlign={"left"}>City</Header>
                          <Container className="profileContainer2"> 
-                            <p>Rawalpindi,Pakistan</p>
+                            <p>{this.state.city}</p>
                         </Container>
                         <Divider section />
 
                          <Header as="h1" color={"grey"} textAlign={"left"}>Phone No:</Header>
                          <Container className="profileContainer2"> 
-                            <p>03324453365</p>
+                            <p>{this.state.phone}</p>
                         </Container>
                         <Divider section />
                         <Header as="h1" color={"grey"} textAlign={"left"}>My Products:</Header>

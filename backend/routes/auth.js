@@ -3,8 +3,28 @@ const router = express.Router();
 const mongoose = require("mongoose");
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const checkAuth = require('../middleware/check-auth');
 
 const User = require('../models/user');
+
+router.get("/",checkAuth,(req,res,next)=>{
+    User.find({userType:"Client"})
+    .exec()
+    .then(users=>{
+        var allUsers = [];
+        users.forEach(user=>{
+            allUsers.push(
+                {
+                id:user.id,
+                username:user.username
+                 }
+            )
+        })
+        return res.status(200).json({
+            allUsers:allUsers
+        });
+    })
+})
 //Sign up Route
 router.post('/register',(req,res,next)=>{
     User.find({username:req.body.username})
@@ -65,7 +85,7 @@ router.post('/login',(req,res,next)=>{
                 message:"Auth Failed"
             });
         }else{
-            
+            console.log(user[0])
             bcrypt.compare(req.body.password,user[0].password,(err,result)=>{
                 if(err){
                     return res.status(401).json({
@@ -110,6 +130,62 @@ router.post('/login',(req,res,next)=>{
     
 })
 
+router.get('/profile',checkAuth,(req,res,next)=>{
+    User.find({_id:req.userData.id})
+    .exec()
+    .then(user=>{
+        console.log(user[0]);
+        newUser = {
+            username:user[0].username,
+            aboutMe:user[0].aboutMe,
+            hobbies:user[0].hobbies,
+            city:user[0].city,
+            phone:user[0].phone
+        }
+        
+        return res.status(201).json({
+            userData:newUser
+        })
+    })
+    .catch(err=>{
+        res.status(500).json({
+            error:err
+        })
+    })
+
+    
+    
+
+});
+
+router.post('/editProfile',checkAuth,(req,res,next)=>{
+    User.updateOne({_id:req.userData.id},req.body)
+    .exec()
+    .then(doc=>{
+        console.log(doc);
+
+        return res.status(200).json({
+            message:"Successful"
+        })
+
+    })
+    .catch(err=>{
+        res.status(500).json({
+            error:err
+        })
+    })
+})
+
+
+
+
+
+router.get("/middleware",checkAuth,(req,res,next)=>{
+    return res.status(200).json({
+        message:"Successfully Authorized",
+        userData: req.userData
+    })
+})
 
 
 

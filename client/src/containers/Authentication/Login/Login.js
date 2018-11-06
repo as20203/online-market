@@ -31,8 +31,8 @@ class Login extends Component{
                 //Here we would later redirect when the page is made
                 //We would also store the token in our local storage to use later.
                 var decoded = jtwDecode(result.data.token);
-                console.log( JSON.stringify(decoded));
-                console.log(JSON.parse(JSON.stringify(decoded)));
+               
+              
                 localStorage.setItem("TokenInfo",JSON.stringify(decoded));
                 localStorage.setItem("Token",result.data.token);
                 localStorage.setItem("Authentication"," ");
@@ -59,7 +59,7 @@ class Login extends Component{
     
        
         return(
-    
+            
         <Segment stacked className="LoginSegment">
                 
                 <h1 className="header">Login</h1>

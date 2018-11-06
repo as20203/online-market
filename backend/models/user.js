@@ -8,7 +8,9 @@ var userSchema = new mongoose.Schema({
     email: String,
     city:String,
     phone:String,
-    userType:{ type:'String',default:'Client' ,required:true}
+    userType:{ type:'String',default:'Client' ,required:true},
+    aboutMe:{type:'String' ,default:''},
+    hobbies:{type:'String',default:''}
 });
 
 

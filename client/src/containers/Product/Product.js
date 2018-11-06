@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import {Button,Form,Segment,Header,Dropdown} from 'semantic-ui-react';
 import './Product.css'
-
+import axios from 'axios'
 
 class Product extends Component{
 
@@ -37,7 +37,17 @@ class Product extends Component{
 
 
       componentDidMount(){
-        window.scrollTo(0,0);
+        axios.get("/user/middleware",{ headers: {"Authorization" : `Bearer ${localStorage.getItem("Token")}`} })
+        .then(()=>{
+            window.scrollTo(0,0);
+            
+        })
+        .catch(error=>{
+            localStorage.removeItem("TokenInfo");
+            localStorage.removeItem("Authentication");
+            this.props.history.push("/login");
+
+        })
       }
 
     

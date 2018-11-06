@@ -2,6 +2,7 @@ import React,{Component} from 'react';
 import {Card,Image,Grid,Segment,Header,Container,Divider,Form, Label,Button,Input} from 'semantic-ui-react';
 import productImage from '../../../assets/landing-page/accessories/mobile.png';
 import './ProductInfo.css'
+import axios from 'axios'
 
 class Profile extends Component{
     state={
@@ -19,9 +20,20 @@ class Profile extends Component{
        
       }
 
-    componentDidMount(){
-        window.scrollTo(0,0);
-    }
+      componentDidMount(){
+        axios.get("/user/middleware",{ headers: {"Authorization" : `Bearer ${localStorage.getItem("Token")}`} })
+        .then(()=>{
+            window.scrollTo(0,0);
+            
+        })
+        .catch(error=>{
+            localStorage.removeItem("TokenInfo");
+            localStorage.removeItem("Authentication");
+            this.props.history.push("/login");
+
+        })
+      }
+
 
     render(){
        

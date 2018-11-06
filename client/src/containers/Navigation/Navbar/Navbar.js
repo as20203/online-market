@@ -22,9 +22,9 @@ class myNav extends Component {
   } 
 
   logoutHandler = ()=>{
-    localStorage.setItem("Authentication","");
-    localStorage.setItem("Token","");
-
+    localStorage.removeItem("Authentication");
+    localStorage.removeItem("Token");
+    localStorage.removeItem("TokenInfo");
     this.setState({isAuthenticated:false,shouldUpdate:true});
    
   }
@@ -34,10 +34,14 @@ class myNav extends Component {
   
 
   componentDidUpdate(){
-    
+   
     if(Boolean(localStorage.getItem("Authentication")) && (this.state.shouldUpdate)){
      
       this.setState({isAuthenticated:true,shouldUpdate:false});
+    }else if((Boolean(localStorage.getItem("Authentication"))===false) && ((this.state.shouldUpdate))===false){
+     
+      this.setState({isAuthenticated:false,shouldUpdate:true});
+
     }
    
 
@@ -53,21 +57,28 @@ class myNav extends Component {
     let header = null;
     
     const tokenInfo = JSON.parse((localStorage.getItem('TokenInfo')));
-    
+   
+   
     if(this.state.isAuthenticated){
-
-      if(tokenInfo.type==='Admin'){
-        header = <AuthNavbar link='/adminPage' myFunction={this.myFunction} logoutFunction={this.logoutHandler} />;
+     
+      if(tokenInfo){
+        if(tokenInfo.type==='Admin'){
+          header = <AuthNavbar link='/adminPage' myFunction={this.myFunction} logoutFunction={this.logoutHandler} />;
+        }else{
+          header = <AuthNavbar link='/' myFunction={this.myFunction} logoutFunction={this.logoutHandler} />;
+        }
       }else{
-        header = <AuthNavbar link='/' myFunction={this.myFunction} logoutFunction={this.logoutHandler} />;
+        header = <SimpleNavbar myFunction={this.myFunction} />;
       }
       
       
       
     }else{
-     
+    
       header = <SimpleNavbar myFunction={this.myFunction} />;
     }
+
+    
 
    return(
     <div> {header}</div>

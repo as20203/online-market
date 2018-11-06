@@ -1,10 +1,11 @@
 import React,{Component} from 'react';
 import {Segment,Container,Header,Form,Dropdown,Button,Divider} from 'semantic-ui-react';
-
+import axios from 'axios'
 
 class Admin extends Component{
     state={
         reportedUser:'',
+        users:[]
     }
     onChange = (event) => {
         
@@ -22,23 +23,47 @@ class Admin extends Component{
     }
 
     componentDidMount(){
-        window.scrollTo(0,0);
+        axios.get("/user/middleware",{ headers: {"Authorization" : `Bearer ${localStorage.getItem("Token")}`} })
+        .then((result)=>{
+            if(result.data.userData.type==="Admin"){
+             
+                axios.get("/user",{ headers: {"Authorization" : `Bearer ${localStorage.getItem("Token")}`} })
+                .then(result=>{
+                    let newUsers = [];
+                   result.data.allUsers.forEach(user=>{
+                       newUsers.push({
+                           key:user.id,
+                           value:user.username,
+                           text:user.username
+                       })
+                   })
+
+                   this.setState({users:newUsers})
+
+                    window.scrollTo(0,0);
+                })
+                .catch(error=>{
+                    console.log(error);
+                })
+                
+            }else{
+               
+                this.props.history.replace("/");
+            }
+           
+            
+        })
+        .catch(error=>{
+            localStorage.removeItem("TokenInfo");
+            localStorage.removeItem("Authentication");
+            this.props.history.replace("/login");
+
+        })
       }
-
-
-
-
 
     render(){
        
-        const users = [
-            {key:'id1',value:'jawad',text:'jawad'},
-            {key:'id2',value:'as20203',text:'as20203'},
-            {key:'id3',value:'ali',text:'ali'},
-            {key:'id4',value:'ahmed',text:'ahmed'},
-            {key:'id5',value:'noshi',text:'noshi'}
-          ]
-
+      
           const products = [
             {key:'id1',value:'computer',text:'computer'},
             {key:'id2',value:'table',text:'table'},
@@ -59,7 +84,7 @@ class Admin extends Component{
                                        
                                     
                                     <label> Select User: </label>
-                                    <Dropdown defaultValue={'Other'} required={true} placeholder='Select User' onChange={this.handleChange} selection options={users} />
+                                    <Dropdown defaultValue={'Other'} required={true} placeholder='Select User' onChange={this.handleChange} selection options={this.state.users} />
                                
 
                                

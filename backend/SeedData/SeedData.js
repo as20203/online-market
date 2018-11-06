@@ -10,6 +10,7 @@ var data = [
         city: 'Rawalpindi',
         phone: '03324453365',
         password: '123456',
+    
     },
 
     {

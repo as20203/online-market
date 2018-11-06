@@ -1,15 +1,18 @@
 import React,{Component} from 'react';
 import {Button,Form,Segment,Header} from 'semantic-ui-react';
 import './EditProfile.css';
+import axios from 'axios';
 
 class EditProfile extends Component{
 
     state={
-        description:'',
+        aboutMe:'',
         hobbies:''
         
 
     }
+
+
 
 
   
@@ -24,12 +27,32 @@ class EditProfile extends Component{
         e.preventDefault();
         // get our form data out of state
         
-        const newProduct = this.state;
+        const userInfo = this.state;
+        axios.post("/user/editProfile",userInfo,{ headers: {"Authorization" : `Bearer ${localStorage.getItem("Token")}`} })
+        .then(result=>{
+           if(result.status===200){
+
+               this.props.history.push('/profile');
+           }
+        })
+        .catch(error=>{
+            console.log(error);
+        })
         
-       console.log(newProduct);
+    
       }
       componentDidMount(){
-        window.scrollTo(0,0);
+        axios.get("/user/middleware",{ headers: {"Authorization" : `Bearer ${localStorage.getItem("Token")}`} })
+        .then(()=>{
+            window.scrollTo(0,0);
+            
+        })
+        .catch(error=>{
+            localStorage.removeItem("TokenInfo");
+            localStorage.removeItem("Authentication");
+            this.props.history.push("/login");
+
+        })
       }
     
 
@@ -44,7 +67,7 @@ class EditProfile extends Component{
                            
                             <Form.Field>
                                 <label>About Me:</label>           
-                                <textarea  required name="description" placeholder="Write About Your Schooling,Interests etc."  onChange={this.onChange} />
+                                <textarea  required name="aboutMe" placeholder="Write About Your Schooling,Interests etc."  onChange={this.onChange} />
                             </Form.Field>
 
                             <Form.Field >
