@@ -4,11 +4,39 @@ const mongoose = require("mongoose");
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const checkAuth = require('../middleware/check-auth');
+const multer = require('multer');
 
+const storage = multer.diskStorage({
+    destination:function(req,file,cb){
+        cb(null,'./allUsers/')
+    },
+    filename: function(req,file,cb){
+        cb(null,file.originalname);
+    }
+})
+
+
+const fileFilter = (req,file,cb) =>{
+    if(file.mimetype ==='image/png' || file.mimetype==='image/jpeg'){
+        cb(null,true);
+    }else{
+        cb(new Error('We accept only jpeg or png file types.'),false);
+    }
+}
+
+const upload = multer({
+    storage:storage,
+    limits:{
+    fileSize:1024*1024*6
+    },
+    fileFilter:fileFilter
+})
 const User = require('../models/user');
 
 router.get("/",checkAuth,(req,res,next)=>{
+  
     User.find({userType:"Client"})
+    
     .exec()
     .then(users=>{
         var allUsers = [];
@@ -57,7 +85,7 @@ router.post('/register',(req,res,next)=>{
                     user
                     .save()
                     .then(result=>{
-                        console.log(result);
+                       
                         res.status(201).json({
                             message:'User Created'
                         })
@@ -85,7 +113,7 @@ router.post('/login',(req,res,next)=>{
                 message:"Auth Failed"
             });
         }else{
-            console.log(user[0])
+           
             bcrypt.compare(req.body.password,user[0].password,(err,result)=>{
                 if(err){
                     return res.status(401).json({
@@ -134,14 +162,16 @@ router.get('/profile',checkAuth,(req,res,next)=>{
     User.find({_id:req.userData.id})
     .exec()
     .then(user=>{
-        console.log(user[0]);
+       
         newUser = {
             username:user[0].username,
             aboutMe:user[0].aboutMe,
             hobbies:user[0].hobbies,
             city:user[0].city,
-            phone:user[0].phone
+            phone:user[0].phone,
+            userImage:user[0].userImage
         }
+        console.log(newUser);
         
         return res.status(201).json({
             userData:newUser
@@ -162,7 +192,7 @@ router.post('/editProfile',checkAuth,(req,res,next)=>{
     User.updateOne({_id:req.userData.id},req.body)
     .exec()
     .then(doc=>{
-        console.log(doc);
+       
 
         return res.status(200).json({
             message:"Successful"
@@ -174,6 +204,24 @@ router.post('/editProfile',checkAuth,(req,res,next)=>{
             error:err
         })
     })
+})
+
+router.post('/profileImage',upload.single('image'),checkAuth,(req,res,next)=>{
+    
+   
+   User.updateOne({_id:req.userData.id},{$set: {"userImage": req.file.path}})
+   .exec()
+   .then(doc=>{
+      
+       return res.status(200).json({
+           message:"Upload Successful"
+       })
+   })
+   .catch(err=>{
+    res.status(500).json({
+        error:err
+    })
+})
 })
 
 

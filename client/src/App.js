@@ -7,14 +7,15 @@ import Navbar from './containers/Navigation/Navbar/Navbar';
 import Landing from './components/Landing/Landing';
 import Product from './containers/Products/Products';
 import Footer from './components/Footer/Footer';
-import createProduct from './containers/Product/Product';
+import CreateProduct from './containers/Product/Product';
 import Editprofile from './containers/User/Profile/EditProfile/EditProfile';
 import productInfo from './containers/Products/ProductInfo/ProductInfo';
 import adminPage from './containers/Admin/Admin';
-
 import './App.css'
 
 class App extends Component {
+
+
  
   
  
@@ -24,6 +25,7 @@ class App extends Component {
     return (
       <Router>
       <div >
+     
     
        <Navbar />
       
@@ -31,8 +33,8 @@ class App extends Component {
        <Route exact path="/"  component={Landing} />
        <Route path='/productInfo' component={productInfo} />
        <Route path='/adminPage' component={adminPage} />
+       <Route path="/createProduct" component={CreateProduct} />
        <Route path='/editProfile'  component={Editprofile} />
-       <Route path="/createProduct" component={createProduct} />
        <Route path="/profile" component={Profile} />
        <Route path="/login" component={Login} />
        <Route path="/signup" component={Signup}/>
@@ -42,7 +44,7 @@ class App extends Component {
 
 
       <Footer />
-       
+     
       </div>
 
      

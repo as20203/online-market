@@ -26,15 +26,25 @@ class Product extends Component{
       }
 
       
+     
       onSubmit = (e) => {
         e.preventDefault();
         // get our form data out of state
         
         const newProduct = this.state;
+        axios.post("/products",newProduct,{ headers: {"Authorization" : `Bearer ${localStorage.getItem("Token")}`} })
+        .then(result=>{
+           if(result.status===201){
+
+               this.props.history.push('/products');
+           }
+        })
+        .catch(error=>{
+            console.log(error);
+        })
         
        console.log(newProduct);
       }
-
 
       componentDidMount(){
         axios.get("/user/middleware",{ headers: {"Authorization" : `Bearer ${localStorage.getItem("Token")}`} })

@@ -1,8 +1,7 @@
 import React,{Component} from 'react';
-import {Input,Button,Card,Image,Grid,Segment,Header,Container,Divider} from 'semantic-ui-react';
+import {Input,Button,Card,Image,Grid,Segment,Header,Container,Divider,Form} from 'semantic-ui-react';
 import './Profile.css'
 import axios from 'axios'
-import userImage from '../../../assets/user-empty/empty-user.png'
 import {Link} from 'react-router-dom';
 import ProductLi from '../../Products/ProductLi/ProductLi';
 import bed from '../../../assets/landing-page/furniture/bed.png';
@@ -17,8 +16,56 @@ class Profile extends Component{
       aboutMe:'',
       hobbies:'',
       city:'',
-      phone:''
+      phone:'',
+      image:null,
+      imagePath:''
         
+    }
+
+    onSubmit = (e) =>{
+        e.preventDefault();
+        const fd = new FormData();
+       
+        fd.append('image',this.state.image,this.state.image.name);
+       
+
+        axios.post('/user/profileImage',fd,{ headers: {"Authorization" : `Bearer ${localStorage.getItem("Token")}`} })
+        .then(result=>{
+
+            axios.get('/user/profile', { headers: {"Authorization" : `Bearer ${localStorage.getItem("Token")}`} })
+            .then(result=>{
+                    
+              
+                   
+                    window.scrollTo(0,0);
+                    this.setState({
+                       
+                        imagePath:result.data.userData.userImage
+        
+                    });
+                
+            }
+    
+            )
+            .catch(error=>{
+                localStorage.removeItem("TokenInfo");
+                localStorage.removeItem("Authentication");
+              this.props.history.replace('/login');
+            })
+
+            
+        })
+        .catch(error=>{
+            console.log(error);
+        })
+    }
+
+    fileSelectHandler = (event) =>{
+       
+        this.setState({
+            image:event.target.files[0]
+        })
+      
     }
 
     componentDidMount(){
@@ -26,9 +73,9 @@ class Profile extends Component{
             
             axios.get('/user/profile', { headers: {"Authorization" : `Bearer ${localStorage.getItem("Token")}`} })
             .then(result=>{
-                    console.log(result);
+                    
               
-               
+                  
                     window.scrollTo(0,0);
                     this.setState({
                         username:result.data.userData.username,
@@ -36,6 +83,7 @@ class Profile extends Component{
                         hobbies:result.data.userData.hobbies,
                         city:result.data.userData.city,
                         phone:result.data.userData.phone,
+                        imagePath:result.data.userData.userImage
         
                     });
                 
@@ -67,15 +115,18 @@ class Profile extends Component{
                     <Grid.Column computer={5} tablet={7} mobile={16}>
                        
                             <Card className="profileImgCard">
-                                <Image src={userImage} style={{marginTop:"0px"}} />
+                                <Image src={this.state.imagePath}  style={{marginTop:"0px"}} />
                                 <Card.Content>
                                     <Card.Header as='h4' style={{color:'teal'}}>{this.state.username}</Card.Header>
                                     
                                 </Card.Content>
                                 <Card.Content extra>
-                                    <Input type="file" className="userImage" /> 
+                                <Form onSubmit={this.onSubmit}>
+                                    <Input type="file" className="userImage" name="image" onChange={this.fileSelectHandler} /> 
                                         <br/>
-                                        <Button   color="blue" className="profileButton">Upload Image</Button>
+                                        <Button type="submit"   color="blue" className="profileButton">Upload Image</Button>
+                                </Form>
+
                                 </Card.Content>
                             </Card>
                         

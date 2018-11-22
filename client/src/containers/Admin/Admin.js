@@ -27,6 +27,8 @@ class Admin extends Component{
         .then((result)=>{
             if(result.data.userData.type==="Admin"){
              
+             
+
                 axios.get("/user",{ headers: {"Authorization" : `Bearer ${localStorage.getItem("Token")}`} })
                 .then(result=>{
                     let newUsers = [];
@@ -45,6 +47,8 @@ class Admin extends Component{
                 .catch(error=>{
                     console.log(error);
                 })
+
+            
                 
             }else{
                
@@ -59,7 +63,9 @@ class Admin extends Component{
             this.props.history.replace("/login");
 
         })
-      }
+    }
+       
+      
 
     render(){
        

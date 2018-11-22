@@ -7,7 +7,7 @@ var mongoose = require('mongoose');
 var seedDB = require('./backend/SeedData/SeedData');
 //Routes
 const userRoutes = require('./backend/routes/auth');
-
+const productRoutes = require('./backend/routes/products');
 
 
 const app = express();
@@ -27,6 +27,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 //Use Routes
 app.use("/user",userRoutes);
+app.use("/products",productRoutes);
+app.use('/allUsers',express.static('allUsers'));
 
 if (process.env.NODE_ENV === 'production') {
   // Serve any static files
