@@ -52,7 +52,7 @@ class Product extends Component{
         .then(result=>{
            if(result.status===201){
 
-               this.props.history.push('/products');
+            this.props.history.replace("/Allproducts");
            }
         })
         .catch(error=>{
