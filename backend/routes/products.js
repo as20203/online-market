@@ -38,13 +38,19 @@ const upload = multer({
 
 
 router.get("/", (req,res,next) => {
+        let decoded = null;
    
-     
-        const token = req.headers.authorization.split(" ")[1];
+        if(req.headers.authorization){
+            const token = req.headers.authorization.split(" ")[1];
         
-        const decoded = jwt.decode(token,process.env.JWT_KEY)
-    
-        req.userData = decoded;
+           decoded = jwt.decode(token,process.env.JWT_KEY)
+        
+            req.userData = decoded;
+           
+
+        }
+        
+        
        
 
         if(decoded && req.userData.type==="Admin"){
