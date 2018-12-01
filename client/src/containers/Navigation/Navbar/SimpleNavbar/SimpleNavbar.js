@@ -13,7 +13,7 @@ const simpleNav = (props) =>{
             </Link>
            
             
-            <Link to='/products' name="products" >
+            <Link to='/Allproducts' name="products" >
             <Icon name="dollar" className="myicon"  />Products
             </Link>
             
