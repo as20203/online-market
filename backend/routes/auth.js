@@ -112,7 +112,7 @@ router.post('/login',(req,res,next)=>{
     .exec()
     .then(user=>{
         if(user.length<1){
-            console.log(user);
+           
            return res.status(401).json({
                 message:"Auth Failed."
             });
@@ -170,7 +170,7 @@ router.get('/profile',checkAuth,(req,res,next)=>{
     Product.find({"Owner.user":req.userData.id})
     .exec()
     .then(products=>{
-        console.log(products);
+       
         const response ={
             products: products.map(product => {
                 return {

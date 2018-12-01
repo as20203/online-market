@@ -2,9 +2,9 @@ const express = require('express');
 
 const port = process.env.PORT || 5000;
 const path = require('path');
-var bodyParser = require('body-parser');
-var mongoose = require('mongoose');
-var seedDB = require('./backend/SeedData/SeedData');
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+const seedDB = require('./backend/SeedData/SeedData');
 //Routes
 const userRoutes = require('./backend/routes/auth');
 const productRoutes = require('./backend/routes/products');
@@ -18,7 +18,7 @@ const      io = require("socket.io")(server);
 const timer = 30;
 //Connect to database
 //Connect to a database
-var url = process.env.DATABASEURL || "mongodb://localhost/online-market";
+const url = process.env.DATABASEURL || "mongodb://localhost/online-market";
 mongoose.connect(url,{ useNewUrlParser: true,useCreateIndex: true, });
 
 seedDB();
@@ -26,7 +26,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 io.sockets.on("connection",userSocket=>{
-  console.log("connected:- "+userSocket.id);
+ 
   
   
   

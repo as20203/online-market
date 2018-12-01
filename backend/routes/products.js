@@ -45,7 +45,7 @@ router.get("/", (req,res,next) => {
         const decoded = jwt.decode(token,process.env.JWT_KEY)
     
         req.userData = decoded;
-        console.log(decoded);
+       
 
         if(decoded && req.userData.type==="Admin"){
             Product.find()
@@ -262,7 +262,7 @@ router.post("/bid/:id",checkAuth,(req,res,next)=>{
                         const sortedBids = bids.sort((a,b)=>{
                            return b.bidAmount-a.bidAmount;
                         })
-                        console.log(sortedBids);
+                      
                     req.io.to(room).emit("update",{message:sortedBids,biddable:true})
                     return res.status(200).json({
                         message:"Successfullly send the updated bid."
@@ -353,7 +353,7 @@ router.post("/done/:id",checkAuth,(req,res,next)=>{
             })
            
            const winnerUser=sortedBids[0].Owner.user;
-           console.log(winnerUser);
+           console.log(sortedBids[0]);
            //Update the amount in this users account.
             User.find({_id:winnerUser})
            .select("accountBalance")
@@ -366,7 +366,7 @@ router.post("/done/:id",checkAuth,(req,res,next)=>{
             .exec()
             .then(user=>{
                  //Send a broadcast on the front end.
-                 console.log(user);
+                
                  req.io.to(room).emit("update",{message:sortedBids,biddable:false})
                  return res.status(200).json({
                      message:"Bid Ended the Winner will be given the product.",

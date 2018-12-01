@@ -57,11 +57,8 @@ class Products extends Component {
         
     }
    
-
-
-   componentDidMount(){
-    window.scrollTo(0,0);
-    axios.get('/products',{ headers: {"Authorization" : `Bearer ${localStorage.getItem("Token")}`} })
+    dataFunction = ()=>{
+        axios.get('/products',{ headers: {"Authorization" : `Bearer ${localStorage.getItem("Token")}`} })
     .then(response=>{
       
        
@@ -74,6 +71,18 @@ class Products extends Component {
     .catch(error=>{
         console.log(error);
     })
+        
+    }
+
+
+   componentDidMount(){
+    window.scrollTo(0,0);
+    this.dataFunction()
+    this.Interval = setInterval(()=>{ this.dataFunction(); },15000);  
+   }
+
+   componentWillMount(){
+    clearInterval(this.Interval);
    }
   
 
