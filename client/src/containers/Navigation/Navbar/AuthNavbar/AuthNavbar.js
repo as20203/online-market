@@ -24,7 +24,7 @@ const simpleNav = (props) =>{
                 Profile
             </Link>
 
-             <Link to='/Allproducts' name="user">
+             <Link to='/allTheProducts' name="user">
                 <Icon name="dollar" className="myicon"  />
                 Products
             </Link>
