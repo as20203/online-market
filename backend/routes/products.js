@@ -253,11 +253,17 @@ router.post("/bid/:id",checkAuth,(req,res,next)=>{
            .then(user=>{
             
               
-            if( (user.accountBalance< req.body.bidAmount)||(bid[0].bidAmount>req.body.bidAmount)){
+            if( user.accountBalance< req.body.bidAmount){
                 return res.status(401).json({
-                    message:"Bid Amount is greater than the account balance"
+                    message:"Bid Amount is greater than the account balance."
                 })
-             }else{
+             }
+             else if (bid[0].bidAmount>req.body.bidAmount){
+                return res.status(401).json({
+                    message:"Bid value is less than your current bid."
+                })
+             }
+             else{
                  //update bid amount.
                 Bid.updateOne({"Owner.user":req.userData.id,product:req.params.id},{$set: {"bidAmount": req.body.bidAmount}})
                 .exec()

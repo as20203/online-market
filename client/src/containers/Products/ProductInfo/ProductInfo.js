@@ -5,6 +5,7 @@ import socketIOClient from "socket.io-client";
 import axios from 'axios'
 import ReactTable from 'react-table'
 import "react-table/react-table.css"
+import Loader from 'react-loader-spinner'
 
 
 const columns = [{
@@ -47,13 +48,14 @@ class Profile extends Component{
         amount:0,
         description:'',
         owner:'',
-        category:'',
+        category:null,
         imagePath:'',
         bids:[],
         username:null,
         userType:null,
         biddable:true,
         accountBalance:0,
+        errorMessage:null
        
       
       
@@ -87,10 +89,16 @@ class Profile extends Component{
        
        axios.post('/products/bid/'+this.props.match.params.id,bid,{ headers: {"Authorization" : `Bearer ${localStorage.getItem("Token")}`} })
        .then(response=>{
+           this.setState({
+               errorMessage:null
+           })
          
        })
        .catch(error=>{
-           console.log(error.response);
+          
+           this.setState({
+               errorMessage:error.response.data.message
+           })
        });
       
       }
@@ -117,7 +125,7 @@ class Profile extends Component{
             window.scrollTo(0,0);
             axios.get("/products/"+this.props.match.params.id,{ headers: {"Authorization" : `Bearer ${localStorage.getItem("Token")}`} })
             .then(response=>{
-                console.log(response);
+               
 
                 this.setState({
                     name:response.data.product.name,
@@ -135,7 +143,7 @@ class Profile extends Component{
                 })
             })
             .catch(error=>{
-                console.log(error);
+                console.log(error.response);
             })
            
             
@@ -150,6 +158,27 @@ class Profile extends Component{
 
 
     render(){
+        if(!this.state.category){
+            return(
+                <div style={{margin:'350px auto',minHeight:'80vh',width:'1.5em'}}>
+                <Loader 
+                   
+                    
+                   type="Grid"
+                   color="#DFCFBE"
+                   height="80"	
+                    width="80"
+                   
+                />  
+                </div> 
+               );
+        }
+        let errorMessage = null;
+        if(this.state.errorMessage){
+            errorMessage = <Message  negative>
+            <p style={{textAlign:"center"}}>{this.state.errorMessage}</p>
+            </Message>
+        }
       
        const imageSrc ="../"+this.state.imagePath;
        let bidComp = null;
@@ -160,6 +189,7 @@ class Profile extends Component{
 
             <Header as="h1" color={"grey"} textAlign={"left"}>Bid On this product</Header>
             <Header as="h3" color={"grey"} textAlign={"center"}>Account Balance:- ${this.state.accountBalance}</Header>
+                {errorMessage}
            <Form.Group widths='equal'>
                <Form.Field>
                   

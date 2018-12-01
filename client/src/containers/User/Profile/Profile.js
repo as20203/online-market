@@ -5,6 +5,7 @@ import axios from 'axios'
 import {Link} from 'react-router-dom';
 import ProductLi from '../../Products/ProductLi/ProductLi';
 
+import Loader from 'react-loader-spinner'
 
 
 
@@ -114,6 +115,22 @@ class Profile extends Component{
        
       }
     render(){
+        if(!this.state.userType){
+            return(
+                <div style={{margin:'350px auto',minHeight:'80vh',width:'1.5em'}}>
+                <Loader 
+                   
+                    
+                   type="Grid"
+                   color="#DFCFBE"
+                   height="80"	
+                    width="80"
+                   
+                />  
+                </div> 
+               );
+
+        }
         let errorMessage = null;
         if(this.state.error){
             errorMessage = <Message  negative>

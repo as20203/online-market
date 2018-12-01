@@ -1,6 +1,7 @@
 import React,{Component} from 'react';
 import {Segment,Container,Header,Form,Dropdown,Button,Divider,Message} from 'semantic-ui-react';
 import axios from 'axios'
+import Loader from 'react-loader-spinner'
 
 class Admin extends Component{
     state={
@@ -107,6 +108,7 @@ class Admin extends Component{
     }
 
     componentDidMount(){
+        
 
         axios.get("/user/middleware",{ headers: {"Authorization" : `Bearer ${localStorage.getItem("Token")}`} })
         .then((result)=>{
@@ -142,6 +144,22 @@ class Admin extends Component{
       
 
     render(){
+        if(!this.state.users.length && !this.state.products.length){
+            return(
+                <div style={{margin:'350px auto',minHeight:'80vh',width:'1.5em'}}>
+                <Loader 
+                    className="loader"
+                    
+                   type="Grid"
+                   color="#DFCFBE"
+                   height="80"	
+                    width="80"
+                   
+                />  
+                </div> 
+               );
+
+        }
         let userMessage = null;
         let productMessage = null;
         if(this.state.userMessage){

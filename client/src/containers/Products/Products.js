@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './Products.css';
 import ProductLi from './ProductLi/ProductLi';
+import Loader from 'react-loader-spinner'
 
 import {Container,Grid,Input,Dropdown} from 'semantic-ui-react';
 
@@ -87,6 +88,22 @@ class Products extends Component {
   
 
   render() {
+
+    if(!this.state.products.length){
+        return(
+            <div style={{margin:'350px auto',minHeight:'80vh',width:'1.5em'}}>
+            <Loader 
+                className="loader"
+                
+               type="Grid"
+               color="#DFCFBE"
+               height="80"	
+                width="80"
+               
+            />  
+            </div> 
+           );
+    }
 
 
    let filteredProducts = this.state.products.filter(product=>{
