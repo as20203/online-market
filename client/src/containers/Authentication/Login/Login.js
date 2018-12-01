@@ -38,7 +38,7 @@ class Login extends Component{
                 localStorage.setItem("Token",result.data.token);
                 localStorage.setItem("Authentication"," ");
                 if(decoded.type==='Client'){
-                    this.props.history.replace("/Allproducts");
+                    this.props.history.replace("/allTheProducts");
                 }else{
                     this.props.history.replace("/adminPage");
                 }

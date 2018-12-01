@@ -62,7 +62,7 @@ const landing = (props)=>{
        
             {/* <Header color="teal" textAlign={"center"} as="h1">Welcome To JNS Online-Market</Header> */}
             <Divider section />
-            <Button as={Link} to='/products' style={{width:'200px'}} className="Button" color="grey" >Check Out Our Products</Button>
+            <Button as={Link} to='/allTheProducts' style={{width:'200px'}} className="Button" color="grey" >Check Out Our Products</Button>
            
             <Header color="olive" textAlign={"left"}  as="h2">We offer you:</Header>
            
