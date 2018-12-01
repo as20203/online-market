@@ -1,12 +1,12 @@
 import React from 'react';
-import {Segment,Container,Grid,Header,List,Item} from 'semantic-ui-react';
+import {Segment,Grid,Header,List,Item} from 'semantic-ui-react';
 import './Footer.css'
 const footer = ()=>{
 
     return(
         <Segment inverted={true} vertical={true} className="footerStyle"> 
-            <Container>
-
+           
+            <div style={{margin:'0px 10px'}}>
                 <Grid stackable={true} inverted={true} divided={true} > 
                
                     <Grid.Column width={3}>
@@ -36,7 +36,8 @@ const footer = ()=>{
                         
                     </Grid.Column>
                </Grid>
-            </Container>
+            </div>
+          
     </Segment>
 
     )

@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
 
-import {Button,Form,Segment} from 'semantic-ui-react';
+import {Button,Form,Segment,Message} from 'semantic-ui-react';
 import './Login.css'
 import axios from 'axios';
 import jtwDecode from 'jwt-decode';
@@ -9,7 +9,8 @@ import jtwDecode from 'jwt-decode';
 class Login extends Component{
     state={
         username:'',
-        password:''
+        password:'',
+        error: null
     }
 
 
@@ -46,7 +47,10 @@ class Login extends Component{
              
                 
             }
-          });
+          })
+          .catch(error=>{
+           this.setState({error:error.response.data.message});
+          })
       }
 
       componentDidMount(){
@@ -56,13 +60,20 @@ class Login extends Component{
    
 
     render(){
+        let errorMessage = null;
+        if(this.state.error){
+            errorMessage = <Message  negative>
+            <p style={{textAlign:"center"}}>{this.state.error}</p>
+            </Message>
+        }
     
        
         return(
-            
-        <Segment stacked className="LoginSegment">
+        <div className="LoginSegment">
+        <Segment stacked >
                 
                 <h1 className="header">Login</h1>
+                {errorMessage}
                 <Form onSubmit={this.onSubmit}>
                         <Form.Field inline>
                         <label >Username:  </label>
@@ -78,7 +89,7 @@ class Login extends Component{
                     
             </Segment>
 
-     
+     </div>    
 
            
            

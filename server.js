@@ -9,10 +9,13 @@ var seedDB = require('./backend/SeedData/SeedData');
 const userRoutes = require('./backend/routes/auth');
 const productRoutes = require('./backend/routes/products');
 
-
 const app = express();
 
+const     server = require("http").Server(app);
+const      io = require("socket.io")(server);
 
+
+const timer = 30;
 //Connect to database
 //Connect to a database
 var url = process.env.DATABASEURL || "mongodb://localhost/online-market";
@@ -22,13 +25,49 @@ seedDB();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+io.sockets.on("connection",userSocket=>{
+  console.log("connected:- "+userSocket.id);
+  
+  
+  
+  
+  
+  userSocket.on('myRoom',function(userRoom){
+   
+    userSocket.join(userRoom.message);
+  })
 
+
+	userSocket.emit('hello',{message:"Hello from server"});
+
+		
+	userSocket.on('disconnect', ()=> {
+        console.log('Client disconnected: - '+userSocket.id);
+    });
+});
+
+
+
+
+// Make io accessible to our router
+app.use(function(req,res,next){
+  req.io = io;
+  next();
+});
 
 
 //Use Routes
 app.use("/user",userRoutes);
 app.use("/products",productRoutes);
 app.use('/allUsers',express.static('allUsers'));
+app.use('/allProducts',express.static('allProducts'));
+
+
+//Io Connections
+
+
+
+
 
 if (process.env.NODE_ENV === 'production') {
   // Serve any static files
@@ -43,4 +82,4 @@ if (process.env.NODE_ENV === 'production') {
 
 
 
-app.listen(port, () => console.log(`Listening on port ${port}`));
+server.listen(port, () => console.log(`Listening on port ${port}`));

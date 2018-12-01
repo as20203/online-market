@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import {Button,Form,Segment,Header,Dropdown} from 'semantic-ui-react';
+import {Button,Form,Segment,Header,Dropdown,Message} from 'semantic-ui-react';
 import './Product.css'
 import axios from 'axios'
 
@@ -9,8 +9,10 @@ class Product extends Component{
         productname:'',
         description:'',
         amount: 0,
-        image:'',
-        category:'Other'
+        image:null,
+        category:'',
+        error:null
+       
 
     }
 
@@ -23,7 +25,15 @@ class Product extends Component{
     onChange = (event) => {
         
         this.setState({ [event.target.name]:event.target.value });
-      }
+    }
+
+    fileSelectHandler = (event) =>{
+       
+        this.setState({
+            image:event.target.files[0]
+        })
+      
+    }
 
       
      
@@ -31,8 +41,14 @@ class Product extends Component{
         e.preventDefault();
         // get our form data out of state
         
-        const newProduct = this.state;
-        axios.post("/products",newProduct,{ headers: {"Authorization" : `Bearer ${localStorage.getItem("Token")}`} })
+       const fd = new FormData();
+       fd.append("productname",this.state.productname);
+       fd.append("description",this.state.description);
+       fd.append("amount",this.state.amount);
+       fd.append("category",this.state.category);
+       fd.append('image',this.state.image,this.state.image.name);
+
+        axios.post("/products",fd,{ headers: {"Authorization" : `Bearer ${localStorage.getItem("Token")}`} })
         .then(result=>{
            if(result.status===201){
 
@@ -40,16 +56,22 @@ class Product extends Component{
            }
         })
         .catch(error=>{
-            console.log(error);
+            this.setState({
+                error:error.response.data.message
+            })
         })
         
-       console.log(newProduct);
+      
       }
 
       componentDidMount(){
         axios.get("/user/middleware",{ headers: {"Authorization" : `Bearer ${localStorage.getItem("Token")}`} })
-        .then(()=>{
-            window.scrollTo(0,0);
+        .then((response)=>{
+            if(response.data.userData.type!=="Client"){
+                localStorage.removeItem("TokenInfo");
+                localStorage.removeItem("Authentication");
+                this.props.history.push("/login");
+            }
             
         })
         .catch(error=>{
@@ -63,13 +85,21 @@ class Product extends Component{
     
 
     render(){
+
+        let errorMessage = null;
+        if(this.state.error){
+            errorMessage = <Message  negative>
+            <p style={{textAlign:"center"}}>{this.state.error}</p>
+            </Message>
+        }
        
         const options = [
             {key:'Accessories',value:'Accessories',text:'Accessories'},
             {key:'Footwear',value:'Footwear',text:'Footwear'},
             {key:'Furniture',value:'Furniture',text:'Furniture'},
             {key:'Clothes',value:'Clothes',text:'Clothes'},
-            {key:'Bags',value:'Bags',text:'Bags'}
+            {key:'Bags',value:'Bags',text:'Bags'},
+            {key:'Other',value:'Other',text:'Other'}
           ]
           
     
@@ -79,6 +109,7 @@ class Product extends Component{
                 <Segment stacked className="ProductSegment">
                     
                     <Header color={"grey"} as="h1">Product</Header>
+                    {errorMessage}
                     <Form onSubmit={this.onSubmit}>
                             <Form.Field inline>
                                 <label>Name: </label>
@@ -96,13 +127,13 @@ class Product extends Component{
 
                             <Form.Field inline>
                                 <label> Image: </label>
-                                <input required style={{width:"210px"}}  type="file" name="image"  onChange={this.onChange}></input> 
+                                <input required style={{width:"210px"}}  type="file" name="image"  onChange={this.fileSelectHandler}></input> 
                             </Form.Field>
 
 
                             <Form.Field inline>
                                 <label>  Category: </label>
-                                <Dropdown defaultValue={'Other'} required={true} placeholder='Select Your Category' onChange={this.handleChange} selection options={options} />
+                                <Dropdown value={this.state.value} required={true} placeholder='Select Your Category' onChange={this.handleChange} selection options={options} />
                                
 
                                

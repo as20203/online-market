@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import {Button,Form,Segment} from 'semantic-ui-react';
+import {Button,Form,Segment,Message} from 'semantic-ui-react';
 import axios from 'axios';
 import './Signup.css';
 
@@ -11,7 +11,8 @@ class Signup extends Component{
             password:'',
             email:'',
             city:'',
-            phone:''
+            phone:'',
+            error:null
       
     }
 
@@ -33,7 +34,12 @@ class Signup extends Component{
                
                 this.props.history.push("/login");
             }
-          });
+          })
+          .catch(error=>{
+              this.setState({
+                  error:error.response.data.message
+              })
+          })
       }
 
       componentDidMount(){
@@ -43,12 +49,21 @@ class Signup extends Component{
 
 
     render(){
+        let errorMessage = null;
+        if(this.state.error){
+            errorMessage = <Message  negative>
+            <p style={{textAlign:"center"}}>{this.state.error}</p>
+            </Message>
+        }
+    
+       
       
         return(
           
      
            <Segment stacked className="SignUpSegment">
            <h1 className="header">Signup</h1>
+           {errorMessage}
            <Form onSubmit={this.onSubmit}>
                    <Form.Field inline>
                         <label>Username: </label>
@@ -62,7 +77,7 @@ class Signup extends Component{
        
                    <Form.Field inline>
                         <label>Email: </label>
-                        <input required type="email" name="email" placeholder="Enter you email" onChange={this.onChange}></input>
+                        <input  required type="email" name="email" placeholder="Enter you email" onChange={this.onChange}></input>
                    </Form.Field>
 
                    <Form.Field inline>
@@ -72,7 +87,7 @@ class Signup extends Component{
 
                     <Form.Field inline> 
                             <label>Phone No: </label>
-                            <input required type="text" name="phone" placeholder="Enter phone no" onChange={this.onChange}></input>
+                            <input pattern="[0-9]+" required type="text" name="phone" placeholder="Enter phone no" onChange={this.onChange}></input>
                     </Form.Field>
 
 

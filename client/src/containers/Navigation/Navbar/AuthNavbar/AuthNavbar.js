@@ -4,7 +4,13 @@ import {Link} from 'react-router-dom';
 import '../SimpleNavbar/SimpleNavbar.css'
 
 const simpleNav = (props) =>{
-  
+    let link = null;
+    if(props.type!=='admin'){
+        link  = <Link to='/createProduct' name="user">
+        <Icon name="dollar" className="myicon"  />
+       Create Product
+    </Link>
+    }
     return(
         <div icon="labeled"  className="topnav" id="myTopnav">
             
@@ -22,13 +28,9 @@ const simpleNav = (props) =>{
                 <Icon name="dollar" className="myicon"  />
                 Products
             </Link>
+            
+            {link}
 
-
-
-            <Link to='/createProduct' name="createproduct">
-                <Icon name="dollar" className="myicon"  />
-                Create Product
-            </Link>
 
             
 

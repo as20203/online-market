@@ -24,14 +24,14 @@ class App extends Component {
    
     return (
       <Router>
-      <div >
+      <div>
      
     
        <Navbar />
       
       
        <Route exact path="/"  component={Landing} />
-       <Route path='/productInfo' component={productInfo} />
+       <Route path='/productInfo/:id' component={productInfo} />
        <Route path='/adminPage' component={adminPage} />
        <Route path="/createProduct" component={CreateProduct} />
        <Route path='/editProfile'  component={Editprofile} />

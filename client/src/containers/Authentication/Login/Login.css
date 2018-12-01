@@ -12,8 +12,10 @@
 }
 
 .LoginSegment{
-    margin:200px auto !important ;
-    width:24em !important
+    margin:200px auto 50px auto !important ;
+    
+    width:24em !important;
+    min-height: 60vh;
     
 }
 

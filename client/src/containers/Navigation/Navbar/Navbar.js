@@ -63,7 +63,7 @@ class myNav extends Component {
      
       if(tokenInfo){
         if(tokenInfo.type==='Admin'){
-          header = <AuthNavbar link='/adminPage' myFunction={this.myFunction} logoutFunction={this.logoutHandler} />;
+          header = <AuthNavbar type="admin" link='/adminPage' myFunction={this.myFunction} logoutFunction={this.logoutHandler} />;
         }else{
           header = <AuthNavbar link='/' myFunction={this.myFunction} logoutFunction={this.logoutHandler} />;
         }

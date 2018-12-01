@@ -11,16 +11,13 @@ class ProductLi extends Component {
            
               <div className="product" >
                 <div className="picture" style={{backgroundImage:`url(${this.props.imageSrc})`}}></div>
-                <div className="info">
+                <div className="info" style={{overflow:'hidden'}}>
                   <header>
-                    <Header as="h1" color={'brown'}>Our Product</Header>
-                    <span> <ButtonAnimated  /></span>
+                    <Header as="h1" color={'brown'}>{this.props.name}</Header>
+                    <span> <ButtonAnimated pId={this.props._id}  /></span>
                   </header>
                   <p>
-                  A product description is the marketing copy that 
-                  explains what a product is and why it's worth purchasing. 
-                  The purpose of a product description is to supply customers 
-                  with details around the features and benefits of the product so they're compelled to buy.
+                   {this.props.description}
                   
                   </p>
                 </div>

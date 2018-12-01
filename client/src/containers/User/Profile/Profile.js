@@ -1,11 +1,10 @@
 import React,{Component} from 'react';
-import {Input,Button,Card,Image,Grid,Segment,Header,Container,Divider,Form} from 'semantic-ui-react';
+import {Input,Button,Card,Image,Grid,Segment,Header,Divider,Form,Message} from 'semantic-ui-react';
 import './Profile.css'
 import axios from 'axios'
 import {Link} from 'react-router-dom';
 import ProductLi from '../../Products/ProductLi/ProductLi';
-import bed from '../../../assets/landing-page/furniture/bed.png';
-import chairs from '../../../assets/landing-page/furniture/chairs.png';
+
 
 
 
@@ -18,7 +17,11 @@ class Profile extends Component{
       city:'',
       phone:'',
       image:null,
-      imagePath:''
+      imagePath:'',
+      products:[],
+      error:null,
+      accountBalance: 0,
+      userType:null
         
     }
 
@@ -39,7 +42,7 @@ class Profile extends Component{
                    
                     window.scrollTo(0,0);
                     this.setState({
-                       
+                        error:null,
                         imagePath:result.data.userData.userImage
         
                     });
@@ -56,12 +59,14 @@ class Profile extends Component{
             
         })
         .catch(error=>{
-            console.log(error);
+            this.setState({
+                error:error.response.data.message
+            })
         })
     }
 
     fileSelectHandler = (event) =>{
-       
+      
         this.setState({
             image:event.target.files[0]
         })
@@ -75,7 +80,7 @@ class Profile extends Component{
             .then(result=>{
                     
               
-                  
+                    console.log(result);
                     window.scrollTo(0,0);
                     this.setState({
                         username:result.data.userData.username,
@@ -83,7 +88,10 @@ class Profile extends Component{
                         hobbies:result.data.userData.hobbies,
                         city:result.data.userData.city,
                         phone:result.data.userData.phone,
-                        imagePath:result.data.userData.userImage
+                        imagePath:result.data.userData.userImage,
+                        products:result.data.products.products,
+                        accountBalance:result.data.userData.balance,
+                        userType:result.data.userData.type
         
                     });
                 
@@ -106,6 +114,50 @@ class Profile extends Component{
        
       }
     render(){
+        let errorMessage = null;
+        if(this.state.error){
+            errorMessage = <Message  negative>
+            <p style={{textAlign:"center"}}>{this.state.error}</p>
+            </Message>
+        }
+
+
+        const productList = this.state.products.map((product,index)=>{
+            return ( <Grid.Column key={index} computer={8} tablet={16} mobile={16}>
+                        <ProductLi key={product._id} _id={product._id} name={product.name} description={product.description} imageSrc={product.productImage} />
+                    </Grid.Column>)
+        })
+
+
+        let userInfo = null;
+       
+      
+        if(this.state.userType!=="Admin"){
+            userInfo =  <div>
+             <Divider section />
+            <Header as="h1" color={"grey"} textAlign={"left"}>Account Balance:</Header>
+             <div className="profileContainer2"> 
+                <p>${this.state.accountBalance}</p>
+            </div>
+            <Divider section />
+            <Header as="h1" color={"grey"} textAlign={"left"}>My Products:</Header>
+            <div className="profileContainer1"> 
+
+            <Grid>
+    
+              {productList}
+
+
+              
+          </Grid>
+
+               
+            </div>
+            </div>
+        }
+
+        
+
        
         return(
            
@@ -118,6 +170,7 @@ class Profile extends Component{
                                 <Image src={this.state.imagePath}  style={{marginTop:"0px"}} />
                                 <Card.Content>
                                     <Card.Header as='h4' style={{color:'teal'}}>{this.state.username}</Card.Header>
+                                   {errorMessage}
                                     
                                 </Card.Content>
                                 <Card.Content extra>
@@ -136,55 +189,36 @@ class Profile extends Component{
                      <Segment raised className="profileSegment">
                      <Button  as={Link} to='/editProfile' className="profileButton" style={{width:'180px'}} color="teal" >Edit Profile</Button>
                         <Header as="h1" color={"grey"} textAlign={"left"}>About Me</Header>
-                        <Container className="profileContainer1">
+                        <div className="profileContainer1">
                             <p className="profileContent">
                            {this.state.aboutMe}
 
                             </p>
-                        </Container>
+                        </div>
                         <Divider section />
                         <Header as="h1" color={"grey"} textAlign={"left"}>My Hobbies And Interests</Header>
                         
-                        <Container className="profileContainer1"> 
+                        <div className="profileContainer1"> 
                             <p className="profileContent">
                                {this.state.hobbies}
 
                             </p>
-                        </Container>
+                        </div>
                         <Divider section />
 
                          <Header as="h1"color={"grey"} textAlign={"left"}>City</Header>
-                         <Container className="profileContainer2"> 
+                         <div className="profileContainer2"> 
                             <p>{this.state.city}</p>
-                        </Container>
+                        </div>
                         <Divider section />
 
                          <Header as="h1" color={"grey"} textAlign={"left"}>Phone No:</Header>
-                         <Container className="profileContainer2"> 
+                         <div className="profileContainer2"> 
                             <p>{this.state.phone}</p>
-                        </Container>
-                        <Divider section />
-                        <Header as="h1" color={"grey"} textAlign={"left"}>My Products:</Header>
-                        <Container className="profileContainer1"> 
-
-                        <Grid>
-                
-                            <Grid.Column computer={8} tablet={16} mobile={16}>
-                            <ProductLi imageSrc={bed} />
-                            </Grid.Column>
-
-                            <Grid.Column computer={8} tablet={16} mobile={16}>
-                                <ProductLi imageSrc={chairs} />
-                            </Grid.Column>
-
-
-                          
-                      </Grid>
-
-                           
-                        </Container>
-                           
+                        </div>
                        
+                           
+                       {userInfo}
 
                     </Segment>
 
