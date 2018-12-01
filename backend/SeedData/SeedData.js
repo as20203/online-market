@@ -19,7 +19,7 @@ var data = [
         email: 'jawadzaheer@ymail.com',
         username: 'jawad',
         city: 'Rawalpindi',
-        phone: '03324453365',
+        phone: '03324453367',
         password: '123',
  },
  {
@@ -28,7 +28,7 @@ var data = [
     email: 'jawadzaheer@ymail.com',
     username: 'ali',
     city: 'Rawalpindi',
-    phone: '03324453365',
+    phone: '03324453321',
     password: '123',
 },
 {
@@ -36,7 +36,7 @@ var data = [
     email: 'noshi123@gmail.com',
     username: 'noshi',
     city: 'Rawalpindi',
-    phone: '03324453365',
+    phone: '03324453369',
     password: '123',
 },
 {
@@ -44,7 +44,7 @@ var data = [
     email: 'admin123@gmail.com',
     username: 'Nosherwan',
     city: 'Rawalpindi',
-    phone: '03324453365',
+    phone: '03324453361',
     password: '123',
 }
 

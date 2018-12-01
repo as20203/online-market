@@ -87,7 +87,7 @@ class Signup extends Component{
 
                     <Form.Field inline> 
                             <label>Phone No: </label>
-                            <input pattern="[0-9]+" required type="text" name="phone" placeholder="Enter phone no" onChange={this.onChange}></input>
+                            <input pattern="[0-9]+" maxLength="11" minLength="11" required type="text" name="phone" placeholder="Enter phone no" onChange={this.onChange}></input>
                     </Form.Field>
 
 
