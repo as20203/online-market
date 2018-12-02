@@ -147,7 +147,7 @@ class Profile extends Component{
         if(!this.state.loading){
             button =  <Button type="submit"   color="blue" className="profileButton">Upload Image</Button>;
         }else{
-            button = <Button disabled={true}  secondary className="Button" type='submit'>Uploading...</Button>
+            button = <Button disabled={true} type="submit"   color="blue" className="profileButton">Uploading...</Button>;
         }
     
 

@@ -55,7 +55,8 @@ class Profile extends Component{
         userType:null,
         biddable:true,
         accountBalance:0,
-        errorMessage:null
+        errorMessage:null,
+        loading:false
        
       
       
@@ -83,6 +84,9 @@ class Profile extends Component{
       onSubmit = (e) => {
 
         e.preventDefault();
+        this.setState({
+            loading:true
+        })
        const bid = {bidAmount:this.state.bidAmount};
 
        
@@ -90,14 +94,16 @@ class Profile extends Component{
        axios.post('/products/bid/'+this.props.match.params.id,bid,{ headers: {"Authorization" : `Bearer ${localStorage.getItem("Token")}`} })
        .then(response=>{
            this.setState({
-               errorMessage:null
+               errorMessage:null,
+               loading:false
            })
          
        })
        .catch(error=>{
           
            this.setState({
-               errorMessage:error.response.data.message
+               errorMessage:error.response.data.message,
+               loading:false
            })
        });
       
@@ -183,6 +189,12 @@ class Profile extends Component{
       
        let bidComp = null;
        let endMessage = null;
+       let button = null;
+       if(!this.state.loading){
+           button =  <Button color={'teal'} type='submit' className='Button'> Set Bid</Button>
+       }else{
+           button =  <Button disabled={true} color={'teal'} type='submit' className='Button'> Setting...</Button>
+       }
        
        if((this.state.username!==this.state.owner)&&(this.state.userType!=="Admin")){
            bidComp=  <Form onSubmit={this.onSubmit}>
@@ -202,7 +214,7 @@ class Profile extends Component{
                    </Form.Field>
 
                 <Form.Field>
-                   <Button color={'teal'} type='submit' className='Button'> Set Bid</Button>
+                   {button}
                </Form.Field>
            
            </Form.Group>
