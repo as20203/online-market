@@ -371,6 +371,7 @@ router.post("/done/:id",checkAuth,(req,res,next)=>{
         .exec()
         .then(bids=>{
             if(bids.length<1){
+                req.io.to(room).emit("update",{message:[],biddable:false})
                 return res.status(201).json({
                     message:'Bid Ended'
 

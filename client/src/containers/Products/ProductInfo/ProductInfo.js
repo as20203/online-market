@@ -213,7 +213,7 @@ class Profile extends Component{
             bidComp =  <Button color={'teal'} onClick={this.onClick} className='Button'> End the bid.</Button>
            }
         }
-
+        //product is not biddable.
         if(!this.state.biddable ){
             endMessage= <Message positive>
             <p style={{textAlign:"center"}}>Bid Ended. The winner will get the product with amount deduced from account.</p>

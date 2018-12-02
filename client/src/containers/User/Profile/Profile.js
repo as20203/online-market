@@ -67,6 +67,7 @@ class Profile extends Component{
         .catch(error=>{
             this.setState({
                 error:error.response.data.message,
+                loading:false
               
             })
         })
@@ -211,7 +212,7 @@ class Profile extends Component{
                                 </Card.Content>
                                 <Card.Content extra>
                                 <Form onSubmit={this.onSubmit}>
-                                    <Input type="file" className="userImage" name="image" onChange={this.fileSelectHandler} /> 
+                                    <Input  type="file" required className="userImage" name="image" onChange={this.fileSelectHandler} /> 
                                         <br/>
                                         {button}
                                 </Form>
