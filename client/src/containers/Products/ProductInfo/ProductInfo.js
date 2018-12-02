@@ -56,7 +56,8 @@ class Profile extends Component{
         biddable:true,
         accountBalance:0,
         errorMessage:null,
-        loading:false
+        loading:false,
+       
        
       
       
@@ -113,8 +114,20 @@ class Profile extends Component{
           this.socket.disconnect();
       }
 
+     
+
       componentDidMount(){
-        this.socket.emit('myRoom',{message:this.props.match.params.id});
+        
+       
+        this.socket.on('connect',(event)=>{ 
+            this.socket.emit('myRoom',{message:this.props.match.params.id});
+            
+        })
+
+        
+           
+       
+        
         this.socket.on('update',({message,biddable})=>{
        
        

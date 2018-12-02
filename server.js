@@ -27,7 +27,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 io.sockets.on("connection",userSocket=>{
  
-  
+  console.log("connected"+userSocket.id);
   
   
   
@@ -41,8 +41,10 @@ io.sockets.on("connection",userSocket=>{
 	userSocket.emit('hello',{message:"Hello from server"});
 
 		
-	userSocket.on('disconnect', ()=> {
+	userSocket.on('disconnect', (reason)=> {
+       
         console.log('Client disconnected: - '+userSocket.id);
+       
     });
 });
 
