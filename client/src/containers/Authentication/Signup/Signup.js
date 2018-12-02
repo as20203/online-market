@@ -12,7 +12,8 @@ class Signup extends Component{
             email:'',
             city:'',
             phone:'',
-            error:null
+            error:null,
+            loading:false
       
     }
 
@@ -23,6 +24,9 @@ class Signup extends Component{
 
       onSubmit = (e) => {
         e.preventDefault();
+        this.setState({
+            loading:true
+        })
         // get our form data out of state
         const newUser = this.state;
         
@@ -37,7 +41,8 @@ class Signup extends Component{
           })
           .catch(error=>{
               this.setState({
-                  error:error.response.data.message
+                  error:error.response.data.message,
+                  loading:false
               })
           })
       }
@@ -50,10 +55,17 @@ class Signup extends Component{
 
     render(){
         let errorMessage = null;
+        let button = null;
         if(this.state.error){
             errorMessage = <Message  negative>
             <p style={{textAlign:"center"}}>{this.state.error}</p>
             </Message>
+        }
+        //Button is not loading intitally
+        if(!this.state.loading){
+            button =  <Button  secondary className="Button" type='submit'>Create</Button>;
+        }else{
+            button = <Button disabled={true}  secondary className="Button" type='submit'>Creating...</Button>
         }
     
        
@@ -91,7 +103,7 @@ class Signup extends Component{
                     </Form.Field>
 
 
-                   <Button secondary className="Button" type='submit'>Signup</Button>
+                  {button}
                </Form>
             </Segment>
            

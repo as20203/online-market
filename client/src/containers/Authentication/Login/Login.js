@@ -10,7 +10,8 @@ class Login extends Component{
     state={
         username:'',
         password:'',
-        error: null
+        error: null,
+        loading:false
     }
 
 
@@ -22,8 +23,11 @@ class Login extends Component{
     onSubmit = (e) => {
         e.preventDefault();
         // get our form data out of state
-        
+        this.setState({
+            loading:true
+        })
         const newUser = this.state;
+
         
         
         axios.post('/user/login', newUser)
@@ -49,7 +53,10 @@ class Login extends Component{
             }
           })
           .catch(error=>{
-           this.setState({error:error.response.data.message});
+           this.setState({
+               error:error.response.data.message,
+               loading:false
+            });
           })
       }
 
@@ -61,10 +68,18 @@ class Login extends Component{
 
     render(){
         let errorMessage = null;
+        let button = null;
         if(this.state.error){
             errorMessage = <Message  negative>
             <p style={{textAlign:"center"}}>{this.state.error}</p>
             </Message>
+        }
+
+         //Button is not loading intitally
+         if(!this.state.loading){
+            button =  <Button  secondary className="Button" type='submit'>Login</Button>;
+        }else{
+            button = <Button disabled={true}  secondary className="Button" type='submit'>Loggin in...</Button>
         }
     
        
@@ -84,7 +99,7 @@ class Login extends Component{
                         <input required type="password" name="password" placeholder="Enter Password" onChange={this.onChange}></input>
                         </Form.Field>
             
-                        <Button  secondary className="Button" type='submit'>Login</Button>
+                        {button}
                     </Form>
                     
             </Segment>

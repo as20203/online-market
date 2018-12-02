@@ -22,12 +22,16 @@ class Profile extends Component{
       products:[],
       error:null,
       accountBalance: 0,
-      userType:null
+      userType:null,
+      loading:false
         
     }
 
     onSubmit = (e) =>{
         e.preventDefault();
+        this.setState({
+            loading:true
+        })
         const fd = new FormData();
        
         fd.append('image',this.state.image,this.state.image.name);
@@ -44,7 +48,8 @@ class Profile extends Component{
                     window.scrollTo(0,0);
                     this.setState({
                         error:null,
-                        imagePath:result.data.userData.userImage
+                        imagePath:result.data.userData.userImage,
+                        loading:false
         
                     });
                 
@@ -61,7 +66,8 @@ class Profile extends Component{
         })
         .catch(error=>{
             this.setState({
-                error:error.response.data.message
+                error:error.response.data.message,
+              
             })
         })
     }
@@ -115,6 +121,10 @@ class Profile extends Component{
        
       }
     render(){
+        let button = null;
+        let errorMessage = null;
+      
+        
         if(!this.state.userType && !this.state.image){
             return(
                 <div style={{margin:'350px auto',minHeight:'80vh',width:'1.5em'}}>
@@ -131,7 +141,16 @@ class Profile extends Component{
                );
 
         }
-        let errorMessage = null;
+        
+          //initially no loading.
+        if(!this.state.loading){
+            button =  <Button type="submit"   color="blue" className="profileButton">Upload Image</Button>;
+        }else{
+            button = <Button disabled={true}  secondary className="Button" type='submit'>Uploading...</Button>
+        }
+    
+
+       
         if(this.state.error){
             errorMessage = <Message  negative>
             <p style={{textAlign:"center"}}>{this.state.error}</p>
@@ -194,7 +213,7 @@ class Profile extends Component{
                                 <Form onSubmit={this.onSubmit}>
                                     <Input type="file" className="userImage" name="image" onChange={this.fileSelectHandler} /> 
                                         <br/>
-                                        <Button type="submit"   color="blue" className="profileButton">Upload Image</Button>
+                                        {button}
                                 </Form>
 
                                 </Card.Content>

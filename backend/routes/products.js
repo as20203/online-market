@@ -370,6 +370,12 @@ router.post("/done/:id",checkAuth,(req,res,next)=>{
         Bid.find({product:req.params.id})
         .exec()
         .then(bids=>{
+            if(bids.length<1){
+                return res.status(201).json({
+                    message:'Bid Ended'
+
+                })
+            }
             const sortedBids = bids.sort((a,b)=>{
                return  b.bidAmount-a.bidAmount;
             })
