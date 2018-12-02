@@ -6,17 +6,27 @@ const Product = require('../models/product');
 var User  = require('../models/user');
 var Bid   = require('../models/bid');
 const jwt = require("jsonwebtoken");
+const cloudinary = require("cloudinary");
+const cloudinaryStorage = require("multer-storage-cloudinary");
 
 const multer = require('multer');
-
-const storage = multer.diskStorage({
-    destination:function(req,file,cb){
-        cb(null,'./allProducts/')
-    },
-    filename: function(req,file,cb){
-        cb(null,file.originalname);
+const storage = cloudinaryStorage({
+    cloudinary: cloudinary,
+    folder: 'online-market',
+    allowedFormats: ['jpg', 'png'],
+    filename: function (req, file, cb) {
+      
+      cb(undefined, file.originalname);
     }
-})
+  });
+
+  cloudinary.config({
+     
+      cloud_name: process.env.CLOUD_NAME,
+      api_key: process.env.API_KEY,
+      api_secret:process.env.API_SECRET,
+    
+  });
 
 
 const fileFilter = (req,file,cb) =>{
@@ -117,7 +127,7 @@ router.get("/", (req,res,next) => {
 
 
 router.post("/",upload.single('image') ,checkAuth, (req, res, next) => {
-
+   
      //File isn't png or jpg.
      if(req.error){
         return res.status(401).json({
@@ -152,7 +162,7 @@ router.post("/",upload.single('image') ,checkAuth, (req, res, next) => {
                 Owner:owner,
                 amount:req.body.amount,
                description:req.body.description,
-               image:req.file.path,
+               image:req.file.secure_url,
                category:req.body.category
             
               

@@ -11,7 +11,7 @@ var userSchema = new mongoose.Schema({
     userType:{ type:'String',default:'Client' ,required:true},
     aboutMe:{type:'String' ,default:''},
     hobbies:{type:'String',default:''},
-    userImage:{type:'String',default:'allUsers/empty-user.png'},
+    userImage:{type:'String',default:'https://res.cloudinary.com/https-online-market-js-herokuapp-com/image/upload/v1543752407/online-users/empty-user.png'},
     accountBalance:{type:Number,default:function getRndInteger(min=500, max=1000) {
         return Math.floor(Math.random() * (max - min) ) + min;
     }}

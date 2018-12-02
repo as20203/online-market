@@ -115,7 +115,7 @@ class Profile extends Component{
        
       }
     render(){
-        if(!this.state.userType){
+        if(!this.state.userType && !this.state.image){
             return(
                 <div style={{margin:'350px auto',minHeight:'80vh',width:'1.5em'}}>
                 <Loader 

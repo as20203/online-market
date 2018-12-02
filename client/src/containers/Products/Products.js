@@ -25,7 +25,8 @@ class Products extends Component {
         products:[],
         search: '',
         category:'',
-        text:''
+        text:'',
+        loading:true
     }
 
     updateSearch=(event) =>{
@@ -61,7 +62,11 @@ class Products extends Component {
     dataFunction = ()=>{
         axios.get('/products',{ headers: {"Authorization" : `Bearer ${localStorage.getItem("Token")}`} })
     .then(response=>{
-      
+       if(!response.data.products.length){
+           this.setState({
+               loading:false
+           })
+       }
        
        this.setState({
            products:response.data.products
@@ -82,14 +87,14 @@ class Products extends Component {
     this.Interval = setInterval(()=>{ this.dataFunction(); },15000);  
    }
 
-   componentWillMount(){
+   componentWillUnmount(){
     clearInterval(this.Interval);
    }
   
 
   render() {
 
-    if(!this.state.products.length){
+    if(!this.state.products.length && this.state.loading){
         return(
             <div style={{margin:'350px auto',minHeight:'80vh',width:'1.5em'}}>
             <Loader 

@@ -6,16 +6,26 @@ const jwt = require('jsonwebtoken');
 const checkAuth = require('../middleware/check-auth');
 const multer = require('multer');
 const Product = require('../models/product');
+const cloudinary = require("cloudinary");
+const cloudinaryStorage = require("multer-storage-cloudinary");
 
-const storage = multer.diskStorage({
-    destination:function(req,file,cb){
-        cb(null,'./allUsers/')
-    },
-    filename: function(req,file,cb){
-
-        cb(null,file.originalname);
+const storage = cloudinaryStorage({
+    cloudinary: cloudinary,
+    folder: 'online-users',
+    allowedFormats: ['jpg', 'png'],
+    filename: function (req, file, cb) {
+      
+      cb(undefined, file.originalname);
     }
-})
+  });
+
+  cloudinary.config({
+     
+    cloud_name: process.env.CLOUD_NAME,
+    api_key: process.env.API_KEY,
+    api_secret:process.env.API_SECRET,
+  
+});
 
 
 const fileFilter = (req,file,cb) =>{
@@ -248,7 +258,7 @@ router.post('/profileImage',upload.single('image'),checkAuth,(req,res,next)=>{
     }
    
    
-   User.updateOne({_id:req.userData.id},{$set: {"userImage": req.file.path}})
+   User.updateOne({_id:req.userData.id},{$set: {"userImage": req.file.secure_url}})
    .exec()
    .then(doc=>{
       

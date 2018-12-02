@@ -49,7 +49,7 @@ class Profile extends Component{
         description:'',
         owner:'',
         category:null,
-        imagePath:'',
+        imagePath:null,
         bids:[],
         username:null,
         userType:null,
@@ -158,7 +158,7 @@ class Profile extends Component{
 
 
     render(){
-        if(!this.state.category){
+        if(!this.state.category && !this.state.imagePath){
             return(
                 <div style={{margin:'350px auto',minHeight:'80vh',width:'1.5em'}}>
                 <Loader 
@@ -180,7 +180,7 @@ class Profile extends Component{
             </Message>
         }
       
-       const imageSrc ="../"+this.state.imagePath;
+      
        let bidComp = null;
        let endMessage = null;
        
@@ -231,7 +231,7 @@ class Profile extends Component{
                     <Grid.Column computer={5} tablet={7} mobile={16}>
                        
                             <Card className="profileImgCard">
-                                <Image style={{height:'290px'}} src={imageSrc}  />
+                                <Image style={{height:'290px'}} src={this.state.imagePath}  />
                                 <Card.Content>
                                     <Card.Header as='h4' style={{color:'teal'}}>{this.state.name}</Card.Header>
                                     
