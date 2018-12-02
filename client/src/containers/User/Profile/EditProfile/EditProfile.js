@@ -7,7 +7,8 @@ class EditProfile extends Component{
 
     state={
         aboutMe:'',
-        hobbies:''
+        hobbies:'',
+        loading:false
         
 
     }
@@ -26,16 +27,23 @@ class EditProfile extends Component{
       onSubmit = (e) => {
         e.preventDefault();
         // get our form data out of state
+        this.setState({
+            loading:true
+        })
         
         const userInfo = this.state;
         axios.post("/user/editProfile",userInfo,{ headers: {"Authorization" : `Bearer ${localStorage.getItem("Token")}`} })
         .then(result=>{
            if(result.status===200){
+           
 
                this.props.history.push('/profile');
            }
         })
         .catch(error=>{
+            this.setState({
+                loading:false
+            })
             console.log(error);
         })
         
@@ -57,6 +65,12 @@ class EditProfile extends Component{
     
 
     render(){
+        let button = null;
+        if(!this.state.loading){
+            button= <Button  secondary className="Button" type='submit'>Edit</Button>
+        }else{
+            button= <Button disabled={true}  secondary className="Button" type='submit'>Editing...</Button>
+        }
        
         return(
                 
@@ -79,7 +93,7 @@ class EditProfile extends Component{
 
                            
                 
-                            <Button  secondary className="Button" type='submit'>Edit</Button>
+                           {button}
                         </Form>
                         
                 </Segment>
