@@ -6,11 +6,70 @@ import {Link} from 'react-router-dom';
 import ProductLi from '../../Products/ProductLi/ProductLi';
 
 import Loader from 'react-loader-spinner'
+import ReactTable from 'react-table'
 
 
 
 
 class Profile extends Component{
+    constructor(props){
+        super(props)
+        this.columns = [{
+            Header: 'Name',
+            accessor: 'name',
+            sortable:false,
+            style:{
+                border:"2px solid black",
+                textAlign:"center"
+            }
+          }, {
+            Header: 'Bid Amount',
+            accessor: 'winner.amount',
+            style:{
+                border:"2px solid black",
+                textAlign:"center"
+            }
+        
+            
+          }, {
+            Header: "Received",
+            accessor: 'received',
+            sortable:false,
+            Cell: (row) =>{
+               return (row.original.received===false?<Button disabled={this.state.btnDisable}  onClick={(e)=>{
+              
+                this.getProduct(row.original);
+            }} 
+            color="orange">Get Product</Button>:<Button  color="orange" disabled>Received</Button>) 
+                
+            }  ,
+            style:{
+                border:"2px solid black",
+                textAlign:"center"
+            }
+          }]
+        
+        
+
+    }
+
+    getProduct = (rowData) =>{
+        this.setState({
+            btnDisable:true
+        })
+        console.log("/products/received/"+rowData.winner.productId,rowData);
+    axios.post("/products/received/"+rowData.winner.productId,rowData,{ headers: {"Authorization" : `Bearer ${localStorage.getItem("Token")}`} })
+    .then(response=>{
+        this.profileData();
+    })
+    .catch(error=>{
+        console.log(error.response);
+        this.setState({
+            btnDisable:false
+        })
+    })
+    }
+
     state = {
       username:'',
       aboutMe:'',
@@ -23,8 +82,44 @@ class Profile extends Component{
       error:null,
       accountBalance: 0,
       userType:null,
-      loading:false
+      loading:false,
+      wonProducts:[],
+      btnDisable:false
         
+    }
+
+    profileData = () =>{
+
+        axios.get('/user/profile', { headers: {"Authorization" : `Bearer ${localStorage.getItem("Token")}`} })
+        .then(result=>{
+               
+                this.setState({
+                    username:result.data.userData.username,
+                    aboutMe:result.data.userData.aboutMe,
+                    hobbies:result.data.userData.hobbies,
+                    city:result.data.userData.city,
+                    phone:result.data.userData.phone,
+                    imagePath:result.data.userData.userImage,
+                    products:result.data.products.products,
+                    accountBalance:result.data.userData.balance,
+                    userType:result.data.userData.type,
+                    wonProducts:result.data.wonProducts.products,
+                    btnDisable:false
+    
+                });
+            
+        }
+
+        )
+        .catch(error=>{
+            this.setState({
+                btnDisable:false
+            })
+            localStorage.removeItem("TokenInfo");
+            localStorage.removeItem("Authentication");
+          this.props.history.replace('/login');
+        })
+
     }
 
     onSubmit = (e) =>{
@@ -83,34 +178,8 @@ class Profile extends Component{
 
     componentDidMount(){
         if(localStorage.getItem("Token")){
-            
-            axios.get('/user/profile', { headers: {"Authorization" : `Bearer ${localStorage.getItem("Token")}`} })
-            .then(result=>{
-                    
-              
-                    console.log(result);
-                    window.scrollTo(0,0);
-                    this.setState({
-                        username:result.data.userData.username,
-                        aboutMe:result.data.userData.aboutMe,
-                        hobbies:result.data.userData.hobbies,
-                        city:result.data.userData.city,
-                        phone:result.data.userData.phone,
-                        imagePath:result.data.userData.userImage,
-                        products:result.data.products.products,
-                        accountBalance:result.data.userData.balance,
-                        userType:result.data.userData.type
-        
-                    });
-                
-            }
-    
-            )
-            .catch(error=>{
-                localStorage.removeItem("TokenInfo");
-                localStorage.removeItem("Authentication");
-              this.props.history.replace('/login');
-            })
+            window.scrollTo(0,0);
+            this.profileData();
 
         }else{
             this.props.history.replace('/login');
@@ -188,7 +257,22 @@ class Profile extends Component{
               
           </Grid>
 
+
+              
+
                
+            </div>
+
+            <div className="profileContainer1">
+            <Divider section />
+            <Header as="h1" color={"grey"} textAlign={"left"}>My Won Products</Header>
+            <ReactTable
+                    data={this.state.wonProducts}
+                    columns={this.columns}
+                    minRows={8}
+                           
+                        />
+            
             </div>
             </div>
         }
@@ -256,6 +340,7 @@ class Profile extends Component{
                        
                            
                        {userInfo}
+
 
                     </Segment>
 

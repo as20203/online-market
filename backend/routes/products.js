@@ -381,41 +381,76 @@ router.post("/done/:id",checkAuth,(req,res,next)=>{
                return  b.bidAmount-a.bidAmount;
             })
            
-           const winnerUser=sortedBids[0].Owner.user;
            console.log(sortedBids[0]);
-           //Update the amount in this users account.
-            User.find({_id:winnerUser})
-           .select("accountBalance")
-           .exec()
-           .then(user=>{
-            const bid = sortedBids[0].bidAmount;
-            const balance = user[0].accountBalance;
-            const newBalance = balance - bid;
-            User.updateOne({_id:winnerUser},{$set: {"accountBalance": newBalance}})
+           //Adding winners data to product.
+           Product.updateOne({_id:req.params.id},{$set: {"winner.bid": sortedBids[0]._id,"winner.username":sortedBids[0].Owner.username,"winner.amount":sortedBids[0].bidAmount,"winner.productId":sortedBids[0].product}})
             .exec()
-            .then(user=>{
-                 //Send a broadcast on the front end.
-                
-                 req.io.to(room).emit("update",{message:sortedBids,biddable:false})
-                 return res.status(200).json({
-                     message:"Bid Ended the Winner will be given the product.",
-                     
-                 })
-
+            .then(product=>{
+                req.io.to(room).emit("update",{message:sortedBids,biddable:false})
+                return res.status(200).json({
+                    message:"Bid Ended the Winner will be given the product.",
+                    
+                })
             })
-           })
-         
-           
+              
         })
 
-   }
-   )
-    
-   
-    
-   
+   })
+  
+})
 
+router.post("/received/:id",checkAuth,(req,res,next)=>{
+    // Get the winner amount.
+   const winnerAmount = req.body.winner.amount;
 
+    
+    // Remove this amount from winner account.
+    User.find({username:req.body.winner.username})
+    .select("accountBalance")
+    .exec()
+    .then(user=>{
+        const userBalance = user[0].accountBalance;
+        const newBalance = userBalance-winnerAmount;
+
+        User.updateOne({username:req.body.winner.username},{$set: {"accountBalance": newBalance}})
+        .exec()
+        .then(user=>{
+
+            Product.find({_id:req.params.id})
+            .select("Owner")
+            .then(product=>{
+                 //Add this amount to the owner.
+                User.find({_id:product[0].Owner.user})
+                .select("accountBalance")
+                .exec()
+                .then(user=>{
+                    const newBalance = user[0].accountBalance + winnerAmount;
+                    User.updateOne({_id:product[0].Owner.user},{$set: {"accountBalance": newBalance}})
+                    .exec()
+                    .then(user=>{
+                    //Step: 5
+                    //Set received of product to true 
+
+                        Product.updateOne({_id:req.params.id},{$set: {"received":true}})
+                       .exec()
+                        .then(product=>{
+                        //Return  work done.
+                            return res.status(201).json({
+                                message:"Successfully Received the Product"
+                            })
+                       
+
+                        })
+                    })
+                })
+
+            })
+           
+            
+            })
+        })
+  
+    
 })
 
 

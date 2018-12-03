@@ -5,7 +5,7 @@ var data = [
     
         {
         userType: 'Client',
-        email: 'jzahee123@gmail.com',
+       
         username: 'as20203',
         city: 'Rawalpindi',
         phone: '03324453365',
@@ -16,7 +16,7 @@ var data = [
     {
         userType: 'Client',
        
-        email: 'jawadzaheer@ymail.com',
+      
         username: 'jawad',
         city: 'Rawalpindi',
         phone: '03324453367',
@@ -25,7 +25,7 @@ var data = [
  {
     userType: 'Client',
    
-    email: 'jawadzaheer@ymail.com',
+    
     username: 'ali',
     city: 'Rawalpindi',
     phone: '03324453321',
@@ -33,7 +33,7 @@ var data = [
 },
 {
     userType: 'Client',
-    email: 'noshi123@gmail.com',
+   
     username: 'noshi',
     city: 'Rawalpindi',
     phone: '03324453369',
@@ -41,7 +41,7 @@ var data = [
 },
 {
     userType: 'Admin',
-    email: 'admin123@gmail.com',
+   
     username: 'Nosherwan',
     city: 'Rawalpindi',
     phone: '03324453361',

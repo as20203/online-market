@@ -5,7 +5,6 @@ var userSchema = new mongoose.Schema({
     _id:mongoose.Schema.Types.ObjectId,
 	username: {type:String, required:true},
 	password:{type:String, required:true},
-    email: String,
     city:String,
     phone:String,
     userType:{ type:'String',default:'Client' ,required:true},

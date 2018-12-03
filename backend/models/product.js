@@ -12,6 +12,17 @@ var productSchema = new mongoose.Schema({
     description:{type:String,required:true},
     image:{type:String,required:true},
     category:{type:String,required:true},
+    winner:{
+        bid:{type:mongoose.Schema.Types.ObjectId, ref: "Bid"},
+        username:{type:String,default:''},
+        amount:{type:Number,default:0},
+        productId:{type:mongoose.Schema.Types.ObjectId, ref: "Bid"}
+    },
+    received:{
+        type:Boolean,
+        default:false
+    }
+
    
 });
 

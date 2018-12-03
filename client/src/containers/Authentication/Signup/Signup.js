@@ -86,11 +86,6 @@ class Signup extends Component{
                         <label>Password:</label>
                         <input required type="password" name="password" placeholder="Enter Password" onChange={this.onChange}></input>
                    </Form.Field>
-       
-                   <Form.Field inline>
-                        <label>Email: </label>
-                        <input  required type="email" name="email" placeholder="Enter you email" onChange={this.onChange}></input>
-                   </Form.Field>
 
                    <Form.Field inline>
                             <label>City: </label>

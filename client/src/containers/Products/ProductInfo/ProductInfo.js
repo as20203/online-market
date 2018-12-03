@@ -4,7 +4,6 @@ import './ProductInfo.css'
 import socketIOClient from "socket.io-client";
 import axios from 'axios'
 import ReactTable from 'react-table'
-import "react-table/react-table.css"
 import Loader from 'react-loader-spinner'
 
 
@@ -74,7 +73,7 @@ class Profile extends Component{
         event.preventDefault();
         axios.post("/products/done/"+this.props.match.params.id,{},{ headers: {"Authorization" : `Bearer ${localStorage.getItem("Token")}`} })
         .then(response=>{
-           
+           console.log(response);
         })
         .catch(error=>{
 

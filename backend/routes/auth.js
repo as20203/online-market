@@ -87,7 +87,6 @@ router.post('/register',(req,res,next)=>{
         
                     const user = new User({
                         _id: new mongoose.Types.ObjectId(),
-                        email:req.body.email,
                         username:req.body.username,
                         city:req.body.city,
                         phone:req.body.phone,
@@ -176,7 +175,7 @@ router.post('/login',(req,res,next)=>{
 
 router.get('/profile',checkAuth,(req,res,next)=>{
     
-    
+    //Find all users products.
     Product.find({"Owner.user":req.userData.id})
     .exec()
     .then(products=>{
@@ -194,26 +193,58 @@ router.get('/profile',checkAuth,(req,res,next)=>{
             })
         };
 
-
-        User.find({_id:req.userData.id})
+        //Find all products where user won the bid.
+        Product.find({"winner.username":req.userData.username})
+        .select('name _id winner received')
         .exec()
-        .then(user=>{
-       
-        newUser = {
-            username:user[0].username,
-            aboutMe:user[0].aboutMe,
-            hobbies:user[0].hobbies,
-            city:user[0].city,
-            phone:user[0].phone,
-            userImage:user[0].userImage,
-            balance:user[0].accountBalance,
-            type:user[0].userType
-        }
-       
-        
-        return res.status(201).json({
-            userData:newUser,
-            products:response
+        .then(products=>{
+            let wonProducts = null;
+            if(products.length>=1){
+                 wonProducts ={
+                    products: products.map(product => {
+                        return {
+                           
+                            name: product.name,
+                            _id: product._id,
+                            winner:product.winner,
+                            received:product.received
+                          
+                        };
+                    })
+                };
+    
+
+            }else{
+                wonProducts = [];
+            }
+           //Get all the user data.
+            User.find({_id:req.userData.id})
+            .exec()
+            .then(user=>{
+           
+            newUser = {
+                username:user[0].username,
+                aboutMe:user[0].aboutMe,
+                hobbies:user[0].hobbies,
+                city:user[0].city,
+                phone:user[0].phone,
+                userImage:user[0].userImage,
+                balance:user[0].accountBalance,
+                type:user[0].userType
+            }
+           
+            
+            return res.status(201).json({
+                userData:newUser,
+                products:response,
+                wonProducts:wonProducts
+            })
+    
+            })
+            .catch(err=>{
+                res.status(500).json({
+                error:err
+            })
         })
 
         })
@@ -221,8 +252,18 @@ router.get('/profile',checkAuth,(req,res,next)=>{
             res.status(500).json({
             error:err
         })
-    })
+
+        })
+
+
+       
         
+    })
+    .catch(err=>{
+        res.status(500).json({
+            error:err
+        })
+
     })
     
 
