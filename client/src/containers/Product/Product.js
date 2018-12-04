@@ -150,7 +150,7 @@ class Product extends Component{
 
                             <Form.Field inline>
                                 <label> Bid Amount: </label>
-                                <InputNumber required min="10" placeholder="Enter Bid Amount" onChange={this.onChange} />
+                                <InputNumber required min="10" name="amount" placeholder="Enter Bid Amount" onChange={this.onChange} />
                             </Form.Field>
 
                             <Form.Field inline>
