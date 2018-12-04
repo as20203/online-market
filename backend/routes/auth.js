@@ -50,20 +50,12 @@ const User = require('../models/user');
 router.get("/",checkAuth,(req,res,next)=>{
   
     User.find({userType:"Client"})
-    
+    .select("_id username")
     .exec()
     .then(users=>{
-        var allUsers = [];
-        users.forEach(user=>{
-            allUsers.push(
-                {
-                id:user.id,
-                username:user.username
-                 }
-            )
-        })
+       
         return res.status(200).json({
-            allUsers:allUsers
+            allUsers:users
         });
     })
 })

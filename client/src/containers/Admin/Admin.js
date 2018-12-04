@@ -2,7 +2,7 @@ import React,{Component} from 'react';
 import {Segment,Container,Header,Form,Dropdown,Button,Divider,Message} from 'semantic-ui-react';
 import axios from 'axios'
 import Loader from 'react-loader-spinner'
-
+import socketIOClient from "socket.io-client";
 class Admin extends Component{
     state={
         reportedUser:'',
@@ -15,7 +15,103 @@ class Admin extends Component{
         productLoader:false
 
     }
-  
+
+    constructor(props){
+        super(props);
+        //connect to socket.
+        this.socket =socketIOClient();
+    }
+
+    componentDidMount(){
+
+        this.socket.on('connect',(event)=>{
+            //Update users 
+            this.socket.on('updatedUsers',(data)=>{
+                this.updateUsers();   
+            })
+            //Update products.
+            this.socket.on('updateProduct',(data)=>{
+                this.updateProducts();
+            })
+           
+          
+        });
+
+        axios.get("/user/middleware",{ headers: {"Authorization" : `Bearer ${localStorage.getItem("Token")}`} })
+        .then((result)=>{
+            if(result.data.userData.type==="Admin"){
+                window.scrollTo(0,0);
+             
+             this.dataFunction();            
+            }else{       
+                this.props.history.replace("/");
+            }        
+        })
+        .catch(error=>{
+            localStorage.removeItem("TokenInfo");
+            localStorage.removeItem("Authentication");
+            this.props.history.replace("/login");
+
+        })
+    }
+
+    componentWillUnmount(){
+        this.socket.disconnect();
+    }
+
+    updateUsers = () =>{
+         
+            //Send request to server.
+            axios.get("/user",{ headers: {"Authorization" : `Bearer ${localStorage.getItem("Token")}`} })
+            .then(result=>{
+                
+                let newUsers = [];
+           
+                result.data.allUsers.forEach(user=>{
+                    newUsers.push({
+                            key:user._id,
+                            value:user._id,
+                            text:user.username
+                    })
+                });
+               
+
+            this.setState({
+                users:newUsers
+
+            })
+
+            })
+       
+
+    }
+
+    updateProducts = () =>{
+        //Updating product list.  
+            
+            axios.get("/products",{ headers: {"Authorization" : `Bearer ${localStorage.getItem("Token")}`} })
+            .then(result=>{
+               let newProducts = [];
+               result.data.products.forEach(product=>{
+                newProducts.push({
+                       key:product._id,
+                       value:product._id,
+                       text:product.name
+                   })
+               })
+              
+               this.setState({
+                    products:newProducts
+
+                });
+                
+
+            })
+
+
+    }
+
+   
 
       onUserSubmit = (e) => {
         e.preventDefault();
@@ -25,12 +121,12 @@ class Admin extends Component{
          
          axios.delete('/user/'+this.state.reportedUser,{ headers: {"Authorization" : `Bearer ${localStorage.getItem("Token")}`} })
          .then(response=>{
-             console.log(response);
-            console.log(response.data.message);
+            
             this.setState({
                 userMessage:response.data.message,
                 userLoader:false
-            })
+            });
+            this.updateUsers();
          }
  
          )
@@ -40,11 +136,8 @@ class Admin extends Component{
              })
              console.log(error.response);
          })
-
-
-        
-       
       }
+
 
       onProductSubmit = (e) =>{
         e.preventDefault();
@@ -54,11 +147,12 @@ class Admin extends Component{
        
         axios.delete('/products/'+this.state.removedProduct,{ headers: {"Authorization" : `Bearer ${localStorage.getItem("Token")}`} })
         .then(response=>{
-            console.log(response.data.message);
+            this.socket.emit("removedProduct",{message:"deleted"});
             this.setState({
                 productMessage:response.data.message,
                 productLoader:false
             })
+           this.updateProducts();
            
         }
 
@@ -83,8 +177,8 @@ class Admin extends Component{
             let newProducts= [];
            result.data.allUsers.forEach(user=>{
                newUsers.push({
-                   key:user.id,
-                   value:user.id,
+                   key:user._id,
+                   value:user._id,
                    text:user.username
                })
            })
@@ -121,48 +215,14 @@ class Admin extends Component{
         })
 
 
-    }
-
-    componentDidMount(){
-        
-
-        axios.get("/user/middleware",{ headers: {"Authorization" : `Bearer ${localStorage.getItem("Token")}`} })
-        .then((result)=>{
-            if(result.data.userData.type==="Admin"){
-                window.scrollTo(0,0);
-             
-             this.dataFunction();
-
-            this.Interval = setInterval(()=>{ this.dataFunction(); },5000);   
-            
-            
-                
-            }else{
-               
-                this.props.history.replace("/");
-            }
-           
-            
-        })
-        .catch(error=>{
-            localStorage.removeItem("TokenInfo");
-            localStorage.removeItem("Authentication");
-            this.props.history.replace("/login");
-
-        })
-    }
-
-    componentWillUnmount() {
-        clearInterval(this.Interval);
-       
-      }
-       
-      
+    }   
 
     render(){
         let productButton = null;
         let userButton = null;
-
+        let userMessage = null;
+        let productMessage = null;
+        //Check if data has loaded or not.
         if(!this.state.users.length && !this.state.products.length){
             return(
                 <div style={{margin:'350px auto',minHeight:'80vh',width:'1.5em'}}>
@@ -179,25 +239,39 @@ class Admin extends Component{
                );
 
         }
-        let userMessage = null;
-        let productMessage = null;
+       
+        //Check for messages of delete in user.
         if(this.state.userMessage){
-            userMessage = <Message  positive>
+            userMessage = <Message   positive>
             <p style={{textAlign:"center"}}>{this.state.userMessage}</p>
             </Message>
+            setTimeout(() => {
+                this.setState({
+                    userMessage:null
+                })
+            }, 1500);
         }
 
+        //Check for messages of delete in product.
         if(this.state.productMessage){
             productMessage = <Message  positive>
             <p style={{textAlign:"center"}}>{this.state.productMessage}</p>
             </Message>
+              setTimeout(() => {
+                this.setState({
+                   productMessage:null
+                })
+            }, 1500);
         }
 
+        //Button disabled when clicked.
         if(!this.state.userLoader){
             userButton =  <Button color={'red'} type='submit' className='Button'> Remove User</Button>
         }else{
             userButton = <Button disabled={true} color={'red'} type='submit' className='Button'> Removing...</Button>
         }
+
+        //Button disabled on click.
         if(!this.state.productLoader){
             productButton = <Button color={'red'} type='submit' className='Button'> Remove Product</Button>
 

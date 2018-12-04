@@ -203,13 +203,22 @@ router.post("/",upload.single('image') ,checkAuth, (req, res, next) => {
                 const sortedBids = bids.sort((a,b)=>{
                     return b.bidAmount-a.bidAmount;
                  })
+
+                 User.find({_id:req.userData.id})
+                 .select("accountBalance")
+                 .exec()
+                 .then(user=>{
+                    return res.status(200).json({
+                            product: doc,
+                            bids:sortedBids,
+                            user:req.userData,
+                            balance:user[0].accountBalance
+                      });
+
+                 })
                
            
-                res.status(200).json({
-                  product: doc,
-                  bids:sortedBids,
-                  user:req.userData
-                });
+               
               } else {
                 res.status(404).json({ 
                     message: "No valid entry found for provided ID" });
@@ -386,7 +395,8 @@ router.post("/done/:id",checkAuth,(req,res,next)=>{
            Product.updateOne({_id:req.params.id},{$set: {"winner.bid": sortedBids[0]._id,"winner.username":sortedBids[0].Owner.username,"winner.amount":sortedBids[0].bidAmount,"winner.productId":sortedBids[0].product}})
             .exec()
             .then(product=>{
-                req.io.to(room).emit("update",{message:sortedBids,biddable:false})
+                req.io.to(room).emit("update",{message:sortedBids,biddable:false});
+                req.io.sockets.emit("productWon",{winner:sortedBids[0].Owner.username});
                 return res.status(200).json({
                     message:"Bid Ended the Winner will be given the product.",
                     
@@ -409,10 +419,19 @@ router.post("/received/:id",checkAuth,(req,res,next)=>{
     .select("accountBalance")
     .exec()
     .then(user=>{
-        const userBalance = user[0].accountBalance;
-        const newBalance = userBalance-winnerAmount;
 
-        User.updateOne({username:req.body.winner.username},{$set: {"accountBalance": newBalance}})
+        //Check if user has amount in his account
+        if(winnerAmount>user[0].accountBalance){
+            //Bid is more than amount in the account
+            return res.status(401).json({
+                message:"You don't have this amount in your account. You are legally bound to pay bid amount."
+            })
+
+        }
+        const userBalance = user[0].accountBalance;
+        const winnerNewBalance = userBalance-winnerAmount;
+
+        User.updateOne({username:req.body.winner.username},{$set: {"accountBalance": winnerNewBalance}})
         .exec()
         .then(user=>{
 
@@ -424,13 +443,21 @@ router.post("/received/:id",checkAuth,(req,res,next)=>{
                 .select("accountBalance")
                 .exec()
                 .then(user=>{
-                    const newBalance = user[0].accountBalance + winnerAmount;
-                    User.updateOne({_id:product[0].Owner.user},{$set: {"accountBalance": newBalance}})
+                    const ownerNewBalance = user[0].accountBalance + winnerAmount;
+                   
+                    User.updateOne({_id:product[0].Owner.user},{$set: {"accountBalance": ownerNewBalance}})
                     .exec()
                     .then(user=>{
                     //Step: 5
                     //Set received of product to true 
-
+                    const balance = {
+                        ownerBalance:ownerNewBalance,
+                        ownerName:product[0].Owner.username,
+                        winnerBalance: winnerNewBalance,
+                        winnerName:req.body.winner.username
+                    }
+                    console.log(balance);
+                        req.io.sockets.emit("updatedBalance",{balance:balance})
                         Product.updateOne({_id:req.params.id},{$set: {"received":true}})
                        .exec()
                         .then(product=>{

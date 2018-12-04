@@ -2,9 +2,13 @@ import React,{Component} from 'react';
 import {Button,Form,Segment,Message} from 'semantic-ui-react';
 import axios from 'axios';
 import './Signup.css';
+import socketIOClient from "socket.io-client";
+
 
 
 class Signup extends Component{
+
+
     state= {
       
             username:'',
@@ -16,6 +20,16 @@ class Signup extends Component{
             loading:false
       
     }
+
+    constructor(props){
+        super(props);
+        this.socket =socketIOClient();
+    }
+
+    componentWillUnmount(){
+        this.socket.disconnect();
+    }
+
 
     onChange = (event) => {
         
@@ -35,7 +49,7 @@ class Signup extends Component{
           .then((result) => {
             if(result.status === 201){
                 //Successful registration
-               
+                this.socket.emit('createdUser',{message:'Created a product.'})
                 this.props.history.push("/login");
             }
           })

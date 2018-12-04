@@ -4,7 +4,7 @@ import './Profile.css'
 import axios from 'axios'
 import {Link} from 'react-router-dom';
 import ProductLi from '../../Products/ProductLi/ProductLi';
-
+import socketIOClient from "socket.io-client";
 import Loader from 'react-loader-spinner'
 import ReactTable from 'react-table'
 
@@ -12,6 +12,26 @@ import ReactTable from 'react-table'
 
 
 class Profile extends Component{
+    state = {
+        username:'',
+        aboutMe:'',
+        hobbies:'',
+        city:'',
+        phone:'',
+        image:null,
+        imagePath:'',
+        products:[],
+        imageError:null,
+        accountBalance: 0,
+        userType:null,
+        loading:false,
+        wonProducts:[],
+        btnDisable:false,
+        errorMessage:null
+          
+      }
+
+
     constructor(props){
         super(props)
         this.columns = [{
@@ -47,46 +67,65 @@ class Profile extends Component{
                 border:"2px solid black",
                 textAlign:"center"
             }
-          }]
-        
-        
+          }];
+
+          this.socket =socketIOClient();
 
     }
+
+
+    componentDidMount(){
+        this.socket.on("connect",(event)=>{
+            this.socket.on('productWon',(data)=>{
+                if(data.winner ===this.state.username){
+                  this.profileData();
+                }
+              })
+
+              this.socket.on('updatedBalance',(data)=>{
+                //if the owner of product is the user.
+                if(data.balance.ownerName===this.state.username){
+                    this.profileData();
+                }
+              
+               
+            })
+
+        })
+        
+
+       
+        if(localStorage.getItem("Token")){
+            window.scrollTo(0,0);
+            this.profileData();
+
+        }else{
+            this.props.history.replace('/login');
+          
+          
+        }     
+      }
 
     getProduct = (rowData) =>{
         this.setState({
             btnDisable:true
         })
-        console.log("/products/received/"+rowData.winner.productId,rowData);
+       
     axios.post("/products/received/"+rowData.winner.productId,rowData,{ headers: {"Authorization" : `Bearer ${localStorage.getItem("Token")}`} })
     .then(response=>{
         this.profileData();
+      
     })
     .catch(error=>{
-        console.log(error.response);
+       
         this.setState({
-            btnDisable:false
+            btnDisable:false,
+            errorMessage:error.response.data.message
         })
     })
     }
 
-    state = {
-      username:'',
-      aboutMe:'',
-      hobbies:'',
-      city:'',
-      phone:'',
-      image:null,
-      imagePath:'',
-      products:[],
-      error:null,
-      accountBalance: 0,
-      userType:null,
-      loading:false,
-      wonProducts:[],
-      btnDisable:false
-        
-    }
+   
 
     profileData = () =>{
 
@@ -159,7 +198,7 @@ class Profile extends Component{
         })
         .catch(error=>{
             this.setState({
-                error:error.response.data.message,
+                imageError:error.response.data.message,
                 loading:false
               
             })
@@ -174,23 +213,11 @@ class Profile extends Component{
       
     }
 
-    componentDidMount(){
-        if(localStorage.getItem("Token")){
-            window.scrollTo(0,0);
-            this.profileData();
-
-        }else{
-            this.props.history.replace('/login');
-          
-          
-        }
-      
-       
-       
-      }
     render(){
         let button = null;
         let errorMessage = null;
+        let balanceErrorMessage = null;
+        let userInfo = null;
       
         
         if(!this.state.userType && !this.state.image){
@@ -218,11 +245,16 @@ class Profile extends Component{
         }
     
 
-       
-        if(this.state.error){
+       //wrong image.
+        if(this.state.imageError){
             errorMessage = <Message  negative>
-            <p style={{textAlign:"center"}}>{this.state.error}</p>
+            <p style={{textAlign:"center"}}>{this.state.imageError}</p>
             </Message>
+              setTimeout(() => {
+                this.setState({
+                   imageError:null
+                })
+            }, 1500);
         }
 
 
@@ -232,8 +264,20 @@ class Profile extends Component{
                     </Grid.Column>)
         })
 
+         //Check for error messages.
+         if(this.state.errorMessage){
+            balanceErrorMessage = <Message negative>
+            <p style={{textAlign:"center"}}>{this.state.errorMessage}</p>
+            </Message>
+              setTimeout(() => {
+                this.setState({
+                   errorMessage:null
+                })
+            }, 2000);
+        }
 
-        let userInfo = null;
+
+        
        
       
         if(this.state.userType!=="Admin"){
@@ -246,24 +290,16 @@ class Profile extends Component{
             <Divider section />
             <Header as="h1" color={"grey"} textAlign={"left"}>My Products:</Header>
             <div className="profileContainer1"> 
-
             <Grid>
-    
-              {productList}
-
-
-              
-          </Grid>
-
-
-              
-
-               
+              {productList}      
+          </Grid>    
             </div>
 
             <div className="profileContainer1">
             <Divider section />
             <Header as="h1" color={"grey"} textAlign={"left"}>My Won Products</Header>
+            {/* Balance error messages */}
+                {balanceErrorMessage}
             <ReactTable
                     data={this.state.wonProducts}
                     columns={this.columns}
@@ -274,6 +310,7 @@ class Profile extends Component{
             </div>
             </div>
         }
+       
 
         
 

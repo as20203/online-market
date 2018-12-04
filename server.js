@@ -29,18 +29,25 @@ io.sockets.on("connection",userSocket=>{
  
   console.log("connected"+userSocket.id);
   
-  
-  
-  
   userSocket.on('myRoom',function(userRoom){
    
     userSocket.join(userRoom.message);
   })
 
 
-	userSocket.emit('hello',{message:"Hello from server"});
+	userSocket.on('createdUser',(message)=>{
+    io.sockets.emit("updatedUsers",{update:true})
+  });
 
-		
+  userSocket.on('createdProduct',(message)=>{
+    io.sockets.emit("updateProduct",{update:true})
+
+  });
+
+  userSocket.on('removedProduct',(message)=>{
+    io.sockets.emit('removeProduct',{update:true})
+  })
+	
 	userSocket.on('disconnect', (reason)=> {
        
         console.log('Client disconnected: - '+userSocket.id);

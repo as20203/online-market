@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './Products.css';
 import ProductLi from './ProductLi/ProductLi';
 import Loader from 'react-loader-spinner'
+import socketIOClient from "socket.io-client";
 
 import {Container,Grid,Input,Dropdown} from 'semantic-ui-react';
 
@@ -29,6 +30,15 @@ class Products extends Component {
         loading:true
     }
 
+    constructor(props){
+        super(props);
+        this.socket =socketIOClient();
+    }
+
+    componentWillUnmount(){
+        this.socket.disconnect();
+    }
+
     updateSearch=(event) =>{
         const searching= event.target.value;
         this.setState({
@@ -40,6 +50,8 @@ class Products extends Component {
     handleChange = (e, { value }) => {
         this.setState({category:value});
     }
+   
+
 
 
     updateCategory=(event,{value})=>{
@@ -83,13 +95,28 @@ class Products extends Component {
 
    componentDidMount(){
     window.scrollTo(0,0);
-    this.dataFunction()
-    this.Interval = setInterval(()=>{ this.dataFunction(); },15000);  
+    this.dataFunction();
+
+
+    this.socket.on('connect',(event)=>{ 
+        this.socket.on("updateProduct",(data)=>{
+            if(data.update){
+                this.dataFunction();
+            }
+        })
+
+        this.socket.on("removeProduct",(data)=>{
+            if(data.update){
+                this.dataFunction();
+            }
+        })
+        
+    })
+   
+   
    }
 
-   componentWillUnmount(){
-    clearInterval(this.Interval);
-   }
+
   
 
   render() {

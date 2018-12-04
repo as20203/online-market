@@ -1,9 +1,12 @@
 import React,{Component} from 'react';
 import {Button,Form,Segment,Header,Dropdown,Message} from 'semantic-ui-react';
+import socketIOClient from "socket.io-client";
 import './Product.css'
 import axios from 'axios'
+import InputNumber from 'react-input-just-numbers';
 
 class Product extends Component{
+
 
     state={
         productname:'',
@@ -16,6 +19,19 @@ class Product extends Component{
        
 
     }
+
+    constructor(props){
+        super(props);
+        //connect to socket.
+        this.socket =socketIOClient();
+    }
+
+    componentWillUnmount(){
+        this.socket.disconnect();
+    }
+
+
+
 
 
     handleChange = (e, { value }) => {
@@ -55,7 +71,7 @@ class Product extends Component{
         axios.post("/products",fd,{ headers: {"Authorization" : `Bearer ${localStorage.getItem("Token")}`} })
         .then(result=>{
            if(result.status===201){
-
+            this.socket.emit('createdProduct',{message:'Created a product.'})
             this.props.history.replace("/allTheProducts");
            }
         })
@@ -134,7 +150,7 @@ class Product extends Component{
 
                             <Form.Field inline>
                                 <label> Bid Amount: </label>
-                                <input required  type="number" min='0' name="amount" placeholder="Enter Bid Amount" onChange={this.onChange}></input> 
+                                <InputNumber required min="10" placeholder="Enter Bid Amount" onChange={this.onChange} />
                             </Form.Field>
 
                             <Form.Field inline>

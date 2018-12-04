@@ -57,7 +57,8 @@ class Profile extends Component{
         accountBalance:0,
         errorMessage:null,
         loading:false,
-        userId:''
+        userId:'',
+        ownerLoadingButton:false
        
        
       
@@ -66,6 +67,114 @@ class Profile extends Component{
 
 
    
+
+    componentDidMount(){
+        //Connecting a socket.
+        this.socketConnect()
+       
+      
+        //getProductInfo 
+        this.productInfo()
+    
+      }
+
+
+      componentWillUnmount(){
+        this.socket.disconnect();
+    }
+
+
+
+
+
+
+      socketConnect = () =>{
+        this.socket.on('connect',(event)=>{ 
+            this.socket.emit('myRoom',{message:this.props.match.params.id});
+            this.updateBalance();
+            this.bidsUpdate()
+        })
+
+      }
+
+      updateBalance = () =>{
+        this.socket.on('updatedBalance',(data)=>{
+            //if the owner of product is the user.
+            console.log(data);
+            if(data.balance.ownerName===this.state.username){
+                this.setState({
+                    accountBalance:data.balance.ownerBalance
+                })
+            }
+            //if the winner is the user.
+            if(data.balance.winnerName === this.state.username){
+                this.setState({
+                    accountBalance:data.balance.winnerBalance
+                })
+            }
+           
+        })
+       
+
+      }
+
+      bidsUpdate = () =>{
+        this.socket.on('update',({message,biddable})=>{
+       
+       
+            this.setState({
+                bids:message,
+                biddable:biddable
+            })
+            })
+            
+
+      }
+
+
+      productInfo = () =>{
+              
+       
+        axios.get("/user/middleware",{ headers: {"Authorization" : `Bearer ${localStorage.getItem("Token")}`} })
+        .then(()=>{
+            
+            window.scrollTo(0,0);
+            axios.get("/products/"+this.props.match.params.id,{ headers: {"Authorization" : `Bearer ${localStorage.getItem("Token")}`} })
+            .then(response=>{
+               console.log(response);
+
+                this.setState({
+                    name:response.data.product.name,
+                    amount:response.data.product.amount,
+                    description:response.data.product.description,
+                    owner:response.data.product.Owner.username,
+                    category:response.data.product.category,
+                    imagePath:response.data.product.image,
+                    bids:response.data.bids,
+                    username:response.data.user.username,
+                    userType:response.data.user.type,
+                    accountBalance:response.data.balance,
+                    biddable:response.data.product.biddable,
+                    userId:response.data.product.Owner.user
+
+                })
+            })
+            .catch(error=>{
+                console.log(error.response);
+            })
+           
+            
+        })
+        .catch(error=>{
+            localStorage.removeItem("TokenInfo");
+            localStorage.removeItem("Authentication");
+            this.props.history.push("/login");
+
+        })
+      }
+
+
+
     onChange = (event) => {
        
         this.setState({ [event.target.name]:event.target.value });
@@ -73,11 +182,19 @@ class Profile extends Component{
 
     onClick = (event) =>{
         event.preventDefault();
+
+        this.setState({
+            ownerLoadingButton:true
+        })
         axios.post("/products/done/"+this.props.match.params.id,{},{ headers: {"Authorization" : `Bearer ${localStorage.getItem("Token")}`} })
         .then(response=>{
            console.log(response);
+         
         })
         .catch(error=>{
+            this.setState({
+                ownerLoadingButton:false
+            })
 
         })
 
@@ -111,74 +228,14 @@ class Profile extends Component{
       
       }
 
-      componentWillUnmount(){
-          this.socket.disconnect();
-      }
-
-     
-
-      componentDidMount(){
-        
-       
-        this.socket.on('connect',(event)=>{ 
-            this.socket.emit('myRoom',{message:this.props.match.params.id});
-            
-        })
-
-        
-           
-       
-        
-        this.socket.on('update',({message,biddable})=>{
-       
-       
-        this.setState({
-            bids:message,
-            biddable:biddable
-        })
-        })
-        
-       
-        axios.get("/user/middleware",{ headers: {"Authorization" : `Bearer ${localStorage.getItem("Token")}`} })
-        .then(()=>{
-            
-            window.scrollTo(0,0);
-            axios.get("/products/"+this.props.match.params.id,{ headers: {"Authorization" : `Bearer ${localStorage.getItem("Token")}`} })
-            .then(response=>{
-               console.log(response);
-
-                this.setState({
-                    name:response.data.product.name,
-                    amount:response.data.product.amount,
-                    description:response.data.product.description,
-                    owner:response.data.product.Owner.username,
-                    category:response.data.product.category,
-                    imagePath:response.data.product.image,
-                    bids:response.data.bids,
-                    username:response.data.user.username,
-                    userType:response.data.user.type,
-                    accountBalance:response.data.user.balance,
-                    biddable:response.data.product.biddable,
-                    userId:response.data.product.Owner.user
-
-                })
-            })
-            .catch(error=>{
-                console.log(error.response);
-            })
-           
-            
-        })
-        .catch(error=>{
-            localStorage.removeItem("TokenInfo");
-            localStorage.removeItem("Authentication");
-            this.props.history.push("/login");
-
-        })
-      }
-
-
     render(){
+        let errorMessage = null;
+        let bidComp = null;
+        let endMessage = null;
+        let button = null;
+        let ownerButton = null;
+      
+        //Check for loader.
         if(!this.state.category && !this.state.imagePath){
             return(
                 <div style={{margin:'350px auto',minHeight:'80vh',width:'1.5em'}}>
@@ -194,23 +251,24 @@ class Profile extends Component{
                 </div> 
                );
         }
-        let errorMessage = null;
+
+        //Check for any error messages.
+       
         if(this.state.errorMessage){
             errorMessage = <Message  negative>
             <p style={{textAlign:"center"}}>{this.state.errorMessage}</p>
             </Message>
         }
       
-      
-       let bidComp = null;
-       let endMessage = null;
-       let button = null;
+       //Set button disabled on click.
        if(!this.state.loading){
-           button =  <Button color={'teal'} type='submit' className='Button'> Set Bid</Button>
-       }else{
-           button =  <Button disabled={true} color={'teal'} type='submit' className='Button'> Setting...</Button>
-       }
+        button =  <Button color={'teal'} type='submit' className='Button'> Set Bid</Button>
+        }else{
+        button =  <Button disabled={true} color={'teal'} type='submit' className='Button'> Setting...</Button>
+        }
+     
        
+       //Display bid component if not owner or admin.
        if((this.state.username!==this.state.owner)&&(this.state.userType!=="Admin")){
            bidComp=  <Form onSubmit={this.onSubmit}>
 
@@ -236,21 +294,29 @@ class Profile extends Component{
 
        </Form>
        }else{
+           //if not admin then owner.
            if(this.state.userType!=="Admin"){
-            bidComp =  <Button color={'teal'} onClick={this.onClick} className='Button'> End the bid.</Button>
+            bidComp =  <Button color={'teal'} disabled={this.state.ownerLoadingButton} onClick={this.onClick} className='Button'> End the bid.</Button>
            }
         }
+
+       
+
+      
+        
+
+
         //product is not biddable.
+
         if(!this.state.biddable ){
             endMessage= <Message positive>
             <p style={{textAlign:"center"}}>Bid Ended. The winner will get the product with amount deduced from account.</p>
             </Message>
             bidComp = null;
           }
-       
+          
+          //Owners profile with link
          let ownerProfile = "/ownerProfile/"+this.state.userId;
-         let ownerButton = null;
-
          if(this.state.username!==this.state.owner){
              ownerButton =  <Button as={Link} to={ownerProfile} style={{width:'200px'}} className="Button" color="grey" >View Owner Profile</Button>
 
@@ -309,42 +375,21 @@ class Profile extends Component{
                             <p className="profileContent">
                                 {this.state.category}
                             </p>
-                           
-                       
-
                          <Divider section />
                             {bidComp}
                             {endMessage}
-                           
-
                         <Divider section />
-                       
-
                              <ReactTable
                             data={this.state.bids}
                              columns={columns}
-                             minRows={8}
-                           
-                        />
-                           
-                     
-                    </Segment>
-                  
-                    </Grid.Column>
-                  
-                </Grid.Row>    
-                
-            
-                
-               
-            </Grid>
-          
+                             minRows={8}                         
+                        /> 
+                    </Segment>     
+                    </Grid.Column>       
+                </Grid.Row>          
+            </Grid>          
         )
-    }
-
-    
+    }  
 }
    
-
-
 export default Profile;

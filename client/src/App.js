@@ -32,16 +32,16 @@ class App extends Component {
        <Navbar />
       
       
-       <Route exact path="/"  component={Landing} />
-       <Route path='/productInfo/:id' component={productInfo} />
-       <Route path='/adminPage' component={adminPage} />
-       <Route path="/createProduct" component={CreateProduct} />
-       <Route path='/editProfile'  component={Editprofile} />
-       <Route path="/profile" component={Profile} />
-       <Route path="/login" component={Login} />
-       <Route path="/signup" component={Signup}/>
-       <Route path="/allTheProducts" component={Product} />
-       <Route path="/ownerProfile/:id" component={OwnerProfile} />
+        <Route exact path="/"  component={Landing} />
+        <Route path='/productInfo/:id' component={productInfo} />
+        <Route path='/adminPage' component={adminPage} />
+        <Route path="/createProduct" component={CreateProduct} />
+        <Route path='/editProfile'  component={Editprofile} />
+        <Route path="/profile" component={Profile} />
+        <Route path="/login" component={Login} />
+        <Route path="/signup" component={Signup}/>
+        <Route path="/allTheProducts" component={Product} />
+        <Route path="/ownerProfile/:id" component={OwnerProfile} />
 
 
 
