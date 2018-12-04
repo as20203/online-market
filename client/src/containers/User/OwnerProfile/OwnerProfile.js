@@ -2,6 +2,8 @@ import React,{Component} from 'react';
 import {Card,Image,Grid,Segment,Header,Divider} from 'semantic-ui-react';
 import axios from 'axios'
 import './OwnerProfile.css'
+import Loader from 'react-loader-spinner'
+
 
 
 class OwnerProfile extends Component{
@@ -10,8 +12,8 @@ class OwnerProfile extends Component{
         aboutMe:'',
         hobbies:'',
         city:'',
-        phone:'',
-        imagePath:'',
+        phone:null,
+        imagePath:null,
           
       }
 
@@ -39,6 +41,24 @@ class OwnerProfile extends Component{
       }
 
     render(){
+        if(!this.state.imagePath && !this.state.phone){
+            return(
+                <div style={{margin:'350px auto',minHeight:'80vh',width:'1.5em'}}>
+                <Loader 
+                   
+                    
+                   type="Grid"
+                   color="#DFCFBE"
+                   height="80"	
+                    width="80"
+                   
+                />  
+                </div> 
+               );
+
+        }
+        
+
         return(
 
             <Grid className="profileGrid">
