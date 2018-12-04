@@ -11,7 +11,9 @@ import CreateProduct from './containers/Product/Product';
 import Editprofile from './containers/User/Profile/EditProfile/EditProfile';
 import productInfo from './containers/Products/ProductInfo/ProductInfo';
 import adminPage from './containers/Admin/Admin';
+import OwnerProfile from './containers/User/OwnerProfile/OwnerProfile'
 import './App.css'
+
 
 class App extends Component {
 
@@ -39,6 +41,7 @@ class App extends Component {
        <Route path="/login" component={Login} />
        <Route path="/signup" component={Signup}/>
        <Route path="/allTheProducts" component={Product} />
+       <Route path="/ownerProfile/:id" component={OwnerProfile} />
 
 
 

@@ -272,6 +272,25 @@ router.get('/profile',checkAuth,(req,res,next)=>{
 
 });
 
+
+router.get("/profile/:id",checkAuth,(req,res,next)=>{
+    //Find the user by id and return his/her data
+    User.find({_id:req.params.id})
+    .select("username aboutMe hobbies city phone userImage")
+    .exec()
+    .then(user=>{
+        console.log(user[0]);
+        return res.status(201).json({
+            userData:user[0]
+        })
+    })
+    .catch(err=>{
+        return res.status(500).json({
+            error:err
+        })
+    })
+})
+
 router.post('/editProfile',checkAuth,(req,res,next)=>{
     User.updateOne({_id:req.userData.id},req.body)
     .exec()

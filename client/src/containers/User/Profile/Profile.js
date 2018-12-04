@@ -108,9 +108,7 @@ class Profile extends Component{
     
                 });
             
-        }
-
-        )
+        })
         .catch(error=>{
             this.setState({
                 btnDisable:false

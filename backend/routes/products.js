@@ -193,7 +193,7 @@ router.post("/",upload.single('image') ,checkAuth, (req, res, next) => {
   router.get("/:productId",checkAuth, (req, res, next) => {
     const id = req.params.productId;
     Product.findById(id)
-      .select("_id Owner.username name amount description category biddable  image")
+      .select("_id Owner.username Owner.user name amount description category biddable  image")
       .exec()
       .then(doc => {
         Bid.find({product:req.params.productId})

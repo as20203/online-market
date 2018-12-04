@@ -5,6 +5,7 @@ import socketIOClient from "socket.io-client";
 import axios from 'axios'
 import ReactTable from 'react-table'
 import Loader from 'react-loader-spinner'
+import {Link} from 'react-router-dom'
 
 
 const columns = [{
@@ -56,6 +57,7 @@ class Profile extends Component{
         accountBalance:0,
         errorMessage:null,
         loading:false,
+        userId:''
        
        
       
@@ -143,7 +145,7 @@ class Profile extends Component{
             window.scrollTo(0,0);
             axios.get("/products/"+this.props.match.params.id,{ headers: {"Authorization" : `Bearer ${localStorage.getItem("Token")}`} })
             .then(response=>{
-               
+               console.log(response);
 
                 this.setState({
                     name:response.data.product.name,
@@ -156,7 +158,8 @@ class Profile extends Component{
                     username:response.data.user.username,
                     userType:response.data.user.type,
                     accountBalance:response.data.user.balance,
-                    biddable:response.data.product.biddable
+                    biddable:response.data.product.biddable,
+                    userId:response.data.product.Owner.user
 
                 })
             })
@@ -245,6 +248,13 @@ class Profile extends Component{
             bidComp = null;
           }
        
+         let ownerProfile = "/ownerProfile/"+this.state.userId;
+         let ownerButton = null;
+
+         if(this.state.username!==this.state.owner){
+             ownerButton =  <Button as={Link} to={ownerProfile} style={{width:'200px'}} className="Button" color="grey" >View Owner Profile</Button>
+
+         }
          
     
         return(
@@ -270,7 +280,9 @@ class Profile extends Component{
                     </Grid.Column>
                    
                     <Grid.Column computer={11} tablet={9} mobile={16}>
+                   
                      <Segment raised className="profileSegment" style={{borderRadius:'10px'}}>
+                        {ownerButton}
                         <Header as="h1" color={"grey"} textAlign={"left"}>Description</Header>
                        
                             <p className="profileContent">
