@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import {Button,Form,Segment,Message} from 'semantic-ui-react';
+import {Button,Form,Segment,Message,Header} from 'semantic-ui-react';
 import axios from 'axios';
 import './Signup.css';
 import socketIOClient from "socket.io-client";
@@ -77,9 +77,9 @@ class Signup extends Component{
         }
         //Button is not loading intitally
         if(!this.state.loading){
-            button =  <Button  secondary className="Button" type='submit'>Create</Button>;
+            button =  <Button size={'large'} secondary className="Button" type='submit'>Create</Button>;
         }else{
-            button = <Button disabled={true}  secondary className="Button" type='submit'>Creating...</Button>
+            button = <Button size={'large'} disabled={true}  secondary className="Button" type='submit'>Creating...</Button>
         }
     
        
@@ -87,27 +87,27 @@ class Signup extends Component{
         return(
           
      
-           <Segment stacked className="SignUpSegment">
-           <h1 className="header">Signup</h1>
+           <Segment stacked  className="SignUpSegment">
+            <Header as="h1" className="medium text" align={'center'} color="grey">Sign Up </Header>
            {errorMessage}
            <Form onSubmit={this.onSubmit}>
                    <Form.Field inline>
-                        <label>Username: </label>
+                        <label className="small text">Username: </label>
                         <input required type="text" name="username" placeholder="Enter Username" onChange={this.onChange}></input> 
                    </Form.Field>
 
                    <Form.Field inline>
-                        <label>Password:</label>
+                        <label className="small text">Password:</label>
                         <input required type="password" name="password" placeholder="Enter Password" onChange={this.onChange}></input>
                    </Form.Field>
 
                    <Form.Field inline>
-                            <label>City: </label>
+                            <label className="small text">City: </label>
                             <input required type="text" name="city" placeholder="Enter city" onChange={this.onChange}></input>
                     </Form.Field>
 
                     <Form.Field inline> 
-                            <label>Phone No: </label>
+                            <label className="small text">Phone No: </label>
                             <input pattern="[0-9]+" maxLength="11" minLength="11" required type="text" name="phone" placeholder="Enter phone no" onChange={this.onChange}></input>
                     </Form.Field>
 

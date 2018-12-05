@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
 
-import {Button,Form,Segment,Message} from 'semantic-ui-react';
+import {Button,Form,Segment,Message,Header} from 'semantic-ui-react';
 import './Login.css'
 import axios from 'axios';
 import jtwDecode from 'jwt-decode';
@@ -77,25 +77,25 @@ class Login extends Component{
 
          //Button is not loading intitally
          if(!this.state.loading){
-            button =  <Button  secondary className="Button" type='submit'>Login</Button>;
+            button =  <Button size={'large'} secondary className="Button" type='submit'>Login</Button>;
         }else{
-            button = <Button disabled={true}  secondary className="Button" type='submit'>Loggin in...</Button>
+            button = <Button size={'large'} disabled={true}  secondary className="Button" type='submit'>Loggin in...</Button>
         }
     
        
         return(
         <div className="LoginSegment">
-        <Segment stacked >
+        <Segment style={{borderRadius:'20px',border:'2px solid cadetblue'}}>
                 
-                <h1 className="header">Login</h1>
+                <Header as="h1" className="medium text" align={'center'} color="grey">Login </Header>
                 {errorMessage}
                 <Form onSubmit={this.onSubmit}>
                         <Form.Field inline>
-                        <label >Username:  </label>
+                        <label className="small text" >Username:  </label>
                         <input required={true} type="text" name="username" placeholder="Enter Username" onChange={this.onChange}></input> 
                         </Form.Field>
                         <Form.Field inline>
-                        <label>Password:</label>
+                        <label  className="small text">Password:</label>
                         <input required type="password" name="password" placeholder="Enter Password" onChange={this.onChange}></input>
                         </Form.Field>
             

@@ -13,7 +13,7 @@ class ProductLi extends Component {
                 <div className="picture" style={{backgroundImage:`url(${this.props.imageSrc})`}}></div>
                 <div className="info" style={{overflow:'hidden'}}>
                   <header>
-                    <Header as="h1" color={'brown'}>{this.props.name}</Header>
+                    <Header as="h1" color={'grey'}>{this.props.name}</Header>
                     <span> <ButtonAnimated pId={this.props._id}  /></span>
                   </header>
                   <p>

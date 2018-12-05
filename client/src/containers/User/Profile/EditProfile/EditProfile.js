@@ -67,25 +67,25 @@ class EditProfile extends Component{
     render(){
         let button = null;
         if(!this.state.loading){
-            button= <Button  secondary className="Button" type='submit'>Edit</Button>
+            button= <Button size={'large'}  secondary className="Button" type='submit'>Edit</Button>
         }else{
-            button= <Button disabled={true}  secondary className="Button" type='submit'>Editing...</Button>
+            button= <Button size={'large'} disabled={true}  secondary className="Button" type='submit'>Editing...</Button>
         }
        
         return(
                 
                 <Segment stacked className="EditProfile" >
                     
-                    <Header color={"grey"} as="h1">Edit Profile</Header>
+                    <Header className="medium text" color={"grey"} as="h1">Edit Profile</Header>
                     <Form onSubmit={this.onSubmit}>
                            
                             <Form.Field>
-                                <label>About Me:</label>           
+                                <label className="small text">About Me:</label>           
                                 <textarea  required name="aboutMe" placeholder="Write About Your Schooling,Interests etc."  onChange={this.onChange} />
                             </Form.Field>
 
                             <Form.Field >
-                                <label>Hobbies And Interest:</label>           
+                                <label className="small text">Hobbies And Interest:</label>           
                                 <textarea required  name="hobbies" placeholder="Write about your hobbies and Interests"  onChange={this.onChange} />
                             </Form.Field>
 

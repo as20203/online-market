@@ -1,4 +1,6 @@
 .ProductSegment{
     margin:200px auto !important;
-    width: 25em;
+    width: 26.5em;
+    border-radius: 20px !important;
+    border: 2px solid cadetblue !important;
 }

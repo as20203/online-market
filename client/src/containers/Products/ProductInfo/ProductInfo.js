@@ -13,14 +13,14 @@ const columns = [{
     accessor: 'Owner.username',
     sortable:false,
     style:{
-        border:"2px solid black",
+       
         textAlign:"center"
     }
   }, {
     Header: 'Bid Amount',
     accessor: 'bidAmount',
     style:{
-        border:"2px solid black",
+       
         textAlign:"center"
     }
 
@@ -30,7 +30,7 @@ const columns = [{
     accessor: 'Owner.phone',
     sortable:false,
     style:{
-        border:"2px solid black",
+        
         textAlign:"center"
     }
   }]
@@ -262,9 +262,9 @@ class Profile extends Component{
       
        //Set button disabled on click.
        if(!this.state.loading){
-        button =  <Button color={'teal'} type='submit' className='Button'> Set Bid</Button>
+        button =  <Button size={"large"} color={'teal'} type='submit' className='Button'> Set Bid</Button>
         }else{
-        button =  <Button disabled={true} color={'teal'} type='submit' className='Button'> Setting...</Button>
+        button =  <Button size={"large"} disabled={true} color={'teal'} type='submit' className='Button'> Setting...</Button>
         }
      
        
@@ -272,8 +272,8 @@ class Profile extends Component{
        if((this.state.username!==this.state.owner)&&(this.state.userType!=="Admin")){
            bidComp=  <Form onSubmit={this.onSubmit}>
 
-            <Header as="h1" color={"grey"} textAlign={"left"}>Bid On this product</Header>
-            <Header as="h3" color={"grey"} textAlign={"center"}>Account Balance:- ${this.state.accountBalance}</Header>
+            <Header className="medium text" as="h1" color={"grey"} textAlign={"left"}>Bid On this product</Header>
+            <Header style={{fontSize:'20px'}} as="h3" color={"grey"} textAlign={"center"}>Account Balance:- ${this.state.accountBalance}</Header>
                 {errorMessage}
            <Form.Group widths='equal'>
                <Form.Field>
@@ -296,7 +296,7 @@ class Profile extends Component{
        }else{
            //if not admin then owner.
            if(this.state.userType!=="Admin"){
-            bidComp =  <Button color={'teal'} disabled={this.state.ownerLoadingButton} onClick={this.onClick} className='Button'> End the bid.</Button>
+            bidComp =  <Button size={"large"} color={'teal'} disabled={this.state.ownerLoadingButton} onClick={this.onClick} className='Button'> End the bid.</Button>
            }
         }
 
@@ -318,7 +318,7 @@ class Profile extends Component{
           //Owners profile with link
          let ownerProfile = "/ownerProfile/"+this.state.userId;
          if(this.state.username!==this.state.owner){
-             ownerButton =  <Button as={Link} to={ownerProfile} style={{width:'200px'}} className="Button" color="grey" >View Owner Profile</Button>
+             ownerButton =  <Button as={Link} to={ownerProfile} style={{width:'200px'}} className="Button" color="teal" >View Owner Profile</Button>
 
          }
          
@@ -333,7 +333,7 @@ class Profile extends Component{
                             <Card className="profileImgCard">
                                 <Image style={{height:'290px'}} src={this.state.imagePath}  />
                                 <Card.Content>
-                                    <Card.Header as='h4' style={{color:'teal'}}>{this.state.name}</Card.Header>
+                                    <Card.Header as='h4' className="medium text" style={{color:'teal'}}>{this.state.name}</Card.Header>
                                     
                                 </Card.Content>
                                 <Card.Content extra>
@@ -349,9 +349,9 @@ class Profile extends Component{
                    
                      <Segment raised className="profileSegment" style={{borderRadius:'10px'}}>
                         {ownerButton}
-                        <Header as="h1" color={"grey"} textAlign={"left"}>Description</Header>
+                        <Header className="medium text" as="h1" color={"grey"} textAlign={"left"}>Description</Header>
                        
-                            <p className="profileContent">
+                            <p className="small text profileContent">
                            {this.state.description}
 
                             </p>
@@ -359,20 +359,20 @@ class Profile extends Component{
                         <Divider section />
                        
 
-                         <Header as="h1"color={"grey"} textAlign={"left"}>Price</Header>
+                         <Header className="medium text" as="h1"color={"grey"} textAlign={"left"}>Price</Header>
                         
-                            <p>${this.state.amount}</p>
+                            <p className="small text">${this.state.amount}</p>
                       
                         <Divider section />
 
-                         <Header as="h1" color={"grey"} textAlign={"left"}>Product Owner</Header>
+                         <Header className="medium text" as="h1" color={"grey"} textAlign={"left"}>Product Owner</Header>
                          
-                            <p>{this.state.owner}</p>
+                            <p className="small text">{this.state.owner}</p>
                         
                         <Divider section />
-                        <Header as="h1" color={"grey"} textAlign={"left"}>Product Category</Header>
+                        <Header className="medium text" as="h1" color={"grey"} textAlign={"left"}>Product Category</Header>
                        
-                            <p className="profileContent">
+                            <p className="small text profileContent">
                                 {this.state.category}
                             </p>
                          <Divider section />
@@ -382,7 +382,8 @@ class Profile extends Component{
                              <ReactTable
                             data={this.state.bids}
                              columns={columns}
-                             minRows={8}                         
+                             minRows={8} 
+                             className="-striped -highlight"                        
                         /> 
                     </Segment>     
                     </Grid.Column>       

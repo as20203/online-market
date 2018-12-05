@@ -9,7 +9,7 @@ const ButtonAnimated = (props) =>{
   return(
     <div>
     
-    <Button as={Link} to={link} style={{margin:"40px 60px",display:'block'}} animated='fade' color="green">
+    <Button as={Link} to={link}  style={{margin:"40px 60px",display:'block'}} animated='fade' color="teal">
       <Button.Content hidden>Shop</Button.Content>
       <Button.Content visible>
         <Icon name='dollar' />

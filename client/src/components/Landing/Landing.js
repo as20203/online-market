@@ -3,6 +3,8 @@ import './Landing.css';
 import Reveal from './Reveal/Reveal'
 import {Header,Segment,Grid,Container,Divider,Button,Message,Icon} from 'semantic-ui-react';
 import {Link} from 'react-router-dom';
+import Loader from 'react-loader-spinner'
+
 
 //All images of Landing page 
 //accessories
@@ -33,12 +35,32 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 const landing = (props)=>{
   window.scrollTo(0,0);
+  setTimeout(()=>{
+    return(
+      <div style={{margin:'350px auto',minHeight:'80vh',width:'1.5em'}}>
+      <Loader 
+          className="loader"
+          
+         type="Grid"
+         color="#DFCFBE"
+         height="80"	
+          width="80"
+         
+      />  
+      </div> 
+     );
+
+  },1000)
+    
+
+  
+  
         return(
          
         
         <Grid className="LandingGrid">
          <Container style={{marginTop:"150px",marginBottom:"80px"}} >
-            <Segment >
+            <Segment style={{border:'2px solid cadetblue',borderRadius:'20px'}} >
          
 
           <ReactCSSTransitionGroup   
@@ -50,8 +72,8 @@ const landing = (props)=>{
 
            <Message icon key='hello' style={{color:'brown'}}>
               <Icon name='hand peace'/>
-               <Message.Content>
-                <Message.Header className='landingHeader'>Welcome To IZRAK online Market</Message.Header>
+               <Message.Content style={{fontSize:'16px'}}>
+                <Message.Header   as="h1" className='landingHeader'>Welcome To IZRAK Online Market</Message.Header>
                 Get the best products for the cheapest price.
               </Message.Content>
           
@@ -62,18 +84,18 @@ const landing = (props)=>{
        
             {/* <Header color="teal" textAlign={"center"} as="h1">Welcome To JNS Online-Market</Header> */}
             <Divider section />
-            <Button as={Link} to='/allTheProducts' style={{width:'200px'}} className="Button" color="grey" >Check Out Our Products</Button>
+            <Button as={Link} size={"medium"} to='/allTheProducts' style={{width:'200px'}} className="Button" color="teal" >Check Out Our Products</Button>
            
-            <Header color="olive" textAlign={"left"}  as="h2">We offer you:</Header>
+           
            
             <Grid style={{marginTop:"20px"}}>
-              <Header color="blue" textAlign={"left"} as="h3">Accessories</Header>
+              <Header color="grey" className="medium text" textAlign={"left"} as="h3">Get Accessories</Header>
                 <Grid.Row>
                
               
                     <Grid.Column className="gridColumn" computer={8} tablet={8} mobile={16}>
                     
-                    <Segment color={"grey"} style={{margin:"10px auto"}}> 
+                    <Segment  style={{margin:"10px auto",border:'2px solid cadetblue',borderRadius:'20px'}}> 
                       
                           <Reveal animated='fade' size="large"  visible={laptop} hidden={mobile}/>
                          
@@ -88,7 +110,7 @@ const landing = (props)=>{
                     
                     <Grid.Column className="gridColumn" computer={8} tablet={8} mobile={16}>
                     
-                    <Segment color={"grey"} style={{margin:"10px auto"}}>    
+                    <Segment  style={{margin:"10px auto",border:'2px solid cadetblue',borderRadius:'20px'}}>    
                      <Reveal animated='fade' size="large"  visible={mobile} hidden={laptop}/>
                       
                     </Segment>
@@ -98,11 +120,11 @@ const landing = (props)=>{
                  </Grid.Row>
 
                 
-                 <Header color="blue"  textAlign={"left"} as="h3">Furniture</Header>
+                 <Header color="grey" className="medium text"  textAlign={"left"} as="h3">Get Furniture</Header>
                  <Grid.Row>
 
                     <Grid.Column className="gridColumn" computer={8} tablet={8} mobile={16}>
-                      <Segment style={{height:'100%'}} color={"grey"}>
+                      <Segment style={{height:'100%',border:'2px solid cadetblue',borderRadius:'20px'}} >
                       
                         <Reveal animated='move up' size="huge"visible={bed} hidden={chairs} />
                       
@@ -111,7 +133,7 @@ const landing = (props)=>{
                     </Grid.Column>
 
                     <Grid.Column className="gridColumn" computer={8} tablet={8} mobile={16}>
-                      <Segment color={'grey'}>
+                      <Segment style={{border:'2px solid cadetblue',borderRadius:'20px'}}>
                               
 
                             <Grid divided columns={2}>
@@ -133,9 +155,9 @@ const landing = (props)=>{
                  </Grid.Row>
 
                 
-                <Header color="blue" textAlign={"left"} as="h3">And Much More</Header>
-                <Container>
-                  <Segment raised color={'grey'}>
+                <Header color="grey" className="medium text" textAlign={"left"} as="h3">And Much More</Header>
+                <Container style={{marginBottom:'20px'}} >
+                  <Segment raised style={{border:'2px solid cadetblue',borderRadius:'20px'}}>
                   <Grid divided='vertically'>
                       <Grid.Row columns={2}>
                         <Grid.Column>

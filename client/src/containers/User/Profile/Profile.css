@@ -4,7 +4,7 @@ width: 100%;
 }
 
 .profileGrid{
-    margin-top:70px !important;
+    margin-top:100px !important;
     margin-bottom: 10px !important;
     margin-left: 0px !important;
     margin-right: 0px !important;
@@ -14,6 +14,8 @@ width: 100%;
 
 .profileImgCard{
     margin:10px auto !important;
+   border:2px solid cadetblue !important;
+   border-radius:5px !important
     
 }
 
@@ -25,7 +27,9 @@ width: 100%;
 
 .profileSegment{
     width: 95%;
-    margin: 9px auto !important
+    margin: 9px auto !important;
+    border:2px solid cadetblue !important;
+    border-radius:15px !important
 }
 
 .profileContainer1{

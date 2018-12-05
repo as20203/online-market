@@ -1,30 +1,55 @@
 
 
+
+
 .topnav {
+   
     position: fixed;
-    background-color: #333;
+    background-color: #1b1c1d;
     box-shadow: 1px 1px #888888;
-    overflow: hidden;
-    z-index: 1;
+    
+    z-index: 5;
     top:0px;
-    width: 100%;
-    margin: 0px  !important;
-    border-radius: 0px !important;
+    width: 99.82%;
+    margin-top:0.02% !important;
+   
+   margin-left: 0.02em !important;
+   
+    border-radius: 7px !important;
+    border: 2px solid beige;
 }
 
 
 /* Style the links inside the navigation bar */
 .topnav a {
-    float: left;
+    
+    display: inline-block;
+    
+    text-decoration: none;
+    /* float: left; */
     box-shadow: 1px 1px #888888;
     text-align: center !important;
     line-height: 28px;
-    display: block;
-    color: #f2f2f2;
-    text-align: center;
+    
+    color:white;
+    border: 1px solid #888888;
     padding: 14px 16px;
     text-decoration: none;
     font-size: 17px;
+}
+
+.topnav a::after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 2px;
+    background: teal;
+    transition: width 1s;
+}
+
+.topnav a:hover::after {
+    width: 100%;
+    transition: width 1s;
 }
 
 .topnav .aright{
@@ -55,6 +80,12 @@
 /* Hide the link that should open and close the topnav on small screens */
 .topnav .icon {
     display: none;
+    
+}
+
+/*Remove underline from this element*/
+.icon::after{
+    height: 0px !important
 }
 
 

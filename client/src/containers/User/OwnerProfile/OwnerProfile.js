@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import {Card,Image,Grid,Segment,Header,Divider} from 'semantic-ui-react';
 import axios from 'axios'
-import './OwnerProfile.css'
+import '../Profile/Profile.css'
 import Loader from 'react-loader-spinner'
 
 
@@ -81,17 +81,17 @@ class OwnerProfile extends Component{
                 <Grid.Column computer={11} tablet={9} mobile={16}>
                  <Segment raised className="profileSegment">
                
-                    <Header as="h1" color={"grey"} textAlign={"left"}>About Owner</Header>
+                    <Header className="medium text" as="h1" color={"grey"} textAlign={"left"}>About Owner</Header>
                     <div className="profileContainer1">
-                        <p className="profileContent">
+                        <p className="small text profileContent">
                        {this.state.aboutMe}
 
                         </p>
                     </div>
                     <Divider section />
-                    <Header as="h1" color={"grey"} textAlign={"left"}>His Hobbies And Interests</Header>
+                    <Header className="medium text" as="h1" color={"grey"} textAlign={"left"}>His Hobbies And Interests</Header>
                     
-                    <div className="profileContainer1"> 
+                    <div className="small text profileContainer1"> 
                         <p className="profileContent">
                            {this.state.hobbies}
 
@@ -99,14 +99,14 @@ class OwnerProfile extends Component{
                     </div>
                     <Divider section />
 
-                     <Header as="h1"color={"grey"} textAlign={"left"}>His City</Header>
-                     <div className="profileContainer2"> 
+                     <Header className="medium text" as="h1"color={"grey"} textAlign={"left"}>His City</Header>
+                     <div className="small text profileContainer2"> 
                         <p>{this.state.city}</p>
                     </div>
                     <Divider section />
 
-                     <Header as="h1" color={"grey"} textAlign={"left"}>His Phone No:</Header>
-                     <div className="profileContainer2"> 
+                     <Header className="medium text" as="h1" color={"grey"} textAlign={"left"}>His Phone No:</Header>
+                     <div className="small text profileContainer2"> 
                         <p>{this.state.phone}</p>
                     </div>
                     </Segment>

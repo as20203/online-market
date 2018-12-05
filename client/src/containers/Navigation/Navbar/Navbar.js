@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import './Navbar.css'
+
 import AuthNavbar from './AuthNavbar/AuthNavbar';
 import SimpleNavbar from './SimpleNavbar/SimpleNavbar';
 

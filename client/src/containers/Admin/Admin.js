@@ -266,26 +266,26 @@ class Admin extends Component{
 
         //Button disabled when clicked.
         if(!this.state.userLoader){
-            userButton =  <Button color={'red'} type='submit' className='Button'> Remove User</Button>
+            userButton =  <Button size={'large'} color={'red'} type='submit' className='Button'> Remove User</Button>
         }else{
-            userButton = <Button disabled={true} color={'red'} type='submit' className='Button'> Removing...</Button>
+            userButton = <Button size={'large'} disabled={true} color={'red'} type='submit' className='Button'> Removing...</Button>
         }
 
         //Button disabled on click.
         if(!this.state.productLoader){
-            productButton = <Button color={'red'} type='submit' className='Button'> Remove Product</Button>
+            productButton = <Button size={'large'} color={'red'} type='submit' className='Button'> Remove Product</Button>
 
         }else{
-            productButton = <Button disabled={true} color={'red'} type='submit' className='Button'> Removing...</Button>
+            productButton = <Button size={'large'} disabled={true} color={'red'} type='submit' className='Button'> Removing...</Button>
         }
        
        
         return(
             
-                <Segment style={{margin:'200px auto',width:'80%'}}>
-                    <Header color={'teal'} as='h1'>Admin Panel</Header>
+                <Segment style={{margin:'200px auto',width:'80%',border:'2px solid cadetblue',borderRadius:'20px'}}>
+                    <Header className="large text"  color={'teal'} as='h1'>Admin Panel</Header>
                     <Divider />
-                    <Header color={'red'} textAlign='left' as='h4'>Remove User</Header>
+                    <Header  className="medium text" color={'grey'} textAlign='left' as='h4'>Remove User</Header>
                   
                     {userMessage}
                     <Container > 
@@ -294,7 +294,7 @@ class Admin extends Component{
                                     <Form.Field>
                                        
                                     
-                                    <label> Select User: </label>
+                                    <label className="small text"> Select User: </label>
                                     <Dropdown name="reportedUser"  required={true} placeholder='Select User' onChange={this.handleChange} selection options={this.state.users} />
                                      </Form.Field>
                 
@@ -310,13 +310,13 @@ class Admin extends Component{
                         </Container>
 
                          <Divider />
-                         <Header color={'red'} textAlign='left' as='h4'>Remove Product</Header>
+                         <Header className="medium text" color={'grey'} textAlign='left' as='h4'>Remove Product</Header>
                          {productMessage}
                          <Container > 
                             <Form onSubmit={this.onProductSubmit}>
                                 <Form.Group widths='equal'>
                                     <Form.Field>
-                                    <label> Select Product: </label>
+                                    <label className="small text"> Select Product: </label>
 
                                     <Dropdown  name="removedProduct"   required={true} placeholder='Select Product' onChange={this.handleChange} selection options={this.state.products} />             
                                      </Form.Field>

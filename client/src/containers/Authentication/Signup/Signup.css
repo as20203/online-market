@@ -7,7 +7,9 @@
 
 .SignUpSegment{
     margin:200px auto !important;
-    width:24em
+    width:24em;
+    border-radius: 20px !important;
+    border: 2px solid cadetblue !important;
 }
 
 .Button{

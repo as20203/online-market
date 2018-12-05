@@ -6,6 +6,7 @@
 .landingHeader{
     text-align: center;
     color:teal !important;
+    font-size: 48px !important;
 }
 
 .example-appear {
@@ -18,17 +19,12 @@
   }
 
   .LandingGrid{
-    background-image: url('../../assets/Background/landing-background.png') !important;
+    /* background-image: url('../../assets/Background/landing-background.png') !important;
     background-repeat: no-repeat;
     background-size: cover;
-    background-position: center;
+    background-position: center; */
     height: 100%;
     margin:0px !important
    
   }
 
-
-  
-  
-
-  

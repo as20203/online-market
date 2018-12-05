@@ -1,6 +1,5 @@
 import React from 'react';
 import {Segment,Grid,Header,List,Item} from 'semantic-ui-react';
-import './Footer.css'
 const footer = ()=>{
 
     return(
@@ -11,7 +10,7 @@ const footer = ()=>{
                
                     <Grid.Column width={3}>
                             <Header as='h4' textAlign={"left"} inverted={true}>About</Header>
-                            <List inverted={true} link={true}>
+                            <List  inverted={true} link={true}>
                                <Item><p>Sitemap</p></Item> 
                                <Item> <p>Contact Us</p></Item> 
                                <Item> <p>Sales</p></Item>

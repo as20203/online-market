@@ -116,9 +116,9 @@ class Product extends Component{
         }
         //Button is not loading intitally
         if(!this.state.loading){
-            button =  <Button  secondary className="Button" type='submit'>Create</Button>;
+            button =  <Button size={'large'} secondary className="Button" type='submit'>Create</Button>;
         }else{
-            button = <Button disabled={true}  secondary className="Button" type='submit'>Creating...</Button>
+            button = <Button size={'large'} disabled={true}  secondary className="Button" type='submit'>Creating...</Button>
         }
        
         const options = [
@@ -134,33 +134,33 @@ class Product extends Component{
       
         return(
           
-                <Segment stacked className="ProductSegment">
+                <Segment className="ProductSegment">
                     
-                    <Header color={"grey"} as="h1">Product</Header>
+                    <Header color={"grey"} className="medium text" as="h1">Product</Header>
                     {errorMessage}
                     <Form onSubmit={this.onSubmit}>
                             <Form.Field inline>
-                                <label>Name: </label>
+                                <label className="small text">Name: </label>
                                 <input required  type="text" name="productname" placeholder="Enter Product Name" onChange={this.onChange}></input> 
                             </Form.Field>
                             <Form.Field inline>
-                                <label>Description:</label>           
+                                <label className="small text">Description:</label>           
                                 <textarea required style={{width:"200px"}} maxLength="250"  name="description" placeholder="Enter product description upto 250 characters"  onChange={this.onChange} />
                             </Form.Field>
 
                             <Form.Field inline>
-                                <label> Bid Amount: </label>
+                                <label className="small text"> Bid Amount: </label>
                                 <InputNumber required min="10" name="amount" placeholder="Enter Bid Amount" onChange={this.onChange} />
                             </Form.Field>
 
                             <Form.Field inline>
-                                <label> Image: </label>
+                                <label className="small text"> Image: </label>
                                 <input required style={{width:"210px"}}  type="file" name="image"  onChange={this.fileSelectHandler}></input> 
                             </Form.Field>
 
 
                             <Form.Field inline>
-                                <label>  Category: </label>
+                                <label className="small text">  Category: </label>
                                 <Dropdown value={this.state.value} required={true} placeholder='Select Your Category' onChange={this.handleChange} selection options={options} />
                                
 

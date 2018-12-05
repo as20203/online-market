@@ -39,14 +39,14 @@ class Profile extends Component{
             accessor: 'name',
             sortable:false,
             style:{
-                border:"2px solid black",
+               
                 textAlign:"center"
             }
           }, {
             Header: 'Bid Amount',
             accessor: 'winner.amount',
             style:{
-                border:"2px solid black",
+                
                 textAlign:"center"
             }
         
@@ -62,9 +62,9 @@ class Profile extends Component{
             }} 
             color="orange">Get Product</Button>:<Button  color="orange" disabled>Received</Button>) 
                 
-            }  ,
+            },
             style:{
-                border:"2px solid black",
+              
                 textAlign:"center"
             }
           }];
@@ -239,9 +239,9 @@ class Profile extends Component{
         
           //initially no loading.
         if(!this.state.loading){
-            button =  <Button type="submit"   color="blue" className="profileButton">Upload Image</Button>;
+            button =  <Button size={"large"} type="submit"   color="blue" className="profileButton">Upload Image</Button>;
         }else{
-            button = <Button disabled={true} type="submit"   color="blue" className="profileButton">Uploading...</Button>;
+            button = <Button size={"large"} disabled={true} type="submit"   color="blue" className="profileButton">Uploading...</Button>;
         }
     
 
@@ -283,12 +283,12 @@ class Profile extends Component{
         if(this.state.userType!=="Admin"){
             userInfo =  <div>
              <Divider section />
-            <Header as="h1" color={"grey"} textAlign={"left"}>Account Balance:</Header>
-             <div className="profileContainer2"> 
+            <Header as="h1"  className="medium text" color={"grey"} textAlign={"left"}>Account Balance:</Header>
+             <div className="small text profileContainer2"> 
                 <p>${this.state.accountBalance}</p>
             </div>
             <Divider section />
-            <Header as="h1" color={"grey"} textAlign={"left"}>My Products:</Header>
+            <Header as="h1"  className="medium text" color={"grey"} textAlign={"left"}>My Products:</Header>
             <div className="profileContainer1"> 
             <Grid>
               {productList}      
@@ -297,13 +297,14 @@ class Profile extends Component{
 
             <div className="profileContainer1">
             <Divider section />
-            <Header as="h1" color={"grey"} textAlign={"left"}>My Won Products</Header>
+            <Header as="h1"  className="medium text" color={"grey"} textAlign={"left"}>My Won Products</Header>
             {/* Balance error messages */}
                 {balanceErrorMessage}
             <ReactTable
                     data={this.state.wonProducts}
                     columns={this.columns}
                     minRows={8}
+                    className="-striped -highlight"
                            
                         />
             
@@ -320,12 +321,12 @@ class Profile extends Component{
             <Grid className="profileGrid">
              
                 <Grid.Row className="rowPadding">
-                    <Grid.Column computer={5} tablet={7} mobile={16}>
+                    <Grid.Column  computer={5} tablet={7} mobile={16}>
                        
                             <Card className="profileImgCard">
                                 <Image src={this.state.imagePath}  style={{marginTop:"0px"}} />
                                 <Card.Content>
-                                    <Card.Header as='h4' style={{color:'teal'}}>{this.state.username}</Card.Header>
+                                    <Card.Header as='h4' className="medium text"  style={{color:'grey'}}>{this.state.username}</Card.Header>
                                    {errorMessage}
                                     
                                 </Card.Content>
@@ -344,32 +345,32 @@ class Profile extends Component{
                     <Grid.Column computer={11} tablet={9} mobile={16}>
                      <Segment raised className="profileSegment">
                      <Button  as={Link} to='/editProfile' className="profileButton" style={{width:'180px'}} color="teal" >Edit Profile</Button>
-                        <Header as="h1" color={"grey"} textAlign={"left"}>About Me</Header>
+                        <Header as="h1"  className="medium text" color={"grey"} textAlign={"left"}>About Me</Header>
                         <div className="profileContainer1">
-                            <p className="profileContent">
+                            <p className="small text profileContent">
                            {this.state.aboutMe}
 
                             </p>
                         </div>
                         <Divider section />
-                        <Header as="h1" color={"grey"} textAlign={"left"}>My Hobbies And Interests</Header>
+                        <Header as="h1"  className="medium text" color={"grey"} textAlign={"left"}>My Hobbies And Interests</Header>
                         
                         <div className="profileContainer1"> 
-                            <p className="profileContent">
+                            <p className="small text profileContent">
                                {this.state.hobbies}
 
                             </p>
                         </div>
                         <Divider section />
 
-                         <Header as="h1"color={"grey"} textAlign={"left"}>City</Header>
-                         <div className="profileContainer2"> 
+                         <Header  className="medium text" as="h1"color={"grey"} textAlign={"left"}>City</Header>
+                         <div className="small text profileContainer2"> 
                             <p>{this.state.city}</p>
                         </div>
                         <Divider section />
 
-                         <Header as="h1" color={"grey"} textAlign={"left"}>Phone No:</Header>
-                         <div className="profileContainer2"> 
+                         <Header  className="medium text" as="h1" color={"grey"} textAlign={"left"}>Phone No:</Header>
+                         <div className="small text profileContainer2"> 
                             <p>{this.state.phone}</p>
                         </div>
                        

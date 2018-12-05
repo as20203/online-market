@@ -1,7 +1,7 @@
 import React from 'react'
 import { Icon } from 'semantic-ui-react'
 import {Link} from 'react-router-dom';
-import '../SimpleNavbar/SimpleNavbar.css'
+import '../Navbar.css'
 
 const simpleNav = (props) =>{
     let link = null;
@@ -16,7 +16,7 @@ const simpleNav = (props) =>{
             
   
             <Link to={props.link}  >
-            <Icon name="home" className="myicon"  />Home
+            <Icon name="chart bar" className="myicon"  />IZRAK
             </Link>
            
             <Link to='/profile' name="user">

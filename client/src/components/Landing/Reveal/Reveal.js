@@ -1,6 +1,5 @@
 import React from 'react'
 import { Image, Reveal } from 'semantic-ui-react'
-import './Reveal.css';
 const RevealExampleFade = (props) => (
   <Reveal animated={props.animated} >
     <Reveal.Content visible style={{right:'0px'}} >
