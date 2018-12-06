@@ -13,11 +13,13 @@ background: linear-gradient(to right, #78ffd6, #a8ff78); /* W3C, IE 10+/ Edge, F
   overflow-x:hidden !important;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+.ui .header{
+  font-family: 'Poppins sans-serif';
 }
 
+.ui .button{
+  font-family: 'Poppins sans-serif';
+}
 label{
   width: 30% !important;
 }

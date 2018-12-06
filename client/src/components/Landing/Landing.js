@@ -59,7 +59,7 @@ const landing = (props)=>{
          
         
         <Grid className="LandingGrid">
-         <Container style={{marginTop:"150px",marginBottom:"80px"}} >
+         <Container style={{marginTop:"150px",marginBottom:"80px",overflow:'hidden'}} >
             <Segment style={{border:'2px solid cadetblue',borderRadius:'20px'}} >
          
 
@@ -72,8 +72,8 @@ const landing = (props)=>{
 
            <Message icon key='hello' style={{color:'brown'}}>
               <Icon name='hand peace'/>
-               <Message.Content style={{fontSize:'16px'}}>
-                <Message.Header   as="h1" className='landingHeader'>Welcome To IZRAK Online Market</Message.Header>
+               <Message.Content >
+                <Message.Header    className='landingHeader'>Welcome To IZRAK Online Market</Message.Header>
                 Get the best products for the cheapest price.
               </Message.Content>
           
