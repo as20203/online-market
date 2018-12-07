@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './Products.css';
-import ProductLi from './ProductLi/ProductLi';
+import ProductLi from '../../components/ProductLi/ProductLi';
 import Loader from 'react-loader-spinner'
 import socketIOClient from "socket.io-client";
 

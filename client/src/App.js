@@ -4,7 +4,7 @@ import {BrowserRouter as Router,Route} from 'react-router-dom';
 import Login from './containers/Authentication/Login/Login';
 import Signup from './containers/Authentication/Signup/Signup';
 import Navbar from './containers/Navigation/Navbar/Navbar';
-import Landing from './components/Landing/Landing';
+import Landing from './containers/Landing/Landing';
 import Product from './containers/Products/Products';
 import Footer from './components/Footer/Footer';
 import CreateProduct from './containers/Product/Product';

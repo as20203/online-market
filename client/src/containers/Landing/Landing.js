@@ -1,60 +1,51 @@
-import React from 'react';
+import React,{Component} from 'react';
 import './Landing.css';
-import Reveal from './Reveal/Reveal'
+import Reveal from '../../components/Reveal/Reveal'
 import {Header,Segment,Grid,Container,Divider,Button,Message,Icon} from 'semantic-ui-react';
 import {Link} from 'react-router-dom';
 import Loader from 'react-loader-spinner'
-
-
-//All images of Landing page 
-//accessories
-import mobile from '../../assets/landing-page/accessories/mobile.png';
-import laptop from '../../assets/landing-page/accessories/laptop.png';
-
-//furniture
-import bed from '../../assets/landing-page/furniture/bed.png';
-import chairs from '../../assets/landing-page/furniture/chairs.png';
-import desk from '../../assets/landing-page/furniture/desk.png';
-import greendesk from '../../assets/landing-page/furniture/greendesk.png';
-import home from '../../assets/landing-page/furniture/home.png';
-
-//random
-import car from '../../assets/landing-page/random/car.png'
-import bag from '../../assets/landing-page/random/bag.png'
-import clothes from '../../assets/landing-page/random/clothes.png'
-import newClothes from '../../assets/landing-page/random/oven.png'
-import shoes from '../../assets/landing-page/random/shoes.png'
-
-//transitions
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
+class landing extends Component{
+  state = {
+    loading:true
+  }
 
+    componentDidMount(){
+          window.scrollTo(0,0);
+          setTimeout(()=>{this.setState({loading:false})},3800)
+        }
+    render(){
+        
+        if(this.state.loading){
+          return(
+            <div style={{margin:'350px auto',minHeight:'80vh',width:'1.5em'}}>
+            <Loader 
+                className="loader"
+                
+              type="Grid"
+              color="#DFCFBE"
+              height="80"	
+              width="80"
+              
+            />  
+            </div> 
+          );
 
-
-
-
-const landing = (props)=>{
-  window.scrollTo(0,0);
-  setTimeout(()=>{
-    return(
-      <div style={{margin:'350px auto',minHeight:'80vh',width:'1.5em'}}>
-      <Loader 
-          className="loader"
-          
-         type="Grid"
-         color="#DFCFBE"
-         height="80"	
-          width="80"
-         
-      />  
-      </div> 
-     );
-
-  },1000)
-    
-
-  
-  
+        }
+        //All images sources.
+        const mobile = 'https://res.cloudinary.com/https-online-market-js-herokuapp-com/image/upload/v1544218423/landing-page/mobile.jpg';
+        const laptop =  'https://res.cloudinary.com/https-online-market-js-herokuapp-com/image/upload/v1544218423/landing-page/laptop.jpg';
+        const bed =   'https://res.cloudinary.com/https-online-market-js-herokuapp-com/image/upload/v1544218424/landing-page/bed.jpg';
+        const chairs = 'https://res.cloudinary.com/https-online-market-js-herokuapp-com/image/upload/v1544218422/landing-page/chairs.jpg';
+        const desk =  'https://res.cloudinary.com/https-online-market-js-herokuapp-com/image/upload/v1544218421/landing-page/desk.jpg';
+        const greendesk =  'https://res.cloudinary.com/https-online-market-js-herokuapp-com/image/upload/v1544218421/landing-page/greendesk.jpg';
+        const home = 'https://res.cloudinary.com/https-online-market-js-herokuapp-com/image/upload/v1544218426/landing-page/home.jpg';
+        const car = 'https://res.cloudinary.com/https-online-market-js-herokuapp-com/image/upload/v1544218425/landing-page/car.jpg';
+        const bag = 'https://res.cloudinary.com/https-online-market-js-herokuapp-com/image/upload/v1544218427/landing-page/bag.jpg';
+        const clothes = 'https://res.cloudinary.com/https-online-market-js-herokuapp-com/image/upload/v1544218426/landing-page/clothes.jpg';
+        const newClothes =  'https://res.cloudinary.com/https-online-market-js-herokuapp-com/image/upload/v1544218427/landing-page/oven.jpg';
+        const shoes = 'https://res.cloudinary.com/https-online-market-js-herokuapp-com/image/upload/v1544218425/landing-page/shoes.jpg';
         return(
          
         
@@ -197,6 +188,9 @@ const landing = (props)=>{
    
       );
 
+
+  }
+  
 }
 
 export default landing;
