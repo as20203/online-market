@@ -3,7 +3,7 @@ import {Input,Button,Card,Image,Grid,Segment,Header,Divider,Form,Message} from '
 import './Profile.css'
 import axios from 'axios'
 import {Link} from 'react-router-dom';
-import ProductLi from '../../Products/ProductLi/ProductLi';
+import ProductLi from '../../../components/ProductLi/ProductLi';
 import socketIOClient from "socket.io-client";
 import Loader from 'react-loader-spinner'
 import ReactTable from 'react-table'
