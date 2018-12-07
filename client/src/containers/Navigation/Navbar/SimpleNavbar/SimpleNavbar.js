@@ -5,8 +5,8 @@ import '../Navbar.css'
 
 const simpleNav = (props) =>{
     return(
-        <div >
-            <div icon="labeled"  className="topnav" id="myTopnav">
+        <div   >
+            <div onClick={props.outsideClick} icon="labeled"  className="topnav" id="myTopnav">
                 
     
                 <Link to="/"  >
@@ -27,7 +27,7 @@ const simpleNav = (props) =>{
                 <Icon name="user" className="myicon"  />Login
                 </Link>
             
-                <Link  to={{javascript:void(0)}} style={{boxShadow:"none",transition:"none"}} className="icon" onClick={props.myFunction}>
+                <Link  to={{javascript:void(0)}} style={{boxShadow:"none",transition:"none"}} className="icon"  onClick={props.myFunction}>
                 
                 <Icon name="bars" className="myicon" />
                 </Link>

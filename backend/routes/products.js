@@ -173,6 +173,7 @@ router.post("/",upload.single('image') ,checkAuth, (req, res, next) => {
                   .then(result => {
                  
                     res.status(201).json({
+                      product:result,
                       message: "Created product successfully",
                      
                     });

@@ -101,7 +101,22 @@ class Products extends Component {
     this.socket.on('connect',(event)=>{ 
         this.socket.on("updateProduct",(data)=>{
             if(data.update){
-                this.dataFunction();
+                const updatedProd = this.state.products;
+                const newProd = {
+                    
+                     name:data.product.name,
+                     description :data.product.description,
+                     productImage :data.product.image,
+                     _id:data.product._id,
+                     category:data.product.category,
+                    
+                }
+                updatedProd.push(newProd);
+               
+
+              this.setState({
+                  products:updatedProd
+              })
             }
         })
 

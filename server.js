@@ -15,7 +15,7 @@ const     server = require("http").Server(app);
 const      io = require("socket.io")(server);
 
 
-const timer = 30;
+
 //Connect to database
 //Connect to a database
 const url = process.env.DATABASEURL || "mongodb://localhost/online-market";
@@ -40,7 +40,7 @@ io.sockets.on("connection",userSocket=>{
   });
 
   userSocket.on('createdProduct',(message)=>{
-    io.sockets.emit("updateProduct",{update:true})
+    io.sockets.emit("updateProduct",{update:true,product:message.product})
 
   });
 

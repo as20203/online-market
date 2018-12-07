@@ -71,7 +71,8 @@ class Product extends Component{
         axios.post("/products",fd,{ headers: {"Authorization" : `Bearer ${localStorage.getItem("Token")}`} })
         .then(result=>{
            if(result.status===201){
-            this.socket.emit('createdProduct',{message:'Created a product.'})
+            console.log(result);
+            this.socket.emit('createdProduct',{product:result.data.product})
             this.props.history.replace("/allTheProducts");
            }
         })
@@ -88,6 +89,7 @@ class Product extends Component{
       componentDidMount(){
         axios.get("/user/middleware",{ headers: {"Authorization" : `Bearer ${localStorage.getItem("Token")}`} })
         .then((response)=>{
+            window.scrollTo(0,0);
             if(response.data.userData.type!=="Client"){
                 localStorage.removeItem("TokenInfo");
                 localStorage.removeItem("Authentication");

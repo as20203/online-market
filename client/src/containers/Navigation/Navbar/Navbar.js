@@ -11,10 +11,13 @@ class myNav extends Component {
   }
   
   myFunction=() =>{
+    
     var x = document.getElementById("myTopnav");
+   
     window.scrollTo(0,0);
     if (x.className === "topnav") {
         x.className += " responsive";
+       
     } else {
         x.className = "topnav";
     }
@@ -47,6 +50,7 @@ class myNav extends Component {
 
   }
 
+
   
 
 
@@ -68,14 +72,14 @@ class myNav extends Component {
           header = <AuthNavbar link='/' myFunction={this.myFunction} logoutFunction={this.logoutHandler} />;
         }
       }else{
-        header = <SimpleNavbar myFunction={this.myFunction} />;
+        header = <SimpleNavbar  myFunction={this.myFunction} />;
       }
       
       
       
     }else{
     
-      header = <SimpleNavbar myFunction={this.myFunction} />;
+      header = <SimpleNavbar  myFunction={this.myFunction} />;
     }
 
     
