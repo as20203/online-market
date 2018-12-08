@@ -6,45 +6,7 @@ const Product = require('../models/product');
 var User  = require('../models/user');
 var Bid   = require('../models/bid');
 const jwt = require("jsonwebtoken");
-const cloudinary = require("cloudinary");
-const cloudinaryStorage = require("multer-storage-cloudinary");
-
-const multer = require('multer');
-const storage = cloudinaryStorage({
-    cloudinary: cloudinary,
-    folder: 'online-market',
-    allowedFormats: ['jpg', 'png'],
-    filename: function (req, file, cb) {
-      
-      cb(undefined, file.originalname);
-    }
-  });
-
-  cloudinary.config({
-     
-      cloud_name: process.env.CLOUD_NAME,
-      api_key: process.env.API_KEY,
-      api_secret:process.env.API_SECRET,
-    
-  });
-
-
-const fileFilter = (req,file,cb) =>{
-    if(file.mimetype ==='image/png' || file.mimetype==='image/jpeg'){
-        cb(null,true);
-    }else{
-        req.error = "Only jpeg or png file format allowed."
-        cb(null,false);
-    }
-}
-
-const upload = multer({
-    storage:storage,
-    limits:{
-    fileSize:1024*1024*6
-    },
-    fileFilter:fileFilter
-})
+const upload = require("../middleware/product-images");
 
 
 router.get("/", (req,res,next) => {

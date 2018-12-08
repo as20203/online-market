@@ -4,48 +4,11 @@ const mongoose = require("mongoose");
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const checkAuth = require('../middleware/check-auth');
-const multer = require('multer');
+
 const Product = require('../models/product');
-const cloudinary = require("cloudinary");
-const cloudinaryStorage = require("multer-storage-cloudinary");
-
-const storage = cloudinaryStorage({
-    cloudinary: cloudinary,
-    folder: 'online-users',
-    allowedFormats: ['jpg', 'png'],
-    filename: function (req, file, cb) {
-      
-      cb(undefined, file.originalname);
-    }
-  });
-
-  cloudinary.config({
-     
-    cloud_name: process.env.CLOUD_NAME,
-    api_key: process.env.API_KEY,
-    api_secret:process.env.API_SECRET,
-  
-});
-
-
-const fileFilter = (req,file,cb) =>{
-    if(file.mimetype ==='image/png' || file.mimetype==='image/jpeg'){
-        cb(null,true);
-    }else{
-       req.error = "We accept only jpeg or png file types."
-        cb(null,false);
-    }
-}
-
-const upload = multer({
-    storage:storage,
-    limits:{
-    fileSize:1024*1024*6
-    },
-    fileFilter:fileFilter,
-   
-})
 const User = require('../models/user');
+const upload = require('../middleware/user-images');
+
 
 router.get("/",checkAuth,(req,res,next)=>{
   
