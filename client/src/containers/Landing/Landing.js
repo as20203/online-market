@@ -6,6 +6,23 @@ import {Link} from 'react-router-dom';
 import Loader from 'react-loader-spinner'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
+
+
+   //All images sources.
+   const mobile = 'https://res.cloudinary.com/https-online-market-js-herokuapp-com/image/upload/v1544218423/landing-page/mobile.jpg';
+   const laptop =  'https://res.cloudinary.com/https-online-market-js-herokuapp-com/image/upload/v1544218423/landing-page/laptop.jpg';
+   const bed =   'https://res.cloudinary.com/https-online-market-js-herokuapp-com/image/upload/v1544218424/landing-page/bed.jpg';
+   const chairs = 'https://res.cloudinary.com/https-online-market-js-herokuapp-com/image/upload/v1544218422/landing-page/chairs.jpg';
+   const desk =  'https://res.cloudinary.com/https-online-market-js-herokuapp-com/image/upload/v1544218421/landing-page/desk.jpg';
+   const greendesk =  'https://res.cloudinary.com/https-online-market-js-herokuapp-com/image/upload/v1544218421/landing-page/greendesk.jpg';
+   const home = 'https://res.cloudinary.com/https-online-market-js-herokuapp-com/image/upload/v1544218426/landing-page/home.jpg';
+   const car = 'https://res.cloudinary.com/https-online-market-js-herokuapp-com/image/upload/v1544218425/landing-page/car.jpg';
+   const bag = 'https://res.cloudinary.com/https-online-market-js-herokuapp-com/image/upload/v1544218427/landing-page/bag.jpg';
+   const clothes = 'https://res.cloudinary.com/https-online-market-js-herokuapp-com/image/upload/v1544218426/landing-page/clothes.jpg';
+   const newClothes =  'https://res.cloudinary.com/https-online-market-js-herokuapp-com/image/upload/v1544218427/landing-page/oven.jpg';
+   const shoes = 'https://res.cloudinary.com/https-online-market-js-herokuapp-com/image/upload/v1544218425/landing-page/shoes.jpg';
+
+
 class landing extends Component{
   state = {
     loading:true
@@ -13,7 +30,7 @@ class landing extends Component{
 
     componentDidMount(){
           window.scrollTo(0,0);
-          setTimeout(()=>{this.setState({loading:false})},3800)
+          setTimeout(()=>{this.setState({loading:false})},2800)
         }
     render(){
         
@@ -33,19 +50,7 @@ class landing extends Component{
           );
 
         }
-        //All images sources.
-        const mobile = 'https://res.cloudinary.com/https-online-market-js-herokuapp-com/image/upload/v1544218423/landing-page/mobile.jpg';
-        const laptop =  'https://res.cloudinary.com/https-online-market-js-herokuapp-com/image/upload/v1544218423/landing-page/laptop.jpg';
-        const bed =   'https://res.cloudinary.com/https-online-market-js-herokuapp-com/image/upload/v1544218424/landing-page/bed.jpg';
-        const chairs = 'https://res.cloudinary.com/https-online-market-js-herokuapp-com/image/upload/v1544218422/landing-page/chairs.jpg';
-        const desk =  'https://res.cloudinary.com/https-online-market-js-herokuapp-com/image/upload/v1544218421/landing-page/desk.jpg';
-        const greendesk =  'https://res.cloudinary.com/https-online-market-js-herokuapp-com/image/upload/v1544218421/landing-page/greendesk.jpg';
-        const home = 'https://res.cloudinary.com/https-online-market-js-herokuapp-com/image/upload/v1544218426/landing-page/home.jpg';
-        const car = 'https://res.cloudinary.com/https-online-market-js-herokuapp-com/image/upload/v1544218425/landing-page/car.jpg';
-        const bag = 'https://res.cloudinary.com/https-online-market-js-herokuapp-com/image/upload/v1544218427/landing-page/bag.jpg';
-        const clothes = 'https://res.cloudinary.com/https-online-market-js-herokuapp-com/image/upload/v1544218426/landing-page/clothes.jpg';
-        const newClothes =  'https://res.cloudinary.com/https-online-market-js-herokuapp-com/image/upload/v1544218427/landing-page/oven.jpg';
-        const shoes = 'https://res.cloudinary.com/https-online-market-js-herokuapp-com/image/upload/v1544218425/landing-page/shoes.jpg';
+     
         return(
          
         
