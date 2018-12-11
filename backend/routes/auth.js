@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const checkAuth = require('../middleware/check-auth');
-
+const Bids = require('../models/bid');
 const Product = require('../models/product');
 const User = require('../models/user');
 const upload = require('../middleware/user-images');
@@ -291,25 +291,50 @@ router.post('/profileImage',upload.single('image'),checkAuth,(req,res,next)=>{
 router.delete("/:id", checkAuth, (req, res, next) => {
 
     const id = req.params.id;
-   
-    User.deleteOne({ _id: id })
+    //Get username
+    User.find({_id:req.params.id})
+    .select("username")
     .exec()
-    .then(result => {
-      res.status(200).json({
-        message: "User deleted",
-      });
+    .then(myUser=>{
+        //Delete all user products
+        Product.deleteMany({"Owner.user":id})
+        .exec()
+        .then(result=>{
+           
+            //Delete all won products received by him.
+            Product.deleteMany({"winner.username":myUser[0].username,received:true})
+            .exec()
+            .then(result=>{
+                Product.updateMany({'winner.username':myUser[0].username,received:false},{$set: {"biddable": true}})
+                .exec()
+                .then(result=>{
+                    Bids.deleteMany({"Owner.user":id})
+                    .exec()
+                    .then(result=>{
+                        User.deleteOne({ _id: id })
+                        .exec()
+                        .then(result => {
+                          res.status(200).json({
+                            message: "User deleted",
+                          });
+                        })
+                        .catch(err => {
+                          
+                          res.status(500).json({
+                            error: err
+                          });
+                        });
+
+                    })
+
+                })
+            })
+        })
+        
     })
-    .catch(err => {
-      
-      res.status(500).json({
-        error: err
-      });
-    });
+   
+   
 });
-
-
-
-
 
 
 

@@ -160,7 +160,9 @@ class Profile extends Component{
                 })
             })
             .catch(error=>{
+              
                 console.log(error.response);
+                this.props.history.push("/login");
             })
            
             
@@ -219,11 +221,17 @@ class Profile extends Component{
          
        })
        .catch(error=>{
+           console.log(error.response);
+          if(error.response.status===401){
+            this.setState({
+                errorMessage:error.response.data.message,
+                loading:false
+            })
+          }else{
+              this.props.history.push('/products');
+          }
           
-           this.setState({
-               errorMessage:error.response.data.message,
-               loading:false
-           })
+           
        });
       
       }

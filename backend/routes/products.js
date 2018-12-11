@@ -228,105 +228,120 @@ router.post("/bid/:id",checkAuth,(req,res,next)=>{
     Bid.find({"Owner.user":req.userData.id,product:req.params.id})
     .exec()
     .then(bid=>{
-        if(bid.length>=1){
-            //bid exists already
-           User.findById(req.userData.id)
-           .exec()
-           .then(user=>{
-            
-              
-            if( user.accountBalance< req.body.bidAmount){
-                return res.status(401).json({
-                    message:"Bid Amount is greater than the account balance."
-                })
-             }
-             else if (bid[0].bidAmount>req.body.bidAmount){
-                return res.status(401).json({
-                    message:"Bid value is less than your current bid."
-                })
-             }
-             else{
-                 //update bid amount.
-                Bid.updateOne({"Owner.user":req.userData.id,product:req.params.id},{$set: {"bidAmount": req.body.bidAmount}})
-                .exec()
-                .then(result=>{
-                    Bid.find({product:req.params.id})
+        Product.find({_id:req.params.id})
+        .exec()
+        .then(()=>{
+            console.log("Hello")
+            if(bid.length>=1){
+                //bid exists already
+               User.findById(req.userData.id)
+               .exec()
+               .then(user=>{
+                
+                  
+                if( user.accountBalance< req.body.bidAmount){
+                    return res.status(401).json({
+                        message:"Bid Amount is greater than the account balance."
+                    })
+                 }
+                 else if (bid[0].bidAmount>req.body.bidAmount){
+                    return res.status(401).json({
+                        message:"Bid value is less than your current bid."
+                    })
+                 }
+                 else{
+                     //update bid amount.
+                    Bid.updateOne({"Owner.user":req.userData.id,product:req.params.id},{$set: {"bidAmount": req.body.bidAmount}})
                     .exec()
-                    .then(bids=>{
-                        const sortedBids = bids.sort((a,b)=>{
-                           return b.bidAmount-a.bidAmount;
-                        })
-                      
-                    req.io.to(room).emit("update",{message:sortedBids,biddable:true})
-                    return res.status(200).json({
-                        message:"Successfullly send the updated bid."
-                    })
-                })
-                })
-                
-             }
-
-           })
-        }else{
-
-            User.find({_id:req.userData.id})
-            .exec()
-            .then(user=>{
-                //Step:2 Check his balance.
-            if( user[0].accountBalance< req.body.bidAmount){
-                return res.status(401).json({
-                    message:"Bid Amount is greater than the account balance"
-                })
-            }else{
-            
-                //Step:3 Create a bid object.
-                
-                    const owner = {
-                        user:req.userData.id,
-                        username:req.userData.username,
-                        phone:req.userData.phone,
-                    
-                    }
-                    const bid = new Bid({
-                    _id: new mongoose.Types.ObjectId(),
-                        Owner: owner,
-                        bidAmount:req.body.bidAmount,
-                        product:req.params.id
-                    })
-                    //Save it in database
-                    bid.save()
                     .then(result=>{
-                        //Find all bids on a product.
                         Bid.find({product:req.params.id})
                         .exec()
                         .then(bids=>{
                             const sortedBids = bids.sort((a,b)=>{
-                                return b.bidAmount-a.bidAmount;
+                               return b.bidAmount-a.bidAmount;
                             })
-                            req.io.to(room).emit("update",{message:sortedBids,biddable:true})
-                            return res.status(200).json({
-                                message:"Successfullly send the bid."
-                            })
+                          
+                        req.io.to(room).emit("update",{message:sortedBids,biddable:true})
+                        return res.status(200).json({
+                            message:"Successfullly send the updated bid."
                         })
-                    
                     })
-                    .catch(err=>{
-                        console.log(err);
-                    }) 
+                    })
+                    
+                 }
+    
+               })
+            }else{
+    
+                User.find({_id:req.userData.id})
+                .exec()
+                .then(user=>{
+                    //Step:2 Check his balance.
+                if( user[0].accountBalance< req.body.bidAmount){
+                    return res.status(401).json({
+                        message:"Bid Amount is greater than the account balance"
+                    })
+                }else{
                 
-                }
+                    //Step:3 Create a bid object.
+                    
+                        const owner = {
+                            user:req.userData.id,
+                            username:req.userData.username,
+                            phone:req.userData.phone,
+                        
+                        }
+                        const bid = new Bid({
+                        _id: new mongoose.Types.ObjectId(),
+                            Owner: owner,
+                            bidAmount:req.body.bidAmount,
+                            product:req.params.id
+                        })
+                        //Save it in database
+                        bid.save()
+                        .then(result=>{
+                            //Find all bids on a product.
+                            Bid.find({product:req.params.id})
+                            .exec()
+                            .then(bids=>{
+                                const sortedBids = bids.sort((a,b)=>{
+                                    return b.bidAmount-a.bidAmount;
+                                })
+                                req.io.to(room).emit("update",{message:sortedBids,biddable:true})
+                                return res.status(200).json({
+                                    message:"Successfullly send the bid."
+                                })
+                            })
+                        
+                        })
+                        .catch(err=>{
+                            console.log(err);
+                        }) 
+                    
+                    }
+    
+                })
+                .catch(err=>{
+                    console.log(err);
+                })
+                
+    
+                    }
+
+        }
+        )
+        .catch(err=>{
+           return res.status(500).json({
+                error:err
+            })
+        })
+       
 
             })
             .catch(err=>{
-                console.log(err);
-            })
-            
-
-                }
-
-            })
-            .catch(err=>{
-                console.log(err);
+                return res.status(500).json({
+                    error:err
+                })
             })
              
 })
