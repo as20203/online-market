@@ -30,8 +30,14 @@ class landing extends Component{
 
     componentDidMount(){
           window.scrollTo(0,0);
-          setTimeout(()=>{this.setState({loading:false})},2800)
+          this.Interval = setTimeout(()=>{this.setState({loading:false})},2800)
         }
+
+      componentWillUnmount(){
+        clearInterval(this.Interval);
+      }
+
+
     render(){
         
         if(this.state.loading){
