@@ -297,7 +297,7 @@ router.delete("/:id", checkAuth, (req, res, next) => {
     .exec()
     .then(myUser=>{
         //Delete all user products
-        Product.deleteMany({"Owner.user":id})
+        Product.deleteMany({"Owner.username":myUser[0].username})
         .exec()
         .then(result=>{
            
@@ -305,7 +305,7 @@ router.delete("/:id", checkAuth, (req, res, next) => {
             Product.deleteMany({"winner.username":myUser[0].username,received:true})
             .exec()
             .then(result=>{
-                Product.updateMany({'winner.username':myUser[0].username,received:false},{$set: {"biddable": true}})
+                Product.updateMany({'winner.username':myUser[0].username,received:false},{$set: {"biddable": true,"winner.username":""}})
                 .exec()
                 .then(result=>{
                     Bids.deleteMany({"Owner.user":id})

@@ -117,11 +117,18 @@ class Profile extends Component{
       
     })
     .catch(error=>{
+        if(error.response.status===401){
+            this.setState({
+                btnDisable:false,
+                errorMessage:error.response.data.message
+            })
+          }else{
+            localStorage.removeItem("TokenInfo");
+            localStorage.removeItem("Authentication");
+          this.props.history.replace('/login');
+          }
+      
        
-        this.setState({
-            btnDisable:false,
-            errorMessage:error.response.data.message
-        })
     })
     }
 

@@ -231,7 +231,7 @@ router.post("/bid/:id",checkAuth,(req,res,next)=>{
         Product.find({_id:req.params.id})
         .exec()
         .then(()=>{
-            console.log("Hello")
+           
             if(bid.length>=1){
                 //bid exists already
                User.findById(req.userData.id)
@@ -446,12 +446,42 @@ router.post("/received/:id",checkAuth,(req,res,next)=>{
                        
 
                         })
+                        .catch(err=>{
+                            return res.status(500).json({
+                                error:err
+                            })
+                        })
+                    })
+                    .catch(err=>{
+                        return res.status(500).json({
+                            error:err
+                        })
+                    })
+                })
+                .catch(err=>{
+                    return res.status(500).json({
+                        error:err
                     })
                 })
 
             })
+            .catch(err=>{
+                return res.status(500).json({
+                    error:err
+                })
+            })
            
             
+            })
+            .catch(err=>{
+                return res.status(500).json({
+                    error:err
+                })
+            })
+        })
+        .catch(err=>{
+            return res.status(500).json({
+                error:err
             })
         })
   
