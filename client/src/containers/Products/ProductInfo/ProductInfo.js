@@ -33,6 +33,24 @@ const columns = [{
         
         textAlign:"center"
     }
+  }];
+
+  const nonOwnerColumns = [{
+    Header: 'Name',
+    accessor: 'Owner.username',
+    sortable:false,
+    style:{
+       
+        textAlign:"center"
+    }
+  }, {
+    Header: 'Bid Amount',
+    accessor: 'bidAmount',
+    style:{
+       
+        textAlign:"center"
+    }
+
   }]
 
 class Profile extends Component{
@@ -242,6 +260,7 @@ class Profile extends Component{
         let endMessage = null;
         let button = null;
         let ownerButton = null;
+        let tableColumn = columns;
       
         //Check for loader.
         if(!this.state.category && !this.state.imagePath){
@@ -278,6 +297,7 @@ class Profile extends Component{
        
        //Display bid component if not owner or admin.
        if((this.state.username!==this.state.owner)&&(this.state.userType!=="Admin")){
+        tableColumn= nonOwnerColumns;
            bidComp=  <Form onSubmit={this.onSubmit}>
 
             <Header className="medium text" as="h1" color={"grey"} textAlign={"left"}>Bid On this product</Header>
@@ -389,7 +409,7 @@ class Profile extends Component{
                         <Divider section />
                              <ReactTable
                             data={this.state.bids}
-                             columns={columns}
+                             columns={tableColumn}
                              minRows={8} 
                              className="-striped -highlight"                        
                         /> 
