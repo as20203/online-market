@@ -5,10 +5,12 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background: #a8ff78;  /* fallback for old browsers */
-background: -webkit-linear-gradient(to right, #78ffd6, #a8ff78);  /* Chrome 10-25, Safari 5.1-6 */
-background: linear-gradient(to right, #78ffd6, #a8ff78); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
-  
+/*
+  background: -webkit-linear-gradient(to right, #78ffd6, #a8ff78);  
+background: linear-gradient(to right, #78ffd6, #a8ff78); 
+*/
+background: linear-gradient(to right,rgb(63, 63, 104),rgb(14, 14, 18));
+  opacity: 0.9;
   height: 100%;
   overflow-x:hidden !important;
 }

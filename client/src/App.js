@@ -13,13 +13,21 @@ import productInfo from './containers/Products/ProductInfo/ProductInfo';
 import adminPage from './containers/Admin/Admin';
 import OwnerProfile from './containers/User/OwnerProfile/OwnerProfile'
 import './App.css'
+import Particles from 'react-particles-js';
 
+const particleOpt = {
+          particles: {
+              number:{
+                value:150,
+                density:{
+                  enable:true,
+                  value_area: 800
+                }
+              }
+          }
+}
 
 class App extends Component {
-
-
- 
-  
  
   render() {
     
@@ -27,9 +35,17 @@ class App extends Component {
     return (
       <Router>
       <div>
-     
-    
        <Navbar />
+      
+       <Particles 
+              params={particleOpt}
+              style={{
+                width: '100%',
+                position:"fixed"
+              }}
+            />
+
+
       
       
         <Route exact path="/"  component={Landing} />
