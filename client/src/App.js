@@ -23,7 +23,17 @@ const particleOpt = {
                   enable:true,
                   value_area: 800
                 }
-              }
+              },
+              move:{
+                direction: "none" ,
+                speed:0.5
+              },
+              line_linked:{
+                enable:true
+
+              },
+          
+
           }
 }
 

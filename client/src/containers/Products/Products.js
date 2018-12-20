@@ -152,7 +152,7 @@ class Products extends Component {
            );
     }
 
-
+ //filter array list.
    let filteredProducts = this.state.products.filter(product=>{
        let names = product.name.toLowerCase().indexOf(this.state.search.toLowerCase())!==-1;
        let category = product.category.toLowerCase().indexOf(this.state.category.toLowerCase())!==-1;
